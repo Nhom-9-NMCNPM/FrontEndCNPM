@@ -1,0 +1,137 @@
+:root {
+    --color-border: #f1f1f1;
+    --color-hover: #E29481;
+    --color-text: rgba(0, 0, 0, 0.686);
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes shine {
+    0% {
+        left: -100%;
+        opacity: 1;
+    }
+    25% {
+        left: -50%;
+        opacity: 0.75;
+    }
+    50% {
+        left: 0;
+        opacity: 0.5;
+    }
+    75% {
+        left: 50%;
+        opacity: 0.25;
+    }
+    100% {
+        left: 100%;
+        opacity: 0;
+    }
+}
+
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #fff;
+    z-index: 100;
+}
+
+.slick-prev::before,
+.slick-next::before {
+    font-family: 'FontAwesome';
+    width: 70px;
+    height: 70px;
+    display: inline-block;
+    color: #e29481;
+    border: 2px solid #e29481;
+    border-radius: 100%;
+    font-size: 35px;
+    line-height: 65px;
+    font-weight: 700;
+    transition: all .2s linear;
+}
+
+.slick-prev:hover::before,
+.slick-next:hover::before {
+    color: #fff;
+    background: var(--color-hover);
+}
+
+.slick-prev {
+    left: -80px;
+}
+
+.slick-next {
+    right: -29px;
+}
+
+.slick-prev::before {
+    content: "\f104";
+}
+
+.slick-next::before {
+    content: "\f105";
+}
+
+.slick-dots {
+    position: absolute;
+    bottom: -20%;
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-align: center;
+}
+
+.slick-dots li {
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin: 0 5px;
+    padding: 0;
+    cursor: pointer;
+}
+
+.slick-dots li button::before {
+    color: transparent;
+}
+
+.slick-dots li.slick-active button::before {
+    color: transparent;  
+}
+.slick-dots li.slick-active button {
+    background: var(--color-hover);
+}
+
+.slick-dots li button {
+    font-size: 0;
+    line-height: 0;
+    display: block;
+    width: 15px;
+    height: 15px;
+    padding: 5px;
+    cursor: pointer;
+    color: transparent;
+    outline: none;
+    background: white;
+    border: 1px solid #e97b60;
+    border-radius: 100%;
+}
+
+.active1 .input-placeholder {
+    top: -8px;
+    font-size: 11px;
+}

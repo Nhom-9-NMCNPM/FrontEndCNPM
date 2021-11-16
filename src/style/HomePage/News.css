@@ -1,0 +1,167 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 14px;
+}
+
+/* ----News----- */
+
+.news {
+    display: block;
+    margin-top: 100px;
+    min-width: 1500px;
+}
+
+.news-content {
+    margin: 80px 0;
+}
+
+.news .news-content .new-content-title {
+    text-align: center;
+}
+
+.news .news-content .new-content-title a {
+    font-size: 29px;
+    text-decoration: none;
+    color: var(--color-text);
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.news .news-content .new-content-title a:hover {
+    color: var(--color-hover);
+}
+
+.news .news-content .new-content-title .new-content-view-more {
+    margin-top: 20px;
+}
+
+.news .news-content .new-content-title .new-content-view-more a {
+    font-weight: 500;
+    font-size: 18px;
+}
+
+
+/* ----About--News---- */
+
+.new-about {
+    display: flex;
+    height: auto;
+    position: relative;
+}
+
+.news-about-1 {
+    display: flex;
+}
+
+.news-about-1::before {
+    display: table;
+    content: "";
+}
+
+.new-about-content::after {
+    content: "";
+    position: absolute;
+    top: -20px;
+    bottom: 20px;
+    left: -9%;
+    right: 8%;
+    width: 100%;
+    height: 100%;
+    border-style: solid;
+    border-color: var(--color-hover);
+    border-width: 2px;
+    z-index: 0;
+}
+
+.new-about-img {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 20px;
+    width: 50%;
+}
+
+.new-about-img img {
+    width: 100%;
+}
+
+.new-about-content {
+    position: relative;
+    width: 50%;
+    background: #f9f8f8;
+    margin-top: 40px;
+    padding: 20px 40px 20px 20px;
+}
+
+.new-about-content-title {
+    padding-bottom: 20px;
+}
+
+.new-about-content-title a {
+    position: relative;
+    font-size: 16px;
+    margin: 0;
+    font-weight: 600;
+    color: black;
+    text-decoration: none;
+    z-index: 1;
+    transition: color .2s ease;
+}
+
+.new-about-content-title a:hover {
+    color: var(--color-hover);
+}
+
+.new-about-content-des p {
+    position: relative;
+    color: var(--color-text);
+    text-align: justify;
+    z-index: 1;
+}
+
+.new-about-btn {
+    position: relative;
+    text-decoration: none;
+    color: #fff;
+    font-style: italic;
+    margin-top: 28px;
+    text-align: center;
+    border-radius: 6px;
+    width: 100px;
+    height: auto;
+    background: var(--color-hover);
+    padding: 6px;
+    transition: all .2s ease;
+    z-index: 1;
+}
+
+.new-about-btn:hover {
+    width: 125px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    text-decoration: none;
+}
+
+.banner-effect {
+    display: block;
+}
+
+.banner-effect::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    display: block;
+    transform: skewX(-25deg);
+    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 100%);
+    z-index: 2;
+}
+
+.banner-effect:hover::before {
+    animation: shine 0.8s linear;
+}

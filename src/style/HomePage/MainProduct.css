@@ -1,0 +1,66 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 14px;
+}
+
+
+/* -----Main-Product------- */
+
+.main-product {
+    display: block;
+    min-width: 1375px;
+    margin-top: 10px;
+    position: relative;
+}
+
+.main-product-content {
+    display: block;
+    width: 100%;
+}
+
+.main-product-content .main-product-img {
+    width: 100%;
+}
+
+.main-product-content.main-product-down {
+    margin: 40px 0;
+}
+
+.main-product-content.animateBanner a::after {
+    content: "";
+    position: absolute;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+    inset: 11px 21px;
+    border-style: solid;
+    border-left-color: #fff;
+    border-right-color: #fff;
+    border-width: 2px;
+    transform: scale(1, 0);
+    transition: transform .3s linear;
+}
+
+.main-product-content:hover.animateBanner a::after {
+    transform: scale(1, 1);
+}
+
+.main-product-content.animateBanner a::before {
+    content: "";
+    position: absolute;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    inset: 11px 21px;
+    border-style: solid;
+    border-top-color: #fff;
+    border-bottom-color: #fff;
+    border-width: 2px;
+    transform: scale(0, 1);
+    transition: all .5s ease;
+}
+
+.main-product-content:hover.animateBanner a::before {
+    transform: scale(1, 1);
+}

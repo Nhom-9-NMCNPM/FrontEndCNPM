@@ -1,0 +1,36 @@
+
+.btn-add {
+    background: green;
+    color: #fff;
+    padding: 6px 12px;
+    margin-right: 20px;
+    float: right;
+    border-color: #000;
+    border-radius: 8px;
+}
+
+.btn-remove {
+    background: red;
+    color: #fff;
+    width: 50%;
+    height: auto;
+    padding: 4px;
+    margin-right: 2px;
+    border-color: #000;
+}
+
+.btn-update {
+    background: yellow;
+    color: #000;
+    border-color: #000;
+    padding: 4px;
+    width: 50%;
+    height: auto;
+}
+
+
+
+.content {
+    max-width: 50px;
+    word-wrap: break-word;
+}
