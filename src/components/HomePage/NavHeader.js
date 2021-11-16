@@ -1,7 +1,23 @@
 import '../../style/HomePage/responsive.css'
 import '../../style/HomePage/Header.css'
-
+import {useEffect} from 'react'
 const NavHeader = () => {
+
+    useEffect(() => {
+        const headerNav = document.querySelector('.header-nav')
+        let sticky = headerNav.offsetTop
+        window.addEventListener("scroll", () => {
+            handleHeaderNav()
+        })
+
+        const handleHeaderNav = () => {
+            if (window.pageYOffset >= sticky) {
+                headerNav.classList.add("sticky")
+            } else {
+                headerNav.classList.remove("sticky")
+            }
+        }
+    }, [])
     return (
         <div>
             <div className="header">
@@ -198,6 +214,35 @@ const NavHeader = () => {
                                 <img alt="anh" src="https://theme.hstatic.net/200000000133/1000569834/14/bagIcon2.png?v=5127"
                                     title="Giỏ hàng" className="header-cart-img" />
                             </a>
+                            <div className="header__cart-list">
+                                {/* <img src="./assets/img/no_cart.png" alt="" class="header__cart-list--no-cart-img" />
+                                <span class="header__cart-list--no-cart-msg">
+                                    Chưa có sản phẩm
+                                </span>  */}
+                                <h4 class="header__cart-heading">Sản phẩm đã thêm</h4>
+                                    <ul class="header__cart-list-item">
+                                        <li class="header__cart-item">
+                                            <img src="./assets/img/nike.jpeg" alt="" class="header__cart-img"/>
+                                            <div class="header__cart-item-info">
+                                                <div class="header__cart-item-head">
+                                                    <h5 class="header__cart-item-name">Giày nike</h5>
+                                                    <div class="header__cart-item-price-wrap">
+                                                        <span class="header__cart-item-price">2.000.000đ</span>
+                                                        <span class="header__cart-item-multiply">x</span>
+                                                        <span class="header__cart-item-qnt">2</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="header__cart-item-body">
+                                                    <span class="header__cart-item-description">
+                                                        Phân loại: Trắng
+                                                    </span>
+                                                    <span class="header__cart-item-remove">Xóa</span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                            </div>
                         </div>
                     </div>
                 </div>

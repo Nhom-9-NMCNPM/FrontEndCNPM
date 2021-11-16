@@ -21,10 +21,13 @@ const jsx =(
 // let hasRendered = false;
 // const renderApp = () => {
 //   if (!hasRendered) {
-    ReactDOM.render(jsx, document.getElementById('root'));
+ ReactDOM.render(jsx, document.getElementById('root'));
 //     hasRendered = true;
 //   }
 // };
+
+
+
 // firebase.auth().onAuthStateChanged(function(user){
 //   if(user){console.log(user);
 //     store.dispatch(startSetLogin({uid: user.uid, name: user.displayName, email: user.email})).then((response) => {
