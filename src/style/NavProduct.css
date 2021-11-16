@@ -1,0 +1,112 @@
+.main-body{
+    padding: 0px 40px;
+}
+
+.itemscope{
+    display: block;
+    padding: 8px 15px;
+    background-color: #f5f5f5;
+}
+.itemscope li{
+    display: inline-block;
+}
+.itemscope li+li::before{
+    content: "/\00a0";
+}
+.itemscope li a{
+    color: #111111;
+    text-decoration: none;
+    background-color: transparent;
+    font-family: 'Quicksand';
+    font-size: 14px;
+}
+.itemscope li a:hover{
+    color: #e29481;
+    text-decoration: none;
+    outline: none;
+}
+/*================================================*/
+.collection-body{
+    padding: 0px 0px;
+    max-width: 1920px;
+}
+.wrap-collection-title {
+    margin: 30px 0px;
+    width: 100%;
+}
+.wrap-collection-title span.Mot{
+    font-size: 29px;
+    font-family: 'Quicksand';
+    font-weight: 600;
+}
+.wrap-collection-title .menuCollection{
+    margin-left: 20px;
+    margin-bottom: 0px;
+}
+.wrap-collection-title .menuCollection li{
+    display: inline-block;
+}
+
+.wrap-collection-title .menuCollection li a{
+    color: #111111;
+    text-decoration: none;
+    font-family: 'Quicksand';
+    font-size: 15px;
+    border-right: 1px solid;
+    margin: 12px 0px;
+    line-height: 10px;
+    display: inherit;
+    padding: 0px 10px;
+}
+.wrap-collection-title .menuCollection li a:hover{
+    color: #e29481;
+    text-decoration: none;
+}
+
+.filter-custom{
+    float: right;
+}
+.filter-custom .boloc{
+    display: inline-block;
+}
+.filter-custom ul.group-filter{
+    display: inline-block;
+    list-style: none;
+}
+.filter-custom ul.group-filter > li{
+    display: inline-block;
+    position: relative;
+    margin-left: 30px;
+    padding: 10px 0px;
+}
+.filter-custom ul.group-filter > li > div{
+    cursor: pointer;
+}
+ul.group-filter > li:hover ul.check-box-list{
+    display: block;
+    background-color:white;
+}
+
+li > ul.check-box-list{
+    display: none;
+    list-style: none;
+    position: absolute;
+    top: 100%;
+    border: 1px solid #cbcbcb;
+    padding: 15px;
+    padding-bottom: 0px;
+    box-shadow: 2px 2px 1px 0px rgb(0 0 0 / 20%);
+    z-index: 9999;
+    left: -30px;
+}
+li > ul.check-box-list > li{
+    min-width: 180px;
+}
+li > ul.check-box-list > li > label{
+    cursor: pointer;
+}
+
+input[type="checkbox" i] {
+    cursor: pointer;
+    margin-top: 3px;
+}

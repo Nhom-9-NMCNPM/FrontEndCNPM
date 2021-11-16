@@ -1,0 +1,109 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 14px;
+}
+/*==================product-list==============================*/
+.product-list{
+    padding-bottom: 60px;
+}
+.product-list .product > a{
+    cursor: pointer;
+}
+.product-list .product .product-img{
+    position: relative;
+}
+.product-list .product .product-img:hover .img-change{
+    opacity: 0;
+}
+img{
+    width: 100%;
+    transition: all 0.6s;
+}
+.img-change{
+    position: absolute;
+    opacity: 1;
+}
+
+img.new-arrivals{
+    position: absolute;
+    top: 6px;
+    right: 5px;
+    width: 15%;
+    height: auto;
+}
+img.best-seller{
+    position: absolute;
+    bottom: 5px;
+    left: 7px;
+    width: 88px;
+    height: 24px;
+}
+
+.product .product-detail{
+    margin-top: 15px;
+}
+.product .product-detail > a{
+    text-decoration: none;
+    color: #111111;
+    font-size: 15px;
+}
+.product .product-detail > a:hover{
+    color: #e29481;
+}
+/*======================Page==================*/
+.page{
+    margin: 30px 0px;
+    text-align: center;
+}
+.page .page-node{
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    line-height: 26px;
+    position: relative;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    text-decoration: none;
+    color: #111111;
+    margin: 0px 5px;
+}
+.page .page-node:hover{
+    background-color: #111111;
+    color: #f5f5f5;
+}
+.page .current{
+    background-color: #111111;
+    color: #f5f5f5;
+}
+.page .next{
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    display: inline-block;
+}
+
+/* ----Find-shop---- */
+
+.findShop {
+    padding: 30px 30px;
+    background: #ebebeb;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.findShop a {
+    font-size: 22px;
+    color: #000;
+    transition: color .2s linear;
+}
+
+.findShop a:hover {
+    color: var(--color-hover);
+}
+
+
