@@ -4,15 +4,24 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import AppRouter, {history} from './router/AppRouter';
 import client from './client/client';
-// import {ApolloProvider} from '@apollo/client';
-// import {Provider} from 'react-redux';
-// import configureStore from './store/configureStore';
+import {ApolloProvider} from '@apollo/client';
+import {Provider} from 'react-redux';
+import configureStore from './store/configureStore';
+import getShirt from './query/getShirt';
+import getDress from './query/getDress';
 // import {firebase} from './firebase/firebase';
 // import {startSetLogin, logout, stopLogin} from './actions/user';
-// const store = configureStore();
+
+const store = configureStore();
+getShirt(store.dispatch);
+getDress(store.dispatch);
 const jsx =( 
   <React.StrictMode>
+    <ApolloProvider client={client}>
+      <Provider store={store}>
         <AppRouter/>
+      </Provider>
+    </ApolloProvider>
   </React.StrictMode>
 );
 
