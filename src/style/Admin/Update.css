@@ -1,17 +1,12 @@
-* {
-    background: #f1f1f1;
-}
-
-.title-input {
-    padding-top: 25px;
-    padding-right: 100px;
+.title {
+    display: block;
+    padding: 20px;
 }
 
 .info {
-    padding: 1.25rem;
+    padding-top: 20px;
 }
 
-.info-left {
-    float: left;
-    background: #fff;
+.field-info {
+    padding-bottom: 15px;
 }

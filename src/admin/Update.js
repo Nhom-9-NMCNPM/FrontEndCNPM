@@ -2,43 +2,26 @@ import "../style/Admin/Update.css"
 const Update = () => {
     return (
         <div className="container">
-            <h1>THÔNG TIN CHUNG</h1>
+            <h1 className="title">THÔNG TIN SẢN PHẨM</h1>
             <div className="info row">
-                <div className="info-left col-6 ">
+                <div className="info-left col-12 ">
                     <form class="">
-                        <div class="position-relative form-group"><label for="exampleEmail" class="">Email</label><input name="email" id="exampleEmail" placeholder="with a placeholder" type="email" class="form-control" /></div>
-                        <div class="position-relative form-group"><label for="examplePassword" class="">Password</label><input name="password" id="examplePassword" placeholder="password placeholder" type="password" class="form-control"/>
+                        <div class="field-info"><label for="id" class="">ID</label><input name="id" id="id" type="text" class="form-control" readOnly={true} /></div>
+                        <div class="field-info"><label for="name" class="">Name</label><input name="name" id="name"type="text" class="form-control"/>
                         </div>
-                        <div class="position-relative form-group"><label for="exampleSelect" class="">Select</label><select name="select" id="exampleSelect" class="form-control">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select></div>
-                        <div class="position-relative form-group"><label for="exampleSelectMulti" class="">Select
-                            Multiple</label><select multiple="" name="selectMulti" id="exampleSelectMulti" class="form-control">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select></div>
-                        <div class="position-relative form-group"><label for="exampleText" class="">Text
-                            Area</label><textarea name="text" id="exampleText" class="form-control"></textarea>
-                        </div>
-                        <div class="position-relative form-group"><label for="exampleFile" class="">File</label><input name="file" id="exampleFile" type="file" class="form-control-file" />
-                            <small class="form-text text-muted">This is some
-                                placeholder block-level help text for the above
-                                input. It's a bit lighter and easily wraps to a new
-                                line.
-                            </small>
+                        <div class="field-info"><label for="des" class="">Description</label><input name="des" id="des" class="form-control" /></div>
+                        <div class="field-info"><label for="price" class="">Price</label><input name="price" id="price"type="number" class="form-control"/></div>
+                        <div class="field-info"><label for="code-pro" class="">Code Pro</label><input name="code-pro" id="code-pro"type="text" class="form-control"/></div>
+                        <div class="field-info"><label for="size-M" class="">Size-M</label><input name="size-M" id="size-M"type="number" class="form-control"/></div>
+                        <div class="field-info"><label for="size-S" class="">Size-S</label><input name="size-S" id="size-S"type="number" class="form-control"/></div>
+                        <div class="field-info"><label for="size-L" class="">Size-L</label><input name="size-L" id="size-L"type="number" class="form-control"/></div>
+                        <div class="field-info"><label for="size-XL" class="">Size-XL</label><input name="size-XL" id="size-XL"type="text" class="form-control"/></div>
+                        <div class="field-info"><label for="material" class="">Material</label><input name="material" id="material"type="text" class="form-control"/></div>
+                        <div class="field-info"><label for="color" class="">Color</label><input name="color" id="color"type="text" class="form-control"/></div>
+                        <div class="field-info"><label for="img" class="">Image</label><input name="file" id="img" type="file" class="form-control-file" />
                         </div>
                         <button class="mt-1 btn btn-primary">Submit</button>
                     </form>
-                </div>
-                <div className="info-right col-6">
-                    
                 </div>
             </div>
         </div>

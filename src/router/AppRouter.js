@@ -8,6 +8,7 @@ import admin from '../admin/admin';
 import Product from '../components/Product'
 import User from '../components/User'
 import Update from '../admin/Update';
+import DetailPro from '../components/DetailPro';
 // import { from } from '@apollo/client';
 
 export const history = createBrowserHistory();
@@ -20,6 +21,8 @@ const Approuter = () => (
                     <Route path="/product" component={Product} /> 
                     <Route path="/account" component={User}  />         
                     <Route path="/update" component={Update}  /> 
+                    <Route path="/detail" component={DetailPro}  /> 
+
                 </Switch>
             </div>
         </Router>

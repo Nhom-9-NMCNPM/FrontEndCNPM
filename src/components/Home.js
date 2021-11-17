@@ -23,7 +23,7 @@ const Home = () => {
             <News />
             <FeedBack/>
             <FindShop/>
-            <Footer/>
+            <Footer/>   
         </div>
     )
 }

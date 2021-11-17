@@ -1,0 +1,189 @@
+.product-container {
+    margin: 20px 0px 20px 40px;
+  }
+  
+  .thumb-item {
+    line-height: 0;
+    margin-bottom: 10px;
+    border: 1px solid #f7f7f8;
+    width: 100%;
+  }
+  
+  .thumb-item .active {
+    border-color: #808284;
+  }
+  .thumb-item img {
+    width: 100%;
+  }
+  
+  .main-images img {
+    width: 100%;
+  }
+  
+  .product-details {
+    padding: 15px;
+  }
+  .product-details h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: normal;
+  }
+  
+  .skuProduct {
+    float: left;
+    width: 100%;
+    margin: 8px 0;
+    font-size: 12px;
+    color: black;
+  }
+  
+  .skuProduct span {
+    color: #e29481;
+    font-weight: bold;
+  }
+  
+  .product-price {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+  
+    padding-bottom: 20px;
+    border-bottom: 1px dotted #dfe0e1;
+  }
+  
+  .desProduct span {
+    display: block;
+    margin: 0 0 10px 0;
+    font-size: 14px;
+  }
+  
+  .desProduct p {
+    line-height: 15px;
+  }
+  
+  .product-style {
+    border-bottom: 1px solid #dfe0e1;
+    padding-bottom: 20px;
+  }
+  .product-style a {
+    display: block;
+    padding: 1px;
+    width: 33px ;
+    border: 1px solid #ccc;
+  }
+  .size-area {
+    margin: 10px 0;
+    border-bottom: 1px dotted #dfe0e1;
+    padding-bottom: 10px;
+  }
+  
+  .option {
+    display: inline-block;
+    margin-right: 8px;
+    position: relative;
+    vertical-align: bottom;
+  }
+  
+  .option input {
+    display: none;
+  }
+  
+  .option label {
+    display: block;
+    margin: 0;
+    background: #fff;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    position: relative;
+    border: 1px solid #e5e5e5;
+    font-size: 14px;
+    text-align: center;
+    cursor: pointer;
+  }
+  .quantity-area {
+    display: flex;
+    margin-bottom: 15px;
+  }
+  
+  .quantity-area input#quantity {
+    padding: 0;
+    -webkit-appearance: none;
+    float: left;
+    outline: none;
+    border-radius: 0;
+    display: block;
+    margin: 0;
+    background: #fff;
+    width: 60px;
+    height: 40px;
+    line-height: 20px;
+    position: relative;
+    border: 1px solid #e5e5e5;
+    font-weight: normal;
+    text-align: center;
+    cursor: pointer;
+    font-size: 14px;
+    border-left: none;
+    border-right: none;
+  }
+  .quantity-area input.qty-btn {
+    outline: none;
+    border-radius: 0;
+    display: block;
+    margin: 0;
+    background: #fff;
+    width: 40px;
+    height: 40px;
+    line-height: 20px;
+    position: relative;
+    border: 1px solid #e5e5e5;
+    font-weight: normal;
+    text-align: center;
+    cursor: pointer;
+    font-size: 20px;
+  }
+  
+  .qty-input {
+    width: 60px;
+    text-align: center;
+    border: 1px solid #e5e5e5;
+    border-left: none;
+    border-right: none;
+  }
+  button.addCart {
+    display: block;
+    width: 260px;
+    height: 50px;
+    background: black;
+    border: none;
+    font-size: 17px;
+    text-transform: uppercase;
+    color: #fff;
+    outline: none;
+    background-size: 25px;
+    background-position: 45px 11px;
+  }
+  
+  button.addCart:hover {
+    background: #e29481;
+  }
+  
+  .hotlineProduct {
+    margin-top: 20px;
+  }
+  
+  .product-related {
+    margin: 2em;
+  }
+  
+  .product-related .title {
+    margin: 30px 0 60px 0;
+    text-align: center;
+    text-transform: uppercase;
+    color: #222;
+    font-size: 29px;
+    font-family: "brandonText";
+  }
+  
