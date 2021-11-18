@@ -13,7 +13,8 @@ const Slider = () => {
             autoplay: true,
             autoplaySpeed: 3000,
             fade: true,
-            cssEase: 'linear'
+            cssEase: 'linear',
+            arrows: false,
         });
     }, []) 
     return (

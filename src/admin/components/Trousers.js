@@ -1,9 +1,19 @@
 import { useState, useEffect } from "react"
-
+import { gql, useMutation } from '@apollo/client';
+import Update from "../Update";
+const ADD_TROUSERS = gql`
+    mutation Mutation($data: createTrousersInput!) {
+        createTrousers(data: $data) {
+            id
+            name
+        }
+    }
+`
 const Trousers = () => {
     const [shirts, setShirts] = useState([])
     const [count, setCount] = useState(1)
-
+    const [showModal, setShowModal]= useState(false);
+    const [add, { data, loading, error }] = useMutation(ADD_TROUSERS);
     
         
         const handleUpdateShirt = () => {
@@ -13,9 +23,11 @@ const Trousers = () => {
         const handleRemoveShirt = () => {
             
         }
-    
+        const handleAddTrousers = () => {
+            setShowModal(true);
+        }
     return (
-        <div>
+        <div className="margin-bottom">
             <h1>Trousers</h1>
             <table class="table">
                 <thead>
@@ -75,7 +87,8 @@ const Trousers = () => {
                 </tbody>
             </table>
 
-            <button className='btn-add'>Thêm mới</button>
+            <button className='btn-add' onClick={handleAddTrousers}>Thêm mới</button>
+            <Update isDisplay={showModal} add={add} loading={loading} error={error} data={data} setShowModal={setShowModal} />
         </div>
     )
 }

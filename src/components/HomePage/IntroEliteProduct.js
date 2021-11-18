@@ -8,7 +8,7 @@ const IntroEliteProduct = () => {
             <div className="intro-elite-product-img">
                 <a href="/" title="THE SYMPHONY OF ELITE">
                     <img src="https://theme.hstatic.net/200000000133/1000569834/14/home_aboutus.jpg?v=5160"
-                        class="new-product-img" alt=""/>
+                        className="new-product-img" alt=""/>
                 </a>
             </div>
             <div className="intro-elite-product-about">
@@ -28,7 +28,7 @@ const IntroEliteProduct = () => {
                 </div>
                 <div className="intro-elite-product-learn-more">
                     <a href="/">
-                        <p class="intro-elite-product-learn-more-content">Tìm hiểu thêm</p>
+                        <p className="intro-elite-product-learn-more-content">Tìm hiểu thêm</p>
                     </a>
                 </div>
             </div>

@@ -28,9 +28,19 @@
     height: auto;
 }
 
-
+.content-img {
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: 50px;
+}
 
 .content {
-    max-width: 50px;
+    max-width: 200px;
     word-wrap: break-word;
+}
+
+.margin-bottom {
+    margin-bottom: 100px;
 }

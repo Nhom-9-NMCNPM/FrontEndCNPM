@@ -1,10 +1,18 @@
 import { useState, useEffect } from "react"
 import Update from "../Update";
-const Shirt = () => {
-    const [shirts, setShirts] = useState([])
-    const [count, setCount] = useState(1)
+import { connect } from "react-redux";
+import { gql, useMutation } from '@apollo/client';
+const ADD_SHIRT = gql`
+    mutation Mutation($data: createShirtInput!) {
+        createShirt(data: $data) {
+            id
+            name
+        }
+    }
+`;
+const Shirt = ({shirt}) => {
     const [showModal, setShowModal]= useState(false);
-    
+    const [add, { data, loading, error }] = useMutation(ADD_SHIRT);
         
         const handleUpdateShirt = () => {
 
@@ -17,9 +25,9 @@ const Shirt = () => {
         const handleAddShirt = () => {
             setShowModal(true);
         }
-    
+    console.log(shirt);
     return (
-        <div>
+        <div className="margin-bottom">
             <h1>Shirt</h1>
             <table className="table">
                 <thead>
@@ -44,48 +52,57 @@ const Shirt = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">{count}</th>
-                        <td className='content'>dddddddddddddddddddddddddddddddddđ</td>
-                        <td className='content'>Otto</td>
-                        <td className='content'>@mdo</td>
-                        <td className='content'>Mark</td>
-                        <td className='content'>Otto</td>
-                        <td className='content'>@mdo</td>
-                        <td className='content'>Mark</td>
-                        <td className='content'>Otto</td>
-                        <td className='content'>@mdo</td>
-                        <td className='content'>Mark</td>
-                        <td className='content'>Otto</td>
-                        <td className='content'>@mdo</td>
-                        <td className='content'>Mark</td>
-                        <td className='content'>Otto</td>
-                        <td className='content'>
-                            <button 
-                                onClick={handleRemoveShirt}
-                                className='btn-remove'
-                            >
-                                X
-                            </button>
-                            <button 
-                                className='btn-update'
-                                onClick={handleUpdateShirt}
-                            >
-                                Sửa
-                            </button>
-                        </td>
-                    </tr>
-                 
+                    
+                    {shirt.map((item,index) => {
+
+                        return (
+                            <tr key={item.id}>
+                                <th scope="row">{index + 1}</th>
+                                <td className='content'>{item.id}</td>
+                                <td className='content'>21/2/30</td>
+                                <td className='content'>21/42/3</td>
+                                <td className='content'>{item.name}</td>
+                                <td className='content '>{item.description}</td>
+                                <td className='content content-img'>{item.img}</td>
+                                <td className='content'>{item.price}</td>
+                                <td className='content'>{item.codePro}</td>
+                                <td className='content'>{item.size_M}</td>
+                                <td className='content'>{item.size_S}</td>
+                                <td className='content'>{item.size_L}</td>
+                                <td className='content'>{item.size_XL}</td>
+                                <td className='content'>{item.material}</td>
+                                <td className='content'>{item.color}</td>
+                                <td className='content'>
+                                    <button 
+                                        onClick={handleRemoveShirt}
+                                        className='btn-remove'
+                                    >
+                                        X
+                                    </button>
+                                    <button 
+                                        className='btn-update'
+                                        onClick={handleUpdateShirt}
+                                    >
+                                        Sửa
+                                    </button>
+                                </td>
+                            </tr>
+                        )
+                    })}
+                    
                 </tbody>
             </table>
 
             <button className='btn-add' onClick={handleAddShirt}>Thêm mới</button>
-            
-                <Update isDisplay={showModal} setShowModal={setShowModal} />
-            
-            
+            <Update isDisplay={showModal} add={add} loading={loading} error={error} data={data} setShowModal={setShowModal} />
         </div>
     )
 }
 
-export default Shirt
+const mapStateToProps = (state) => {
+    return {
+        shirt: state.Shirt,
+    }
+}
+
+export default connect(mapStateToProps)(Shirt)
