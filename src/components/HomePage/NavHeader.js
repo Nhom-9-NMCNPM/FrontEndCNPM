@@ -1,5 +1,6 @@
 import '../../style/HomePage/responsive.css'
 import '../../style/HomePage/Header.css'
+import { Link } from 'react-router-dom'
 import {useEffect} from 'react'
 const NavHeader = () => {
 
@@ -204,10 +205,10 @@ const NavHeader = () => {
                             <input type="submit" className="header-search-btn" value="" />
                         </form>
                         <div className="header-user">
-                           <a href="/" title="Tài khoản">
+                           <Link to="/account" title="Tài khoản">
                                 <img alt="anh" src="https://theme.hstatic.net/200000000133/1000569834/14/accountIcon.png?v=5127"
                                     title="Tài khoản" className="header-user-img" />
-                            </a>
+                            </Link>
                         </div>
                         <div className="header-cart">
                            <a href="/" title="Giỏ hàng">

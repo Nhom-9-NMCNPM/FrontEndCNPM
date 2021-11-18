@@ -17,21 +17,4 @@
     height: 800px;
 }
 
-.img-slider .slide {
-    z-index: 1;
-    position: absolute;
-    width: 100%;
-    clip-path: circle(0% at 0 50%);
-}
 
-.img-slider .slide.active {
-    clip-path: circle(150% at 0 50%);
-    transition: 2.5s;
-    transition-property: clip-path;
-    animation: fadeIn 1s ease-in;
-}
-
-.img-slider .slide img {
-    z-index: 1;
-    width: 100%;
-}

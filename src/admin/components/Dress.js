@@ -1,18 +1,13 @@
 import { useState, useEffect } from "react"
+import Update from "../Update"
 const Dress = () => {
-    const [shirts, setShirts] = useState([])
     const [count, setCount] = useState(1)
 
-    
-        
-        const handleUpdateShirt = () => {
+    const [showUpdate, setShowUpdate] = useState(false)
 
-        }
-
-        const handleRemoveShirt = () => {
-            
-        }
-    
+    const openUpdate = () => {
+        setShowUpdate(!showUpdate) 
+    }
     return (
         <div>
             <h1>Dress</h1>
@@ -57,14 +52,14 @@ const Dress = () => {
                         <td className='content'>Otto</td>
                         <td className='content'>
                             <button 
-                                onClick={handleRemoveShirt}
+                               
                                 className='btn-remove'
                             >
                                 X
                             </button>
                             <button 
                                 className='btn-update'
-                                onClick={handleUpdateShirt}
+                                onClick={openUpdate}
                             >
                                 Sửa
                             </button>
@@ -73,8 +68,9 @@ const Dress = () => {
                  
                 </tbody>
             </table>
+            <button className='btn-add'  onClick={openUpdate}>Thêm mới</button>
 
-            <button className='btn-add'>Thêm mới</button>
+            {showUpdate && <Update />}
         </div>
     )
 }

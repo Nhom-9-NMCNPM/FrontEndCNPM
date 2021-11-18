@@ -1,4 +1,5 @@
 import "../style/Admin/Update.css"
+import React from 'react'
 const Update = () => {
     return (
         <div className="container">

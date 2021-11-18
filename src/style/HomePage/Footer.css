@@ -31,6 +31,7 @@
 
 .about-list ul {
     list-style: none;
+    padding-left: 0;
 }
 
 .about-item {
@@ -48,6 +49,7 @@
     color: #222;
     line-height: 1.2;
     margin-bottom: 15px;
+    padding: 0;
 }
 
 .sign-up {

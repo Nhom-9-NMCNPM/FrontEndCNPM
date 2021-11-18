@@ -1,39 +1,20 @@
 import '../../style/HomePage/Slider.css'
 import '../../style/HomePage/responsive.css'
+import 'slick-slider'
+import $ from 'jquery'
 import {useEffect} from 'react'
 
 const Slider = () => {
     useEffect(() => {
-        const slides = document.querySelectorAll('.slide');
-        // Javascript for image slider autoplay navigation
-        const repeat = ()=>{
-        let active = document.getElementsByClassName('active');
-        let i = 1;
-
-        let repeater = () => {
-        setTimeout(() => {
-        // xóa hết các btn đang được active
-            [...active].forEach((activeSlide) => { 
-            activeSlide.classList.remove('active');
-            });
-
-
-        // Thêm active vào btn và slide
-        slides[i].classList.add('active'); 
-        i++;
-
-        if(slides.length === i){
-            i = 0;
-        }
-        if(i >= slides.length){
-            return;
-        }
-        repeater();
-        }, 2500);
-        }
-        repeater();
-    }
-    repeat();
+        $('.img-slider').slick({
+            slidesToShow: 1, 
+            dots: false,
+            infinite: true,
+            autoplay: true,
+            autoplaySpeed: 3000,
+            fade: true,
+            cssEase: 'linear'
+        });
     }, []) 
     return (
         <div>

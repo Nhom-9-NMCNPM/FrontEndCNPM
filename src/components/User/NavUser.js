@@ -10,7 +10,7 @@ const NavUser = () => {
                         <a href ="/">Trang chủ</a>
                     </li>
                     <li className="user-account">
-                        <Link to ="/">Tài khoản</Link>
+                        <Link to ="/account">Tài khoản</Link>
                     </li>
                 </ol>
             </div>
