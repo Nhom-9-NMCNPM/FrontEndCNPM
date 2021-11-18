@@ -15,7 +15,7 @@ const Skirt = () => {
         }
     
     return (
-        <div>
+        <div className="margin-bottom">
             <h1>Skirt</h1>
             <table class="table">
                 <thead>

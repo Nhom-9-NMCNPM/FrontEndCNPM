@@ -30,9 +30,9 @@ const NavHeader = () => {
                 </div>
                 <div className="header-nav">
                     <div className="header-logo">
-                       <a href="/">
+                       <Link to="/">
                             <img alt="anh" src="https://file.hstatic.net/1000358207/file/logo_eva.svg" className="header-logo-img" />
-                        </a>
+                        </Link>
                     </div>
 
                     <div className="header-nav-main">
@@ -71,13 +71,6 @@ const NavHeader = () => {
                                                     <img alt="anh" src="https://theme.hstatic.net/200000000133/1000569834/14/img_megamenu3_7.jpg?v=5127"
                                                         className="sub-nav-item-img" />
                                                     <span className="sub-nav-info">Quần</span>
-                                                </a>
-                                            </li>
-                                            <li className="sub-nav-item ">
-                                               <a href="/">
-                                                    <img alt="anh" src="https://theme.hstatic.net/200000000133/1000569834/14/img_megamenu3_8.jpg?v=5127"
-                                                        className="sub-nav-item-img" />
-                                                    <span className="sub-nav-info">Tất cả sản phẩm</span>
                                                 </a>
                                             </li>
                                         </ul>
@@ -141,6 +134,9 @@ const NavHeader = () => {
                                                     <span className="header__cart-item-remove">Xóa</span>
                                                 </div>
                                             </div>
+                                        </li>
+                                        <li className="cart-checkout">
+                                            <button>THANH TOÁN</button>
                                         </li>
                                     </ul>
                             </div>
