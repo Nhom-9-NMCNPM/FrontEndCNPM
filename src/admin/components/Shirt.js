@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react"
-
+import Update from "../Update";
 const Shirt = () => {
     const [shirts, setShirts] = useState([])
     const [count, setCount] = useState(1)
-
+    const [showModal, setShowModal]= useState(false);
     
         
         const handleUpdateShirt = () => {
@@ -13,11 +13,15 @@ const Shirt = () => {
         const handleRemoveShirt = () => {
             
         }
+
+        const handleAddShirt = () => {
+            setShowModal(true);
+        }
     
     return (
         <div>
             <h1>Shirt</h1>
-            <table class="table">
+            <table className="table">
                 <thead>
                     <tr>
                         <th scope="col">STT</th>
@@ -75,7 +79,11 @@ const Shirt = () => {
                 </tbody>
             </table>
 
-            <button className='btn-add'>Thêm mới</button>
+            <button className='btn-add' onClick={handleAddShirt}>Thêm mới</button>
+            
+                <Update isDisplay={showModal} setShowModal={setShowModal} />
+            
+            
         </div>
     )
 }
