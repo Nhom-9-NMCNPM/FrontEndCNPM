@@ -21,8 +21,8 @@ const MainEliteProduct = ({shirt}) => {
                 <div className="main-elite-product-show container-xl">
                     <div className="main-elite-product-show-list row">
                         {
-                            shirt.map((item)=>{
-                                return (
+                            shirt.map((item, index) =>{
+                                return (index<=3)&&(
                                     <div className="main-elite-product-show-item col-3" key={item.id}>
                                         <a href="/">
                                             <div className="elite-product-img">
