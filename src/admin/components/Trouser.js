@@ -1,25 +1,25 @@
 import { useState, useEffect } from "react"
 import Update from "../Update";
 import { connect } from "react-redux";
-const Skirt = ({skirt}) => {
+const Trouser = ({trouser}) => {
     const [showModal, setShowModal]= useState(false);
     
         
-        const handleUpdateSkirt= () => {
+        const handleUpdateTrouser= () => {
 
         }
 
-        const handleRemoveSkirt = () => {
+        const handleRemoveTrouser = () => {
             
         }
 
-        const handleAddSkirt = () => {
+        const handleAddTrouser = () => {
             setShowModal(true);
         }
-    console.log(skirt);
+    console.log(trouser);
     return (
         <div className="margin-bottom">
-            <h1>Skirt</h1>
+            <h1>Trouser</h1>
             <table className="table">
                 <thead>
                     <tr>
@@ -44,7 +44,7 @@ const Skirt = ({skirt}) => {
                 </thead>
                 <tbody>
                     
-                    {skirt.map((item,index) => {
+                    {trouser.map((item,index) => {
 
                         return (
                             <tr key={item.id}>
@@ -65,14 +65,14 @@ const Skirt = ({skirt}) => {
                                 <td className='content'>{item.color}</td>
                                 <td className='content'>
                                     <button 
-                                        onClick={handleRemoveSkirt}
+                                        onClick={handleRemoveTrouser}
                                         className='btn-remove'
                                     >
                                         X
                                     </button>
                                     <button 
                                         className='btn-update'
-                                        onClick={handleUpdateSkirt}
+                                        onClick={handleUpdateTrouser}
                                     >
                                         Sửa
                                     </button>
@@ -84,7 +84,7 @@ const Skirt = ({skirt}) => {
                 </tbody>
             </table>
 
-            <button className='btn-add' onClick={handleAddSkirt}>Thêm mới</button>
+            <button className='btn-add' onClick={handleAddTrouser}>Thêm mới</button>
             
                 <Update isDisplay={showModal} setShowModal={setShowModal} />
             
@@ -95,8 +95,8 @@ const Skirt = ({skirt}) => {
 
 const mapStateToProps = (state) => {
     return {
-        skirt: state.Dress,
+        dress: state.Trouser,
     }
 }
 
-export default connect(mapStateToProps)(Skirt)
+export default connect(mapStateToProps)(Trouser)

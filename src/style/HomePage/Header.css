@@ -209,6 +209,7 @@ header {
 
 
 /* Cart */
+
 .header__cart-list::after {
     content: "";
     position: absolute;
@@ -227,12 +228,12 @@ header {
 .header__cart-list {
     display: none;
     position: absolute;
-    top: 110px;
+    top: 115px;
     right: 27px;
     background: #fff;
     min-width: 21%;
     border-radius: 2px;
-    box-shadow: 0 1px 3.125rem 0 rgb(0 0 0 / 20%);
+    box-shadow: 0 1px 10px 0 rgb(0 0 0 / 20%);
     cursor: default;
     animation: fadeIn linear .2s;
     z-index: 10000000000000000
@@ -286,7 +287,7 @@ header {
     line-height: 2rem;
     max-height: 4rem;
     overflow: hidden;
-    font-size: 14px ;
+    font-size: 14px;
     font-weight: 500;
     color: var(--text-color);
     margin: 0;
@@ -375,4 +376,22 @@ header {
     border: 2px solid #ee4d2d;
     top: -4px;
     right: -4px;
+}
+
+.cart-checkout button {
+    float: right;
+    padding: 5px;
+    border-radius: 3px;
+    margin-right: 10px;
+    margin-top: 5px;
+    background: #fff;
+    text-align: center;
+    border: 1px solid #ccc;
+    color: #111111;
+    transition: all .2s linear;
+}
+
+.cart-checkout button:hover {
+    color: #fff;
+    background: var(--color-hover);
 }

@@ -6,16 +6,20 @@ const NavHeader = () => {
 
     useEffect(() => {
         const headerNav = document.querySelector('.header-nav')
+        const headerSub = document.querySelector('.header__cart-list')
         let sticky = headerNav.offsetTop
         window.addEventListener("scroll", () => {
             handleHeaderNav()
+            
         })
 
         const handleHeaderNav = () => {
             if (window.pageYOffset >= sticky) {
                 headerNav.classList.add("sticky")
+                headerSub.style.top = "80px"
             } else {
                 headerNav.classList.remove("sticky")
+                headerSub.style.top = "115px"
             }
         }
     }, [])

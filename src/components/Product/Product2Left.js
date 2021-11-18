@@ -1,6 +1,7 @@
 import '../../style/Product/Product.css'
 import {connect} from 'react-redux'
-const Product2Left = ({shirt}) => {
+const Product2Left = ({shirt, skirt}) => {
+    console.log(skirt);
     return (
         <div>
             <div className="product-list row">
@@ -109,6 +110,7 @@ const Product2Left = ({shirt}) => {
 const mapStateToProps = (state)  => {
     return {
         shirt : state.Shirt,
+        skirt : state.Skirt,
     }
 }
 export default (connect)(mapStateToProps)(Product2Left)
