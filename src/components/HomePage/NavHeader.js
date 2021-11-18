@@ -38,13 +38,10 @@ const NavHeader = () => {
                     <div className="header-nav-main">
                         <ul className="header-nav-content">
                             <li className="header-nav-content-item">
-                               <a href="/" className="header-nav-content-item-link" title="Hàng mới về">HÀNG MỚI VỀ</a>
-                            </li>
-                            <li className="header-nav-content-item">
-                               <a href="/" className="header-nav-content-item-link" title="Hàng bán chạy">HÀNG BÁN CHẠY</a>
+                               <Link to="/" className="header-nav-content-item-link" title="Hàng mới về">HÀNG MỚI VỀ</Link>
                             </li>
                             <li className="header-nav-content-item hasItemMenu">
-                               <a href="/" className="header-nav-content-item-link" title="Sản phẩm">SẢN PHẨM</a>
+                               <Link to="/product" className="header-nav-content-item-link" title="Sản phẩm">SẢN PHẨM</Link>
                                 <div className="header-sub-nav">
                                     <div className="sub-nav-list">
                                         <ul>
@@ -60,27 +57,6 @@ const NavHeader = () => {
                                                     <img alt="anh" src="https://theme.hstatic.net/200000000133/1000569834/14/img_megamenu3_2.jpg?v=5127"
                                                         className="sub-nav-item-img" />
                                                     <span className="sub-nav-info">Áo</span>
-                                                </a>
-                                            </li>
-                                            <li className="sub-nav-item ">
-                                               <a href="/">
-                                                    <img alt="anh" src="https://theme.hstatic.net/200000000133/1000569834/14/img_megamenu3_3.jpg?v=5127"
-                                                        className="sub-nav-item-img" />
-                                                    <span className="sub-nav-info">Áo sơ mi</span>
-                                                </a>
-                                            </li>
-                                            <li className="sub-nav-item ">
-                                               <a href="/">
-                                                    <img alt="anh" src="https://theme.hstatic.net/200000000133/1000569834/14/img_megamenu3_4.jpg?v=5127"
-                                                        className="sub-nav-item-img"/>
-                                                    <span className="sub-nav-info">Áo kiểu</span>
-                                                </a>
-                                            </li>
-                                            <li className="sub-nav-item ">
-                                               <a href="/">
-                                                    <img alt="anh" src="https://theme.hstatic.net/200000000133/1000569834/14/img_megamenu3_5.jpg?v=5127"
-                                                        className="sub-nav-item-img" />
-                                                    <span className="sub-nav-info">Jumpsuit</span>
                                                 </a>
                                             </li>
                                             <li className="sub-nav-item ">
@@ -110,90 +86,14 @@ const NavHeader = () => {
                                 </div>
                             </li>
                             <li className="header-nav-content-item hasItemMenu">
-                               <a href="/" className="header-nav-content-item-link" title="Chọn theo dịp">CHỌN THEO DỊP</a>
-                                <div className="header-sub-nav">
-                                    <div className="sub-nav-list">
-                                        <ul>
-                                            <li className="sub-nav-item">
-                                               <a href="/">
-                                                    <img alt="anh" src="https://theme.hstatic.net/200000000133/1000569834/14/img_megamenu4_1.jpg?v=5127"
-                                                        className="sub-nav-item-img" />
-                                                    <span className="sub-nav-info">Đồ công sở</span>
-                                                </a>
-                                            </li>
-                                            <li className="sub-nav-item ">
-                                               <a href="/">
-                                                    <img alt="anh" src="https://theme.hstatic.net/200000000133/1000569834/14/img_megamenu4_2.jpg?v=5127"
-                                                        className="sub-nav-item-img" />
-                                                    <span className="sub-nav-info">Đồ dạo phố</span>
-                                                </a>
-                                            </li>
-                                            <li className="sub-nav-item ">
-                                               <a href="/">
-                                                    <img alt="anh" src="https://theme.hstatic.net/200000000133/1000569834/14/img_megamenu4_3.jpg?v=5127"
-                                                        className="sub-nav-item-img" />
-                                                    <span className="sub-nav-info">Đồ du lịch</span>
-                                                </a>
-                                            </li>
-                                            <li className="sub-nav-item ">
-                                               <a href="/">
-                                                    <img alt="anh" src="https://theme.hstatic.net/200000000133/1000569834/14/img_megamenu4_4.jpg?v=5127"
-                                                        className="sub-nav-item-img" />
-                                                    <span className="sub-nav-info">Đồ dự tiệc</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                </div>
+                               <Link to="/table" className="header-nav-content-item-link" title="Chọn theo dịp">QUẢN LÝ</Link>
                             </li>
                             <li className="header-nav-content-item">
                                <a href="/" className="header-nav-content-item-link" title="Ưu đãi">ƯU ĐÃI</a>
                             </li>
-                            <li className="header-nav-content-item hasItemMenu">
-                               <a href="/" className="header-nav-content-item-link" title="Bộ sưu tập">BỘ SƯU TẬP</a>
-                                <div className="header-sub-nav">
-                                    <div className="sub-nav-list">
-                                        <ul>
-                                            <li className="sub-nav-item">
-                                               <a href="/">
-                                                    <img alt="anh" src="https://theme.hstatic.net/200000000133/1000569834/14/img_megamenu6_1.jpg?v=5127"
-                                                        className="sub-nav-item-img" />
-                                                    <span className="sub-nav-info">BACK TO RUSTICITY</span>
-                                                </a>
-                                            </li>
-                                            <li className="sub-nav-item ">
-                                               <a href="/">
-                                                    <img alt="anh" src="https://theme.hstatic.net/200000000133/1000569834/14/img_megamenu6_2.jpg?v=5127"
-                                                        className="sub-nav-item-img" />
-                                                    <span className="sub-nav-info">BRILLIANT</span>
-                                                </a>
-                                            </li>
-                                            <li className="sub-nav-item ">
-                                               <a href="/">
-                                                    <img alt="anh" src="https://theme.hstatic.net/200000000133/1000569834/14/img_megamenu6_3.jpg?v=5127"
-                                                        className="sub-nav-item-img" />
-                                                    <span className="sub-nav-info">THE SYMPHONY OF ELITE</span>
-                                                </a>
-                                            </li>
-                                            <li className="sub-nav-item ">
-                                               <a href="/">
-                                                    <img alt="anh" src="https://theme.hstatic.net/200000000133/1000569834/14/img_megamenu6_4.jpg?v=5127"
-                                                        className="sub-nav-item-img" />
-                                                    <span className="sub-nav-info">HAVE A CUP OF TRAVEL</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                </div>
-                            </li>
+                            
                             <li className="header-nav-content-item">
                                <a href="/" className="header-nav-content-item-link" title="Phụ kiện">PHỤ KIỆN</a>
-                            </li>
-                            <li className="header-nav-content-item">
-                               <a href="/" className="header-nav-content-item-link " style={{color: "#ff0000"}} title="LADY ME">LADY
-                                    ME</a>
                             </li>
 
                         </ul>
@@ -220,25 +120,25 @@ const NavHeader = () => {
                                 <span class="header__cart-list--no-cart-msg">
                                     Chưa có sản phẩm
                                 </span>  */}
-                                <h4 class="header__cart-heading">Sản phẩm đã thêm</h4>
-                                    <ul class="header__cart-list-item">
-                                        <li class="header__cart-item">
-                                            <img src="./assets/img/nike.jpeg" alt="" class="header__cart-img"/>
-                                            <div class="header__cart-item-info">
-                                                <div class="header__cart-item-head">
-                                                    <h5 class="header__cart-item-name">Giày nike</h5>
-                                                    <div class="header__cart-item-price-wrap">
-                                                        <span class="header__cart-item-price">2.000.000đ</span>
-                                                        <span class="header__cart-item-multiply">x</span>
-                                                        <span class="header__cart-item-qnt">2</span>
+                                <h4 className="header__cart-heading">Sản phẩm đã thêm</h4>
+                                    <ul className="header__cart-list-item">
+                                        <li className="header__cart-item">
+                                            <img src="./assets/img/nike.jpeg" alt="" className="header__cart-img"/>
+                                            <div className="header__cart-item-info">
+                                                <div className="header__cart-item-head">
+                                                    <h5 className="header__cart-item-name">Giày nike</h5>
+                                                    <div className="header__cart-item-price-wrap">
+                                                        <span className="header__cart-item-price">2.000.000đ</span>
+                                                        <span className="header__cart-item-multiply">x</span>
+                                                        <span className="header__cart-item-qnt">2</span>
                                                     </div>
                                                 </div>
 
-                                                <div class="header__cart-item-body">
-                                                    <span class="header__cart-item-description">
+                                                <div className="header__cart-item-body">
+                                                    <span className="header__cart-item-description">
                                                         Phân loại: Trắng
                                                     </span>
-                                                    <span class="header__cart-item-remove">Xóa</span>
+                                                    <span className="header__cart-item-remove">Xóa</span>
                                                 </div>
                                             </div>
                                         </li>

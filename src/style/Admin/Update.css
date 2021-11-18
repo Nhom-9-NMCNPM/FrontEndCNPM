@@ -10,3 +10,91 @@
 .field-info {
     padding-bottom: 15px;
 }
+.ReactModalPortal>div {
+    opacity: 0;
+
+  }
+  
+  .ReactModalPortal .ReactModal__Overlay {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    transition: opacity 200ms ease-in-out;
+  }
+  
+  .ReactModalPortal .ReactModal__Overlay--after-open {
+    opacity: 1;
+    z-index: 10;
+    background-color: rgba(127,127,127,0.55) !important;
+  }
+  
+  .ReactModalPortal .ReactModal__Overlay--before-close {
+    opacity: 0;
+  }
+  
+  .modal-react {
+    background: #fff;
+    /* color: white; */
+    width: 80rem;
+    outline: none;
+    /* padding: 1rem 3.2rem; */
+    text-align: center;
+    border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    /* top: 5rem; */
+    /* bottom: 0rem; */
+    z-index: 100;
+    height: 48rem;
+    padding: 2rem 0;
+  }
+  
+  .modal__title {
+    margin: 0 0 1.6rem 0;
+    padding: 1rem 0 2rem 0; 
+  }
+  
+  .modal-body-react{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 4rem;
+  }
+  .login-with{
+    padding: .5rem .5rem;
+    width: 25rem;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-around;
+    cursor: pointer;
+    align-items: center;
+  }
+  .login-with>p{
+      margin:0;
+  }
+.close-modal{
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    cursor: pointer;
+}
+.modal-sub{
+    padding: 2rem 0;
+    margin-top: 2rem;
+    width: 100%;
+    border-top: 1px solid;
+}
+.modal-sub>a{
+    color: #fe2c55;
+}
+.payment{
+  height:10rem;
+}
+.sub-input{
+  width: 6.5rem;
+}
+.modal-user{
+   width:75rem;
+}

@@ -9,12 +9,12 @@ import {Provider} from 'react-redux';
 import configureStore from './store/configureStore';
 import getShirt from './query/getShirt';
 import getDress from './query/getDress';
-// import {firebase} from './firebase/firebase';
-// import {startSetLogin, logout, stopLogin} from './actions/user';
+import {firebase} from './firebase/firebase';
+import {startSetLogin, logout, stopLogin} from './actions/user';
 
 const store = configureStore();
 getShirt(store.dispatch);
-getDress(store.dispatch);
+//getDress(store.dispatch);
 const jsx =( 
   <React.StrictMode>
     <ApolloProvider client={client}>
@@ -26,29 +26,26 @@ const jsx =(
 );
 
 
+let hasRendered = false;
+const renderApp = () => {
+  if (!hasRendered) {
+    ReactDOM.render(jsx, document.getElementById('root'));
+    hasRendered = true;
+  }
+};
 
-// let hasRendered = false;
-// const renderApp = () => {
-//   if (!hasRendered) {
- ReactDOM.render(jsx, document.getElementById('root'));
-//     hasRendered = true;
-//   }
-// };
-
-
-
-// firebase.auth().onAuthStateChanged(function(user){
-//   if(user){console.log(user);
-//     store.dispatch(startSetLogin({uid: user.uid, name: user.displayName, email: user.email})).then((response) => {
-//       renderApp();
-//       history.push('/')
-//     })
+firebase.auth().onAuthStateChanged(function(user){
+  if(user){console.log(user);
+    store.dispatch(startSetLogin({name: user.displayName, email: user.email})).then((response) => {
+      renderApp();
+      history.push('/')
+    })
     
-//   }else{
-//     store.dispatch(logout());
-//     renderApp();
-//   }
-// }) 
+  }else{
+    store.dispatch(logout());
+    renderApp();
+  }
+}) 
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

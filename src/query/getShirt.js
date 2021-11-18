@@ -20,7 +20,7 @@ const getShirt = (dispatch) => {
                     material
                     color
                     publish
-                    new
+                    newPro
                 }
             }
             `
