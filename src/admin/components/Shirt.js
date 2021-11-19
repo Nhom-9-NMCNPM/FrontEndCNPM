@@ -1,9 +1,18 @@
 import { useState, useEffect } from "react"
 import Update from "../Update";
 import { connect } from "react-redux";
+import { gql, useMutation } from '@apollo/client';
+const ADD_SHIRT = gql`
+    mutation Mutation($data: createShirtInput!) {
+        createShirt(data: $data) {
+            id
+            name
+        }
+    }
+`;
 const Shirt = ({shirt}) => {
     const [showModal, setShowModal]= useState(false);
-    
+    const [add, { data, loading, error }] = useMutation(ADD_SHIRT);
         
         const handleUpdateShirt = () => {
 
@@ -22,7 +31,7 @@ const Shirt = ({shirt}) => {
             <h1>Shirt</h1>
             <table className="table">
                 <thead>
-                    <tr>
+                    <tr className="table-tr">
                         <th scope="col">STT</th>
                         <th scope="col">id</th>
                         <th scope="col">CreatedAt</th>
@@ -85,10 +94,7 @@ const Shirt = ({shirt}) => {
             </table>
 
             <button className='btn-add' onClick={handleAddShirt}>Thêm mới</button>
-            
-                <Update isDisplay={showModal} setShowModal={setShowModal} />
-            
-            
+            <Update isDisplay={showModal} add={add} loading={loading} error={error} data={data} setShowModal={setShowModal} />
         </div>
     )
 }

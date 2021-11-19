@@ -1,12 +1,12 @@
 import client from '../client/client';
 import {gql} from '@apollo/client';
-import {startSetTrouser} from '../actions/trouser';
-const getTrouser = (dispatch) => {
+import {startSetTrousers} from '../actions/trousers';
+const getTrousers = (dispatch) => {
     client
         .query({
             query: gql`
-            query GetTrouser {
-                getTrouser {
+            query GetTrousers {
+                getTrousers {
                     id
                     name
                     description
@@ -27,7 +27,7 @@ const getTrouser = (dispatch) => {
         })
         .then(result => {
             console.log(result);
-            dispatch(startSetTrouser(result.data.getTrouser))
+            dispatch(startSetTrousers(result.data.getTrousers))
         })
 };
-export default getTrouser;
+export default getTrousers;

@@ -1,10 +1,19 @@
 import { useState, useEffect } from "react"
-import Update from "../Update";
 import { connect } from "react-redux";
+import { gql, useMutation } from '@apollo/client';
+import Update from "../Update";
+const ADD_SKIRT = gql`
+        mutation Mutation($data: createSkirtInput!) {
+        createSkirt(data: $data) {
+            id
+            name
+        }
+    }
+`
 const Skirt = ({skirt}) => {
     const [showModal, setShowModal]= useState(false);
+    const [add, { data, loading, error }] = useMutation(ADD_SKIRT);
     
-        
         const handleUpdateSkirt= () => {
 
         }
@@ -12,17 +21,15 @@ const Skirt = ({skirt}) => {
         const handleRemoveSkirt = () => {
             
         }
-
         const handleAddSkirt = () => {
             setShowModal(true);
         }
-    console.log(skirt);
     return (
         <div className="margin-bottom">
             <h1>Skirt</h1>
             <table className="table">
                 <thead>
-                    <tr>
+                    <tr className="table-tr">
                         <th scope="col">STT</th>
                         <th scope="col">id</th>
                         <th scope="col">CreatedAt</th>
@@ -83,19 +90,15 @@ const Skirt = ({skirt}) => {
                     
                 </tbody>
             </table>
-
             <button className='btn-add' onClick={handleAddSkirt}>Thêm mới</button>
-            
-                <Update isDisplay={showModal} setShowModal={setShowModal} />
-            
-            
+            <Update isDisplay={showModal} add={add} loading={loading} error={error} data={data} setShowModal={setShowModal} />
         </div>
     )
 }
 
 const mapStateToProps = (state) => {
     return {
-        skirt: state.Dress,
+        skirt: state.Skirt,
     }
 }
 

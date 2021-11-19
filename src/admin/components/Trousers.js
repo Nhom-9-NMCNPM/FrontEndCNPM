@@ -1,28 +1,36 @@
 import { useState, useEffect } from "react"
+import { gql, useMutation } from '@apollo/client';
 import Update from "../Update";
 import { connect } from "react-redux";
-const Trouser = ({trouser}) => {
+const ADD_TROUSERS = gql`
+    mutation Mutation($data: createTrousersInput!) {
+        createTrousers(data: $data) {
+            id
+            name
+        }
+    }
+`
+const Trousers = ({trousers}) => {
     const [showModal, setShowModal]= useState(false);
+    const [add, { data, loading, error }] = useMutation(ADD_TROUSERS);
     
         
-        const handleUpdateTrouser= () => {
+        const handleUpdateTrousers = () => {
 
         }
 
-        const handleRemoveTrouser = () => {
+        const handleRemoveTrousers = () => {
             
         }
-
-        const handleAddTrouser = () => {
+        const handleAddTrousers = () => {
             setShowModal(true);
         }
-    console.log(trouser);
     return (
         <div className="margin-bottom">
-            <h1>Trouser</h1>
-            <table className="table">
+            <h1>Trousers</h1>
+            <table class="table">
                 <thead>
-                    <tr>
+                    <tr className="table-tr">
                         <th scope="col">STT</th>
                         <th scope="col">id</th>
                         <th scope="col">CreatedAt</th>
@@ -43,8 +51,7 @@ const Trouser = ({trouser}) => {
                     </tr>
                 </thead>
                 <tbody>
-                    
-                    {trouser.map((item,index) => {
+                {trousers.map((item,index) => {
 
                         return (
                             <tr key={item.id}>
@@ -65,38 +72,35 @@ const Trouser = ({trouser}) => {
                                 <td className='content'>{item.color}</td>
                                 <td className='content'>
                                     <button 
-                                        onClick={handleRemoveTrouser}
+                                        onClick={handleRemoveTrousers}
                                         className='btn-remove'
                                     >
                                         X
                                     </button>
                                     <button 
                                         className='btn-update'
-                                        onClick={handleUpdateTrouser}
+                                        onClick={handleUpdateTrousers}
                                     >
                                         Sửa
                                     </button>
                                 </td>
                             </tr>
                         )
-                    })}
-                    
-                </tbody>
-            </table>
+                        })}
 
-            <button className='btn-add' onClick={handleAddTrouser}>Thêm mới</button>
-            
-                <Update isDisplay={showModal} setShowModal={setShowModal} />
-            
-            
-        </div>
+                    </tbody>
+                </table>
+
+                <button className='btn-add' onClick={handleAddTrousers}>Thêm mới</button>
+                <Update isDisplay={showModal} add={add} loading={loading} error={error} data={data} setShowModal={setShowModal} />
+            </div>
     )
 }
 
 const mapStateToProps = (state) => {
     return {
-        dress: state.Trouser,
+        trousers: state.Trousers,
     }
 }
 
-export default connect(mapStateToProps)(Trouser)
+export default connect(mapStateToProps)(Trousers)

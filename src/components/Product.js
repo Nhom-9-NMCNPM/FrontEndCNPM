@@ -13,10 +13,10 @@ const Product=() => {
                 <NavProduct></NavProduct>
 
                 <div class="collection-body container">
-                    <Product2Left></Product2Left>
-                    <Product4></Product4>
-                    <Product2Right></Product2Right>
-                    <Product4></Product4>
+                    <Product2Left />
+                    <Product4 value={false} />
+                    <Product2Right />
+                    <Product4 value={true} />
                 </div>
             </div>
             <FindShop />

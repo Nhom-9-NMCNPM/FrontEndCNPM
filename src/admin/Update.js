@@ -4,14 +4,6 @@ import { gql, useMutation } from '@apollo/client';
 import { useState } from "react";
 import Modal from "react-modal";
 
-const ADD_SHIRT = gql`
-    mutation Mutation($data: createShirtInput!) {
-        createShirt(data: $data) {
-            id
-            name
-        }
-    }
-`;
 const UPLOAD = gql`
     mutation Mutation($file: [Upload!]!) {
         upLoadFile(file: $file) {
@@ -19,7 +11,7 @@ const UPLOAD = gql`
         }
     }
     `
-const Update = ({isDisplay, setShowModal}) => {
+const Update = ({isDisplay, add, loading, data, error, setShowModal}) => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState(0);
@@ -33,7 +25,6 @@ const Update = ({isDisplay, setShowModal}) => {
     const [publish, setPublish] = useState(true);
     const [newPro, setNewPro] = useState(true);
     const [file,setFile] = useState([]);
-
     const [uploadFile] = useMutation(UPLOAD, {
         onCompleted: (data)=>{
             console.log(data.upLoadFile.url)
@@ -42,7 +33,7 @@ const Update = ({isDisplay, setShowModal}) => {
             const numberSize_M = parseInt(size_M, 10);
             const numberSize_L = parseInt(size_L, 10);
             const numberSize_XL = parseInt(size_XL, 10);
-            addShirt({
+            add({
                 variables:{data:{
                     name,
                     description,
@@ -59,14 +50,12 @@ const Update = ({isDisplay, setShowModal}) => {
                     img: data.upLoadFile.url,
                 }}
             })
+            setShowModal(false);
+            alert("Thêm thành công!")
         }
     })
-
-    const [addShirt, { data, loading, error }] = useMutation(ADD_SHIRT);
     if (loading) return 'Submitting...';
     if (error) return `Submission error! ${error.message}`;
-
-    
     const onhandleUpload = (e)=>{
         setFile(e.target.files);
         if(!file) return
