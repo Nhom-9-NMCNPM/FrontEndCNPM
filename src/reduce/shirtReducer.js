@@ -4,6 +4,11 @@ const shirtReducer = (state=[], action) =>{
             return [
                 ...action.data,
             ]
+        case 'ADD-SHIRT':
+            return [
+                ...state,
+                action.data
+            ]
         default: return state;
     }
 }

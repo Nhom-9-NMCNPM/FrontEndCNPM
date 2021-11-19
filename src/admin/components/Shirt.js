@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react"
+import Add from "../Add";
 import Update from "../Update";
 import { connect } from "react-redux";
 import { gql, useMutation } from '@apollo/client';
+import deleteShirt from "../../mutation/deleteShirt";
 const ADD_SHIRT = gql`
     mutation Mutation($data: createShirtInput!) {
         createShirt(data: $data) {
@@ -10,22 +12,35 @@ const ADD_SHIRT = gql`
         }
     }
 `;
-const Shirt = ({shirt}) => {
-    const [showModal, setShowModal]= useState(false);
-    const [add, { data, loading, error }] = useMutation(ADD_SHIRT);
-        
-        const handleUpdateShirt = () => {
-
+const UPDATE_SHIRT = gql`
+    mutation Mutation($data: updateShirtInput!, $updateShirtId: Int!) {
+        updateShirt(data: $data, id: $updateShirtId) {
+        id
+        name
         }
+    }
+`;
 
-        const handleRemoveShirt = () => {
+const Shirt = ({shirt}) => {
+    const [showModalAdd, setShowModalAdd]= useState(false);
+    const [flag, setFlag] = useState(0);
+    const [showModalUpdate, setShowModalUpdate]= useState(false);
+    const [add, { data, loading, error }] = useMutation(ADD_SHIRT);
+    const [update, { data_update, loading_update, error_update }] = useMutation(UPDATE_SHIRT);
+        const handleUpdateShirt = (id) => {
+            setFlag(id);
+            setShowModalUpdate(true);
             
         }
 
-        const handleAddShirt = () => {
-            setShowModal(true);
+        const handleRemoveShirt = (id) => {
+            deleteShirt(id);
         }
-    console.log(shirt);
+
+        const handleAddShirt = () => {
+            setShowModalAdd(true);
+
+        }
     return (
         <div className="margin-bottom">
             <h1>Shirt</h1>
@@ -74,17 +89,18 @@ const Shirt = ({shirt}) => {
                                 <td className='content'>{item.color}</td>
                                 <td className='content'>
                                     <button 
-                                        onClick={handleRemoveShirt}
+                                        onClick={()=>handleRemoveShirt(item.id)}
                                         className='btn-remove'
                                     >
                                         X
                                     </button>
                                     <button 
                                         className='btn-update'
-                                        onClick={handleUpdateShirt}
+                                        onClick={()=>handleUpdateShirt(item.id)}
                                     >
                                         Sửa
                                     </button>
+                                    {showModalUpdate&&(flag===item.id)&&<Update isDisplay={showModalUpdate} update={update} loading={loading_update} error={error_update}  setShowModalUpdate={setShowModalUpdate} product={item}/>}
                                 </td>
                             </tr>
                         )
@@ -94,7 +110,7 @@ const Shirt = ({shirt}) => {
             </table>
 
             <button className='btn-add' onClick={handleAddShirt}>Thêm mới</button>
-            <Update isDisplay={showModal} add={add} loading={loading} error={error} data={data} setShowModal={setShowModal} />
+            <Add isDisplay={showModalAdd} add={add} loading={loading} error={error} setShowModalAdd={setShowModalAdd} />
         </div>
     )
 }

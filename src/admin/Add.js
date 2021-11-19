@@ -11,50 +11,47 @@ const UPLOAD = gql`
         }
     }
     `
-const Update = ({isDisplay, update, loading,error, setShowModalUpdate, product}) => {
-    console.log(product)
-    const [name, setName] = useState(product.name);
-    const [description, setDescription] = useState(product.description);
-    const [price, setPrice] = useState(product.price);
-    const [code, setCode] = useState(product.codePro);
-    const [size_M, setSize_M] = useState(product.size_M);
-    const [size_S, setSize_S] = useState(product.size_S);
-    const [size_L, setSize_L] = useState(product.size_L);
-    const [size_XL, setSize_XL] = useState(product.size_XL);
-    const [material, setMaterial] = useState(product.material);
-    const [color, setColor] = useState(product.color);
+const Add = ({isDisplay, add, loading, error, setShowModalAdd}) => {
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
+    const [price, setPrice] = useState(0);
+    const [code, setCode] = useState('');
+    const [size_M, setSize_M] = useState(0);
+    const [size_S, setSize_S] = useState(0);
+    const [size_L, setSize_L] = useState(0);
+    const [size_XL, setSize_XL] = useState(0);
+    const [material, setMaterial] = useState('');
+    const [color, setColor] = useState('');
     const [publish, setPublish] = useState(true);
     const [newPro, setNewPro] = useState(true);
     const [file,setFile] = useState([]);
     const [uploadFile] = useMutation(UPLOAD, {
         onCompleted: (data)=>{
+            console.log(data.upLoadFile.url)
             const newPrice = parseInt(price, 10);
             const numberSize_S = parseInt(size_S, 10);
             const numberSize_M = parseInt(size_M, 10);
             const numberSize_L = parseInt(size_L, 10);
             const numberSize_XL = parseInt(size_XL, 10);
-            update({
-                variables:{
-                    data:{
-                        name,
-                        description,
-                        price: newPrice,
-                        codePro: code,
-                        size_M:numberSize_M,
-                        size_L:numberSize_L,
-                        size_S: numberSize_S,
-                        size_XL:numberSize_XL,
-                        material,
-                        color,
-                        publish,
-                        newPro,
-                        img: data.upLoadFile.url,
-                    },
-                    updateShirtId: product.id
-                }
+            add({
+                variables:{data:{
+                    name,
+                    description,
+                    price: newPrice,
+                    codePro: code,
+                    size_M:numberSize_M,
+                    size_L:numberSize_L,
+                    size_S: numberSize_S,
+                    size_XL:numberSize_XL,
+                    material,
+                    color,
+                    publish,
+                    newPro,
+                    img: data.upLoadFile.url,
+                }}
             })
-            setShowModalUpdate(false);
-            alert("Sửa thành công!");
+            setShowModalAdd(false);
+            alert("Thêm thành công!");
             window.location.reload();
         }
     })
@@ -66,38 +63,7 @@ const Update = ({isDisplay, update, loading,error, setShowModalUpdate, product})
     };
     const handleClickUpload = (e)=>{
         e.preventDefault();
-        if(!file){
-            const newPrice = parseInt(price, 10);
-            const numberSize_S = parseInt(size_S, 10);
-            const numberSize_M = parseInt(size_M, 10);
-            const numberSize_L = parseInt(size_L, 10);
-            const numberSize_XL = parseInt(size_XL, 10);
-            update({
-                variables:{
-                    data:{
-                        name,
-                        description,
-                        price: newPrice,
-                        codePro: code,
-                        size_M:numberSize_M,
-                        size_L:numberSize_L,
-                        size_S: numberSize_S,
-                        size_XL:numberSize_XL,
-                        material,
-                        color,
-                        publish,
-                        newPro,
-                    },
-                    updateShirtId: product.id
-                }
-            })
-            setShowModalUpdate(false);
-            alert("Sửa thành công!");
-            window.location.reload();
-        }else{
-            uploadFile({variables: {file}});
-        }
-      
+        uploadFile({variables: {file}});
     }
     return (
 
@@ -107,7 +73,7 @@ const Update = ({isDisplay, update, loading,error, setShowModalUpdate, product})
                 ariaHideApp={false}
             >
                 <div className="modal-body-react" >
-                    <div className="close-modal" onClick={()=>setShowModalUpdate(false)}>
+                    <div className="close-modal" onClick={()=>setShowModalAdd(false)}>
                         <i className="far fa-times-circle"></i>
                     </div>
                     <div className="container" style={{overflow: 'auto'}}>
@@ -166,4 +132,4 @@ const Update = ({isDisplay, update, loading,error, setShowModalUpdate, product})
     )
 }
 
-export default Update
+export default Add

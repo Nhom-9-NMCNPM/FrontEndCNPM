@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { gql, useMutation } from '@apollo/client';
-import Update from "../Update";
+import Add from "../Add";
 const ADD_TROUSERS = gql`
     mutation Mutation($data: createTrousersInput!) {
         createTrousers(data: $data) {
@@ -88,7 +88,7 @@ const Trousers = () => {
             </table>
 
             <button className='btn-add' onClick={handleAddTrousers}>Thêm mới</button>
-            <Update isDisplay={showModal} add={add} loading={loading} error={error} data={data} setShowModal={setShowModal} />
+            <Add isDisplay={showModal} add={add} loading={loading} error={error}  setShowModal={setShowModal} />
         </div>
     )
 }

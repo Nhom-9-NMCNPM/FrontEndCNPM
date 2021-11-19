@@ -4,3 +4,9 @@ export const startSetShirt = (shirt) => {
         data: shirt,
     }
 }
+export const addShirt = (shirt) => {
+    return {
+        type: 'ADD-SHIRT',
+        data:shirt,
+    }
+}

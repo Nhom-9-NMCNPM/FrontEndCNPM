@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import Update from "../Update";
+import Add from "../Add";
 import { connect } from "react-redux";
 import { gql, useMutation } from '@apollo/client';
 const ADD_DRESS = gql`
@@ -94,7 +94,7 @@ const Dress = ({dress}) => {
 
             <button className='btn-add' onClick={handleAddDress}>Thêm mới</button>
             
-            <Update isDisplay={showModal} add={add} loading={loading} error={error} data={data} setShowModal={setShowModal} />
+            <Add isDisplay={showModal} add={add} loading={loading} error={error}  setShowModal={setShowModal} />
             
             
         </div>
