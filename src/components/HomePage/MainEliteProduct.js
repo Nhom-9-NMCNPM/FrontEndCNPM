@@ -14,7 +14,7 @@ const MainEliteProduct = ({shirt}) => {
                             THE SYMPHONY OF ELITE
                         </Link>
                         <p className="elite-product-view-more">
-                            <Link to="/" className="Xem tất cả">
+                            <Link to="/product" className="Xem tất cả">
                                 Xem tất cả
                             </Link>
                         </p>

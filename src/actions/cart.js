@@ -3,15 +3,18 @@ export const resetCart = () => {
         type: 'RESET-CART'
     }
 }
-export const addCart = ({id, name, codePro, price, size, count}) => {
+export const addCart = ({id, name,img,color, codePro, price, size, count}) => {
     return {
         type: 'ADD-CART',
         data: {
             id,
             name,
+            img,
+            color,
             price,
             size,
-            count
+            count,
+            codePro,
         }
     }
 };

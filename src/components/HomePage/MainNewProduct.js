@@ -33,7 +33,7 @@ const MainNewProduct = ({product}) => {
                 </div>
                 <div className="main-new-product-slide">
                     {product.map((item,index) => {
-                        return (index % 4 === 0) && (
+                        return (index <= 8) && (
                             <div className="new-product-slide-item " key={index}>
                                 <Link to={`/detail/${item.codePro}`}>
                                     <div className="new-product-img">

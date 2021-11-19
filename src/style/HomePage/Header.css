@@ -236,7 +236,8 @@ header {
     box-shadow: 0 1px 10px 0 rgb(0 0 0 / 20%);
     cursor: default;
     animation: fadeIn linear .2s;
-    z-index: 10000000000000000
+    z-index: 10000000000000000;
+    width: 33rem;
 }
 
 .header__cart-heading {

@@ -2,7 +2,10 @@ import '../../style/HomePage/responsive.css'
 import '../../style/HomePage/Header.css'
 import { Link } from 'react-router-dom'
 import {useEffect} from 'react'
-const NavHeader = () => {
+import {connect} from 'react-redux'
+import format_curency from '../../utils/displayPrice';
+import {removeCart} from '../../actions/cart'
+const NavHeader = ({user,cart, removeCart}) => {
 
     useEffect(() => {
         const headerNav = document.querySelector('.header-nav')
@@ -82,9 +85,10 @@ const NavHeader = () => {
 
                                 </div>
                             </li>
-                            <li className="header-nav-content-item hasItemMenu">
-                               <Link to="/table" className="header-nav-content-item-link" title="Chọn theo dịp">QUẢN LÝ</Link>
-                            </li>
+                               {
+                                   user.admin&&<li className="header-nav-content-item hasItemMenu"><Link to="/table" className="header-nav-content-item-link" title="Chọn theo dịp">QUẢN LÝ</Link></li>
+                               }
+                    
                             <li className="header-nav-content-item">
                                <Link to="/" className="header-nav-content-item-link" title="Ưu đãi">ƯU ĐÃI</Link>
                             </li>
@@ -119,26 +123,31 @@ const NavHeader = () => {
                                 </span>  */}
                                 <h4 className="header__cart-heading">Sản phẩm đã thêm</h4>
                                     <ul className="header__cart-list-item">
-                                        <li className="header__cart-item">
-                                            <img src="./assets/img/nike.jpeg" alt="" className="header__cart-img"/>
-                                            <div className="header__cart-item-info">
-                                                <div className="header__cart-item-head">
-                                                    <h5 className="header__cart-item-name">Giày nike</h5>
-                                                    <div className="header__cart-item-price-wrap">
-                                                        <span className="header__cart-item-price">2.000.000đ</span>
-                                                        <span className="header__cart-item-multiply">x</span>
-                                                        <span className="header__cart-item-qnt">2</span>
-                                                    </div>
-                                                </div>
+                                        {cart.map((item,index) => {
+                                            return (
+                                                <li className="header__cart-item" key={index}>
+                                                    <img src={item.img[0]} alt="" className="header__cart-img"/>
+                                                    <div className="header__cart-item-info">
+                                                        <div className="header__cart-item-head">
+                                                            <h5 className="header__cart-item-name">{item.name}</h5>
+                                                            <div className="header__cart-item-price-wrap">
+                                                                <span className="header__cart-item-price">{format_curency(item.price)}đ</span>
+                                                                <span className="header__cart-item-multiply">x</span>
+                                                                <span className="header__cart-item-qnt">{item.count}</span>
+                                                            </div>
+                                                        </div>
 
-                                                <div className="header__cart-item-body">
-                                                    <span className="header__cart-item-description">
-                                                        Phân loại: Trắng
-                                                    </span>
-                                                    <span className="header__cart-item-remove">Xóa</span>
-                                                </div>
-                                            </div>
-                                        </li>
+                                                        <div className="header__cart-item-body">
+                                                            <span className="header__cart-item-description">
+                                                                Phân loại: {item.color}      Size: {item.size}
+                                                            </span>
+                                                            <span className="header__cart-item-remove" onClick={() => removeCart(item.id, item.size)}>Xóa</span>
+                                                        </div>
+                                                    </div>
+                                                </li>
+
+                                            )
+                                        })}
                                         <li className="cart-checkout">
                                             <button>THANH TOÁN</button>
                                         </li>
@@ -151,5 +160,16 @@ const NavHeader = () => {
         </div>
     )
 }   
+const mapStateToProps = (state)  => {
+    return {
+        user: state.User,
+        cart: state.Cart,
+    }
+}
 
-export default NavHeader;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        removeCart : (id,size) => dispatch(removeCart(id,size))
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(NavHeader);
