@@ -10,7 +10,10 @@ import User from '../components/User'
 import DetailPro from '../components/DetailPro';
 import Dress from '../admin/components/Dress';
 // import { from } from '@apollo/client';
-
+import ProDress from '../components/Product/ProDress';
+import ProShirt from '../components/Product/ProShirt';
+import ProSkirt from '../components/Product/ProSkirt';
+import ProTrousers from '../components/Product/ProTrousers';
 export const history = createBrowserHistory();
 const Approuter = () => (
         <Router history={history}>
@@ -19,10 +22,12 @@ const Approuter = () => (
                     <Route path="/" component={Home} exact={true}/>
                     <Route path="/table" component={admin} />
                     <Route path="/product" component={Product} /> 
-                    <Route path="/account" component={User}  />         
-                    <Route path="/dress" component={Dress}  /> 
+                    <Route path="/account" component={User}  />  
                     <Route path="/detail/:code" component={DetailPro}  /> 
-
+                    <Route path="/dress" component={ProDress} />
+                    <Route path="/shirt" component={ProShirt} />
+                    <Route path="/skirt" component={ProSkirt} />
+                    <Route path="/trousers" component={ProTrousers} />
                 </Switch>
             </div>
         </Router>

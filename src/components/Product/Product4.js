@@ -8,7 +8,7 @@ const Product4 = ({data} ) => {
                         {data.map((item,index) => {
                             return (index <= 3)  && (
                                 <div className="product col-3" key={index}> 
-                                    <Link to={`/detail/${item.id}`}>
+                                    <Link to={`/detail/${item.codePro}`}>
                                         <div className="product-img">
                                             <img className="img-change" src={item.img[0]} alt=""/>
                                             <img className="img-after-change" src={item.img[1]} alt=""/>       
@@ -17,7 +17,7 @@ const Product4 = ({data} ) => {
                                         </div>
                                     </Link>
                                     <div className="product-detail">
-                                        <Link to={`/detail/${item.id}`}>{item.name}</Link>
+                                        <Link to={`/detail/${item.codePro}`}>{item.name}</Link>
                                         <div>
                                             <span style={{fontSize: "13px"}}>{format_curency(item.price)}đ</span>
                                         </div>

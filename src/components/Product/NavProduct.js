@@ -20,19 +20,19 @@ const NavProduct = () => {
                     <span className="Mot">Sản phẩm</span>
                     <ul className="menuCollection">
                         <li>
-                            <a href="/">Đầm</a>
+                            <Link to="/dress">Đầm</Link>
                         </li>
                         <li>
-                            <a href="/">Áo</a>
+                            <Link to="/shirt">Áo</Link>
                         </li>
                         <li>
-                            <a href="/">Chân váy</a>
+                            <Link to="/skirt">Chân váy</Link>
                         </li>
                         <li>
-                            <a href="/">Quần</a>
+                            <Link to="/trousers">Quần</Link>
                         </li>
                         <li>
-                            <a href="/">Phụ kiện</a>
+                            <Link to="">Phụ kiện</Link>
                         </li>
                     </ul>
                 </div>

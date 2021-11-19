@@ -11,7 +11,7 @@ const Product2Right = ({skirt}) => {
                             {skirt.map((item,index) => {
                                     return ( index >= 1 && index <= 3) && (
                                         <div className="product col-4" key={index}> 
-                                            <Link to={`/detail/${item.id}`}>
+                                            <Link to={`/detail/${item.codePro}`}>
                                                 <div className="product-img">
                                                     <img className="img-change" src={item.img[0]} alt=""/>
                                                     <img className="img-after-change" src={item.img[1]} alt=""/>       
@@ -19,7 +19,7 @@ const Product2Right = ({skirt}) => {
                                                 </div>
                                             </Link>
                                             <div className="product-detail">
-                                                <Link to={`/detail/${item.id}`}>{item.name}</Link>
+                                                <Link to={`/detail/${item.codePro}`}>{item.name}</Link>
                                                 <div>
                                                     <span style={{fontSize: "13px",}}>{format_curency(item.price)}đ</span>
                                                 </div>
@@ -32,7 +32,7 @@ const Product2Right = ({skirt}) => {
                             {skirt.map((item,index) =>  {
                                     return (index > 3 && index < 6) &&  (
                                         <div className="product col-6" key={index}> 
-                                            <Link to={`/detail/${item.id}`}>
+                                            <Link to={`/detail/${item.codePro}`}>
                                                 <div className="product-img">
                                                     <img className="img-change" src={item.img[0]} alt=""/>
                                                     <img className="img-after-change" src={item.img[1]} alt=""/>       
@@ -40,7 +40,7 @@ const Product2Right = ({skirt}) => {
                                                 </div>
                                             </Link>
                                             <div className="product-detail">
-                                                <Link to={`/detail/${item.id}`}>{item.name}</Link>
+                                                <Link to={`/detail/${item.codePro}`}>{item.name}</Link>
                                                 <div>
                                                     <span style={{fontSize: "13px",}}>{format_curency(item.price)}đ</span>
                                                 </div>
@@ -53,7 +53,7 @@ const Product2Right = ({skirt}) => {
                     {skirt.map((item, index) => {
                         return (index === 1) && (
                             <div className="product col-6" key={item}> 
-                                <Link to={`/detail/${item.id}`}>
+                                <Link to={`/detail/${item.codePro}`}>
                                     <div className="product-img">
                                         <img className="img-change" src={item.img[0]} alt=""/>
                                         <img className="img-after-change" src={item.img[1]} alt=""/>       
@@ -62,7 +62,7 @@ const Product2Right = ({skirt}) => {
                                     </div>
                                 </Link>
                                 <div className="product-detail">
-                                    <Link to={`/detail/${item.id}`}>{item.name}</Link>
+                                    <Link to={`/detail/${item.codePro}`}>{item.name}</Link>
                                     <div>
                                         <span style={{fontSize: "13px",}}>{format_curency(item.price)}đ</span>
                                     </div>

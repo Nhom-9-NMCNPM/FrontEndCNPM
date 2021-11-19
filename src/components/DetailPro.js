@@ -9,7 +9,7 @@ import format_curency from "../utils/displayPrice";
 const size = ['M','S','L', 'XL']
 const DetailPro = ({product, match, history}) => {
   const [keyActive, setkeyActive] = useState('')
-    const [quantity, setQuantity] = useState(1)
+  const [quantity, setQuantity] = useState(1)
   const detailPro = product.filter((item) => item.codePro === match.params.code)[0];
   console.log(detailPro)
   return (
