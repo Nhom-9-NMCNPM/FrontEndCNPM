@@ -1,12 +1,13 @@
 import "../../style/HomePage/responsive.css"
 import "../../style/HomePage/FindShop.css"
+import { Link } from "react-router-dom"
 
 const FindShop = () => {
     return (
         <div>
              <div className="findShop">
                  Tìm
-                 <a href="/"> cửa hàng </a>
+                 <Link to="/"> cửa hàng </Link>
                  gần bạn nhất
                 <i className="fa fa-map-marker findShop-icon" aria-hidden="true"></i>
             </div>

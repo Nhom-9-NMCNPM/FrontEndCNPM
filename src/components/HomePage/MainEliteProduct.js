@@ -2,6 +2,7 @@ import '../../style/HomePage/MainEliteProduct.css'
 import '../../style/HomePage/responsive.css'
 import {connect} from 'react-redux'
 import format_curency from '../../utils/displayPrice';
+import { Link } from 'react-router-dom';
 const MainEliteProduct = ({shirt}) => {
    
     return (
@@ -9,13 +10,13 @@ const MainEliteProduct = ({shirt}) => {
              <div className="main-elite-product">
                 <div className="main-elite-product-title">
                     <h2 className="elite-product-title">
-                        <a href="/" title="THE SYMPHONY OF ELITE">
+                        <Link to="/" title="THE SYMPHONY OF ELITE">
                             THE SYMPHONY OF ELITE
-                        </a>
+                        </Link>
                         <p className="elite-product-view-more">
-                            <a href="/" className="Xem tất cả">
+                            <Link to="/" className="Xem tất cả">
                                 Xem tất cả
-                            </a>
+                            </Link>
                         </p>
                     </h2>
                 </div>
@@ -26,7 +27,7 @@ const MainEliteProduct = ({shirt}) => {
 
                                 return (index <= 3) && (
                                     <div className="main-elite-product-show-item col-3" key={index}>
-                                        <a href="/">
+                                        <Link to={`/detail/${item.codePro}`}>
                                             <div className="elite-product-img">
                                                 <img src={item.img[0]}
                                                     className="img-change" alt="anh" />
@@ -37,12 +38,12 @@ const MainEliteProduct = ({shirt}) => {
                                                         alt="anh" />
                                                 </div>
                                             </div>
-                                        </a>
+                                        </Link>
                                         <div className="elite-product-content">
                                             <div className="elite-product-content-title">
-                                                <a href="/">
+                                                <Link to={`/detail/${item.codePro}`}>
                                                     {`${item.name} ${item.codePro}`}
-                                                </a>
+                                                </Link>
                                             </div>
                                             <span className="elite-product-content-title-price">{format_curency(item.price)}đ</span>
                                         </div>

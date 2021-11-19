@@ -1,21 +1,21 @@
 import "../../style/HomePage/IntroEliteProduct.css"
 import "../../style/HomePage/responsive.css"
-
+import { Link } from "react-router-dom"
 const IntroEliteProduct = () => {
     return (
         <div>
             <div className="intro-elite-product">
             <div className="intro-elite-product-img">
-                <a href="/" title="THE SYMPHONY OF ELITE">
+                <Link href="/" title="THE SYMPHONY OF ELITE">
                     <img src="https://theme.hstatic.net/200000000133/1000569834/14/home_aboutus.jpg?v=5160"
                         className="new-product-img" alt=""/>
-                </a>
+                </Link>
             </div>
             <div className="intro-elite-product-about">
                 <div className="intro-elite-product-title">
-                    <a href="/">
+                    <Link href="/">
                         <h2>THE SYMPHONY OF ELITE VOL 2</h2>
-                    </a>
+                    </Link>
                 </div>
                 <div className="intro-elite-product-content">
                     <p>THE SYMPHONY OF ELITE VOL 2 Tiếp nối bản hòa tấu của sự tinh tế giữa tháng 10, Vol.2 sẽ là mảnh
@@ -27,9 +27,9 @@ const IntroEliteProduct = () => {
                         năm.</p>
                 </div>
                 <div className="intro-elite-product-learn-more">
-                    <a href="/">
+                    <Link href="/">
                         <p className="intro-elite-product-learn-more-content">Tìm hiểu thêm</p>
-                    </a>
+                    </Link>
                 </div>
             </div>
             </div>

@@ -27,10 +27,10 @@ const NavHeader = () => {
         <div>
             <div className="header">
                 <div className="header-info">
-                   <a href="/" className="header-info-add">Hệ thống <span>36</span> Store - Mua hàng Online (08h30-17h30 từ
+                   <Link to="/" className="header-info-add">Hệ thống <span>36</span> Store - Mua hàng Online (08h30-17h30 từ
                         T2-T7)
-                        <span> 1800 1732 </span> - CSKH (08h30-17h30 từ T2-T7)  <span> 1800 1731</span></a>
-                   <a href="/" className="header-info-csbh">Chính sách bán hàng</a>
+                        <span> 1800 1732 </span> - CSKH (08h30-17h30 từ T2-T7)  <span> 1800 1731</span></Link>
+                   <Link to="/" className="header-info-csbh">Chính sách bán hàng</Link>
                 </div>
                 <div className="header-nav">
                     <div className="header-logo">
@@ -50,32 +50,32 @@ const NavHeader = () => {
                                     <div className="sub-nav-list">
                                         <ul>
                                             <li className="sub-nav-item">
-                                               <a href="/">
+                                               <Link to="/dress">
                                                     <img alt="anh" src="https://theme.hstatic.net/200000000133/1000569834/14/img_megamenu3_1.jpg?v=5127"
                                                         className="sub-nav-item-img" />
                                                     <span className="sub-nav-info">Đầm</span>
-                                                </a>
+                                                </Link>
                                             </li>
                                             <li className="sub-nav-item ">
-                                               <a href="/">
+                                               <Link to="/shirt">
                                                     <img alt="anh" src="https://theme.hstatic.net/200000000133/1000569834/14/img_megamenu3_2.jpg?v=5127"
                                                         className="sub-nav-item-img" />
                                                     <span className="sub-nav-info">Áo</span>
-                                                </a>
+                                                </Link>
                                             </li>
                                             <li className="sub-nav-item ">
-                                               <a href="/">
+                                               <Link to="/skirt">
                                                     <img alt="anh" src="https://theme.hstatic.net/200000000133/1000569834/14/img_megamenu3_6.jpg?v=5127"
                                                         className="sub-nav-item-img" />
                                                     <span className="sub-nav-info">Chân váy</span>
-                                                </a>
+                                                </Link>
                                             </li>
                                             <li className="sub-nav-item ">
-                                               <a href="/">
+                                               <Link to="/trousers">
                                                     <img alt="anh" src="https://theme.hstatic.net/200000000133/1000569834/14/img_megamenu3_7.jpg?v=5127"
                                                         className="sub-nav-item-img" />
                                                     <span className="sub-nav-info">Quần</span>
-                                                </a>
+                                                </Link>
                                             </li>
                                         </ul>
                                     </div>
@@ -86,11 +86,11 @@ const NavHeader = () => {
                                <Link to="/table" className="header-nav-content-item-link" title="Chọn theo dịp">QUẢN LÝ</Link>
                             </li>
                             <li className="header-nav-content-item">
-                               <a href="/" className="header-nav-content-item-link" title="Ưu đãi">ƯU ĐÃI</a>
+                               <Link to="/" className="header-nav-content-item-link" title="Ưu đãi">ƯU ĐÃI</Link>
                             </li>
                             
                             <li className="header-nav-content-item">
-                               <a href="/" className="header-nav-content-item-link" title="Phụ kiện">PHỤ KIỆN</a>
+                               <Link to="/" className="header-nav-content-item-link" title="Phụ kiện">PHỤ KIỆN</Link>
                             </li>
 
                         </ul>
@@ -108,10 +108,10 @@ const NavHeader = () => {
                             </Link>
                         </div>
                         <div className="header-cart">
-                           <a href="/" title="Giỏ hàng">
+                           <Link to="/" title="Giỏ hàng">
                                 <img alt="anh" src="https://theme.hstatic.net/200000000133/1000569834/14/bagIcon2.png?v=5127"
                                     title="Giỏ hàng" className="header-cart-img" />
-                            </a>
+                            </Link>
                             <div className="header__cart-list">
                                 {/* <img src="./assets/img/no_cart.png" alt="" class="header__cart-list--no-cart-img" />
                                 <span class="header__cart-list--no-cart-msg">

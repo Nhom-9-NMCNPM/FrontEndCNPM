@@ -5,13 +5,10 @@ const NavProduct = () => {
         <div>
             <ul className="itemscope">
                 <li>
-                    <a href="/">Trang chủ</a>
+                    <Link to="/">Trang chủ</Link>
                 </li>
                 <li>
-                    <a href="/">Danh mục sản phẩm</a>
-                </li>
-                <li>
-                    <Link to="/"><b>Sản phẩm</b></Link>
+                    <Link to="/product">Danh mục sản phẩm</Link>
                 </li>
             </ul>
 
@@ -42,38 +39,6 @@ const NavProduct = () => {
                             <span className="">Bộ lọc:</span>
                         </div>
                         <ul className="group-filter">
-                            <li>
-                                <div>
-                                    <b>Size</b>
-                                    <span><i className="fa fa-sort-down"></i></span>
-                                </div>
-                                <ul className="check-box-list">
-                                    <li>
-                                        <input type="checkbox" name="" id="data-size-p1"/>
-                                        <label for="data-size-p1">
-                                            <span>S</span>
-                                        </label>
-                                    </li>
-                                    <li>
-                                        <input type="checkbox" name="" id="data-size-p2"/>
-                                        <label for="data-size-p2">
-                                            <span>M</span>
-                                        </label>
-                                    </li>
-                                    <li>
-                                        <input type="checkbox" name="" id="data-size-p3"/>
-                                        <label for="data-size-p3">
-                                            <span>L</span>
-                                        </label>
-                                    </li>
-                                    <li>
-                                        <input type="checkbox" name="" id="data-size-p4"/>
-                                        <label for="data-size-p4">
-                                            <span>XS</span>
-                                        </label>
-                                    </li>                                                                         
-                                </ul>
-                            </li>
                             <li>
                                 <div>
                                     <b>Giá sản phẩm</b>

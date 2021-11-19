@@ -7,10 +7,11 @@
   margin-bottom: 10px;
   border: 1px solid #f7f7f8;
   width: 100%;
+  cursor: pointer;
 }
 
-.thumb-item .active {
-  border-color: #808284;
+ .active-img {
+  border: 2px solid rgb(56, 54, 54);
 }
 
 .thumb-item img {

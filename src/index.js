@@ -51,7 +51,7 @@ firebase.auth().onAuthStateChanged(function(user){
   }else{
     store.dispatch(logout());
     loadData();
-    setTimeout(renderApp,2000);
+    setTimeout(renderApp,3000);
   }
 }) 
 

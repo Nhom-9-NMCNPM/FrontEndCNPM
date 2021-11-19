@@ -3,15 +3,18 @@ import FindShop from "./HomePage/FindShop";
 import Footer from "./HomePage/Footer";
 import MainEliteProduct from "./HomePage/MainEliteProduct";
 import NavHeader from "./HomePage/NavHeader";
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import {connect} from 'react-redux';
 import format_curency from "../utils/displayPrice";
+import { Link } from "react-router-dom";
 const size = ['M','S','L', 'XL']
-const DetailPro = ({product, match, history}) => {
+const DetailPro = ({product, match, history}) => { 
+  window.scrollTo(0,0)
   const [keyActive, setkeyActive] = useState('')
   const [quantity, setQuantity] = useState(1)
   const detailPro = product.filter((item) => item.codePro === match.params.code)[0];
-  console.log(detailPro)
+  const [activeImg, setActiveImg ] = useState(0)
+
   return (
     <div>
       <NavHeader />
@@ -20,22 +23,20 @@ const DetailPro = ({product, match, history}) => {
           <div className="product-images col-7">
             <div className="row">
               <div className="thumbs col-2">
-                <div className="thumb-item active">
-                  <img
-                    src={detailPro.img[0]}
-                    alt=""
-                  />
-                </div>
-                <div className="thumb-item">
-                  <img
-                    src={detailPro.img[1]}
-                    alt=""
-                  />
-                </div>
+                {detailPro.img.map((item,index) => {
+                  return (
+                    <div className={`thumb-item ${parseInt(activeImg ,10) === index && "active-img"}`} onClick={() => setActiveImg(index)} key={index}>
+                      <img
+                        src={item}
+                        alt=""
+                      />
+                   </div>
+                  )
+                })}
               </div>
               <div className="main-images col-10">
                 <img
-                  src={detailPro.img[1]}
+                  src={detailPro.img[parseInt(activeImg, 10)]}
                   alt=""
                 />
               </div>
@@ -51,7 +52,7 @@ const DetailPro = ({product, match, history}) => {
             <span className="product-price">{format_curency(detailPro.price)}đ</span>
             <div className="desProduct">
               <span>Thông tin sản phẩm:</span>
-              <p className="title">
+              <p className="des-title">
                 {detailPro.description}
               </p>
               <p>Màu sắc: {detailPro.color}</p>
@@ -102,7 +103,7 @@ const DetailPro = ({product, match, history}) => {
             <div className="hotlineProduct">
               <span className="titleHotlineProduct">
                 Mua hàng Online
-                <a href="/">1800 1732</a>
+                <Link href="/"> 1800 1732 </Link>
               </span>
               <span className="timeWorkProduct">
                 Miễn phí từ (8:30 - 17:30) mỗi ngày

@@ -1,10 +1,10 @@
 import "../../style/HomePage/Footer.css"
 import "../../style/HomePage/responsive.css"
 import { useEffect } from "react"
+import { Link } from "react-router-dom"
 const Footer = () => {
     useEffect(() => {
         const signForm = document.querySelector('.sign-up-form')
-        const label = document.querySelector('.input-placeholder')
 
         signForm.addEventListener("focusin", () => {
             signForm.classList.add("active1")
@@ -21,31 +21,31 @@ const Footer = () => {
                             <div className="about-list">
                                 <ul>
                                     <li className="about-item title">Tuyển dụng</li>
-                                    <li className="about-item"><a href="/">Tuyển dụng Tháng 12/2020</a></li>
-                                    <li className="about-item"><a href="/">Tuyển dụng tháng 07/2020</a></li>
-                                    <li className="about-item"><a href="/">Thông tin tuyển dụng tháng 02/2021</a></li>
+                                    <li className="about-item"><Link to="/">Tuyển dụng Tháng 12/2020</Link></li>
+                                    <li className="about-item"><Link to="/">Tuyển dụng tháng 07/2020</Link></li>
+                                    <li className="about-item"><Link to="/">Thông tin tuyển dụng tháng 02/2021</Link></li>
                                 </ul>
                             </div>
                             <div className="about-list">
                                 <ul>
                                     <li className="about-item title">Khám phá EDE</li>
-                                    <li className="about-item"><a href="/">Về chúng tôi</a></li>
-                                    <li className="about-item"><a href="/">Câu hỏi thường gặp</a></li>
-                                    <li className="about-item"><a href="/">Tin tức</a></li>
-                                    <li className="about-item"><a href="/">Sự kiện</a></li>
-                                    <li className="about-item"><a href="/">Sao & Eva</a></li>
-                                    <li className="about-item"><a href="/">Mix & Match</a></li>
+                                    <li className="about-item"><Link to="/">Về chúng tôi</Link></li>
+                                    <li className="about-item"><Link to="/">Câu hỏi thường gặp</Link></li>
+                                    <li className="about-item"><Link to="/">Tin tức</Link></li>
+                                    <li className="about-item"><Link to="/">Sự kiện</Link></li>
+                                    <li className="about-item"><Link to="/">Sao & Eva</Link></li>
+                                    <li className="about-item"><Link to="/">Mix & Match</Link></li>
                                 </ul>
                             </div>
                             <div className="about-list">
                                 <ul>
                                     <li className="about-item title">Chính sách</li>
-                                    <li className="about-item"><a href="/">Chính sách thanh toán</a></li>
-                                    <li className="about-item"><a href="/">Chính sách vận chuyển</a></li>
-                                    <li className="about-item"><a href="/">Chính sách đổi trả</a></li>
-                                    <li className="about-item"><a href="/">Chính sách bảo mật</a></li>
-                                    <li className="about-item"><a href="/">Chương trình thẻ VIP</a></li>
-                                    <li className="about-item"><a href="/">Hướng dẫn chọn size</a></li>
+                                    <li className="about-item"><Link to="/">Chính sách thanh toán</Link></li>
+                                    <li className="about-item"><Link to="/">Chính sách vận chuyển</Link></li>
+                                    <li className="about-item"><Link to="/">Chính sách đổi trả</Link></li>
+                                    <li className="about-item"><Link to="/">Chính sách bảo mật</Link></li>
+                                    <li className="about-item"><Link to="/">Chương trình thẻ VIP</Link></li>
+                                    <li className="about-item"><Link to="/">Hướng dẫn chọn size</Link></li>
                                 </ul>
                             </div>
                         </div>
@@ -68,11 +68,11 @@ const Footer = () => {
                         </div>
                     </div>
                     <div className="contact">
-                        <a href="/"><i className="fa fa-facebook " aria-hidden="true"></i></a>
-                        <a href="/"><i className="fa fa-instagram " aria-hidden="true"></i></a>
-                        <a href="/"><i className="fa fa-youtube " aria-hidden="true"></i></a>
-                        <a href="/"><i className="fa fa-twitter " aria-hidden="true"></i></a>
-                        <a href="/"><i className="fa fa-weixin" aria-hidden="true"></i></a>
+                        <Link to="/"><i className="fa fa-facebook " aria-hidden="true"></i></Link>
+                        <Link to="/"><i className="fa fa-instagram " aria-hidden="true"></i></Link>
+                        <Link to="/"><i className="fa fa-youtube " aria-hidden="true"></i></Link>
+                        <Link to="/"><i className="fa fa-twitter " aria-hidden="true"></i></Link>
+                        <Link to="/"><i className="fa fa-weixin" aria-hidden="true"></i></Link>
 
                     </div>
                     <div className="address">
@@ -92,9 +92,9 @@ const Footer = () => {
                                 @ 2021 Eva de Eva
                             </div>
                             <div className="address-tem">
-                                <a href="/">
+                                <Link to="/">
                                     <img src="https://theme.hstatic.net/200000000133/1000569834/14/logo-bct.png?v=5160" alt="anh" />
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </div>

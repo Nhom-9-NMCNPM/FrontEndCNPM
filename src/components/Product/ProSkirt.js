@@ -21,7 +21,7 @@ const ProSkirt = ({skirt} ) => {
                                                 <div className="product-img">
                                                     <img className="img-change" src={item.img[0]} alt=""/>
                                                     <img className="img-after-change" src={item.img[1]} alt=""/>       
-                                                    {item.id % 2 === 0 && <img className="new-arrivals" src="https://file.hstatic.net/200000000133/file/1_113da73eef75425786591a547aeda483.png" alt=""/>}
+                                                    <img className="new-arrivals" src="https://file.hstatic.net/200000000133/file/1_113da73eef75425786591a547aeda483.png" alt=""/>
                                                     <img className="best-seller" src="https://file.hstatic.net/200000000133/file/labels-final_b1d9901b63944df28810efb035e03fcb.png" alt=""/>
                                                 </div>
                                             </Link>
