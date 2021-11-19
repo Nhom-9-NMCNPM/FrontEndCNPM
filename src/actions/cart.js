@@ -11,7 +11,8 @@ export const addCart = ({id, name, codePro, price, size, count}) => {
             name,
             price,
             size,
-            count
+            count,
+            codePro,
         }
     }
 };

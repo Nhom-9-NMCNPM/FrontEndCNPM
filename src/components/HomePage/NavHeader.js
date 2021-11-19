@@ -2,7 +2,8 @@ import '../../style/HomePage/responsive.css'
 import '../../style/HomePage/Header.css'
 import { Link } from 'react-router-dom'
 import {useEffect} from 'react'
-const NavHeader = () => {
+import {connect} from 'react-redux'
+const NavHeader = ({user}) => {
 
     useEffect(() => {
         const headerNav = document.querySelector('.header-nav')
@@ -83,7 +84,9 @@ const NavHeader = () => {
                                 </div>
                             </li>
                             <li className="header-nav-content-item hasItemMenu">
-                               <Link to="/table" className="header-nav-content-item-link" title="Chọn theo dịp">QUẢN LÝ</Link>
+                               {
+                                   user.admin&&<Link to="/table" className="header-nav-content-item-link" title="Chọn theo dịp">QUẢN LÝ</Link>
+                               }
                             </li>
                             <li className="header-nav-content-item">
                                <a href="/" className="header-nav-content-item-link" title="Ưu đãi">ƯU ĐÃI</a>
@@ -151,5 +154,9 @@ const NavHeader = () => {
         </div>
     )
 }   
-
-export default NavHeader;
+const mapStateToProps = (state)  => {
+    return {
+        user: state.User
+    }
+}
+export default connect(mapStateToProps)(NavHeader);

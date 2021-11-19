@@ -6,12 +6,23 @@ import NavHeader from "./HomePage/NavHeader";
 import {useState} from 'react';
 import {connect} from 'react-redux';
 import format_curency from "../utils/displayPrice";
+import {addCart} from '../actions/cart';
 const size = ['M','S','L', 'XL']
-const DetailPro = ({product, match, history}) => {
-  const [keyActive, setkeyActive] = useState('')
+const DetailPro = ({product, match, dispatch}) => {
+  window.scrollTo(0,0);
+  const [keyActive, setkeyActive] = useState('M')
   const [quantity, setQuantity] = useState(1)
   const detailPro = product.filter((item) => item.codePro === match.params.code)[0];
-  console.log(detailPro)
+  const handleAddCart = ()=>{
+    dispatch(addCart({
+      id:detailPro.id,
+      name: detailPro.name,
+      codePro: detailPro.codePro,
+      count: quantity,
+      size: keyActive,
+      price: detailPro.price,
+    }))
+  }
   return (
     <div>
       <NavHeader />
@@ -95,8 +106,8 @@ const DetailPro = ({product, match, history}) => {
 
                 </div>
               </div>
-            <button type="button" className="btn btn-dark addCart">
-              Mua ngay
+            <button type="button" className="btn btn-dark addCart" onClick={handleAddCart}>
+              Thêm vào giỏ hàng
             </button>
 
             <div className="hotlineProduct">
