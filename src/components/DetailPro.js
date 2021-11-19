@@ -6,7 +6,10 @@ import NavHeader from "./HomePage/NavHeader";
 import {useState} from 'react';
 import {connect} from 'react-redux';
 import format_curency from "../utils/displayPrice";
+const size = ['M','S','L', 'XL']
 const DetailPro = ({product, match, history}) => {
+  const [keyActive, setkeyActive] = useState('')
+    const [quantity, setQuantity] = useState(1)
   const detailPro = product.filter((item) => item.codePro === match.params.code)[0];
   console.log(detailPro)
   return (
@@ -55,52 +58,43 @@ const DetailPro = ({product, match, history}) => {
               <p>Chất liệu: {detailPro.material}</p>
             </div>
             <div className="size-area">
-              <p>Size</p>
-              <div className="option">
-                <input
-                  type="radio"
-                  name="size"
-                  value="s"
-                  checked
-                  hidden
-                  id="s-size"
-                />
-                <label for="s-size" className="size-radio-btn check">
-                  S
-                </label>
-              </div>
-              <div className="option">
-                <input type="radio" name="size" value="m" hidden id="m-size" />
-                <label for="m-size" className="size-radio-btn">
-                  M
-                </label>
-              </div>
-              <div className="option">
-                <input type="radio" name="size" value="l" hidden id="l-size" />
-                <label for="l-size" className="size-radio-btn">
-                  L
-                </label>
-              </div>
-            </div>
 
-            <div className="quantity-area">
-              <input
-                type="button"
-                value="-"
-                data-type="minus"
-                data-field="quantity"
-                className="qty-btn"
-              />
-              <input type="text" className="qty-input" value="1" disabled />
-              <input
-                type="button"
-                value="+"
-                data-type="plus"
-                data-field="quantity"
-                className="qty-btn"
-              />
-            </div>
+                  <p>Size</p>
 
+                  <div className="option">
+
+                    {size.map((item,index) => {
+
+                        return (
+
+                            <div className={`option-content ${( keyActive === item) && "active-size"}`} key={index} onClick={() => {
+
+                                setkeyActive(item)
+
+                              }}>
+
+                                {item}
+
+                            </div>
+
+                        )
+
+                    })}
+
+                  </div>
+
+
+
+                <div className="quantity-area">
+
+                  <div className="btn-minus-quantity" onClick={() => {if(quantity > 0) setQuantity(quantity -1)}} > - </div>
+
+                  <div className="quantity-content">{quantity}</div>
+
+                  <div className="btn-add-quantity" onClick={() => setQuantity(quantity +1)}> + </div>
+
+                </div>
+              </div>
             <button type="button" className="btn btn-dark addCart">
               Mua ngay
             </button>
