@@ -3,7 +3,13 @@ import FindShop from "./HomePage/FindShop";
 import Footer from "./HomePage/Footer";
 import MainEliteProduct from "./HomePage/MainEliteProduct";
 import NavHeader from "./HomePage/NavHeader";
-const DetailPro = () => (
+import {useState} from 'react';
+import {connect} from 'react-redux';
+import format_curency from "../utils/displayPrice";
+const DetailPro = ({product, match, history}) => {
+  const detailPro = product.filter((item) => item.codePro === match.params.code)[0];
+  console.log(detailPro)
+  return (
     <div>
       <NavHeader />
       <div className="product-container">
@@ -13,65 +19,40 @@ const DetailPro = () => (
               <div className="thumbs col-2">
                 <div className="thumb-item active">
                   <img
-                    src="https://product.hstatic.net/200000000133/product/dsc00446_ea464bf12cde4389b983ea5da442f70d_master.jpg"
+                    src={detailPro.img[0]}
                     alt=""
                   />
                 </div>
                 <div className="thumb-item">
                   <img
-                    src="https://product.hstatic.net/200000000133/product/dsc00446_ea464bf12cde4389b983ea5da442f70d_master.jpg"
-                    alt=""
-                  />
-                </div>
-                <div className="thumb-item">
-                  <img
-                    src="https://product.hstatic.net/200000000133/product/dsc00446_ea464bf12cde4389b983ea5da442f70d_master.jpg"
-                    alt=""
-                  />
-                </div>
-                <div className="thumb-item">
-                  <img
-                    src="https://product.hstatic.net/200000000133/product/dsc00446_ea464bf12cde4389b983ea5da442f70d_master.jpg"
+                    src={detailPro.img[1]}
                     alt=""
                   />
                 </div>
               </div>
               <div className="main-images col-10">
                 <img
-                  src="https://product.hstatic.net/200000000133/product/dsc00446_ea464bf12cde4389b983ea5da442f70d_master.jpg"
+                  src={detailPro.img[1]}
                   alt=""
                 />
               </div>
             </div>
           </div>
           <div className="product-details col-5">
-            <h1>Quần trong bộ Vest-Quần, 21AQQE025D</h1>
+            <h1>{detailPro.name}</h1>
 
             <div className="skuProduct">
               <label>SKU:</label>
-              <span>21AQDE064X</span>
+              <span>{detailPro.codePro}</span>
             </div>
-            <span className="product-price">1,199,000đ</span>
+            <span className="product-price">{format_curency(detailPro.price)}đ</span>
             <div className="desProduct">
               <span>Thông tin sản phẩm:</span>
               <p className="title">
-                Quần dài, cạp cao, ống suông rộng, có khóa kéo và khuy cài phía
-                trước.
+                {detailPro.description}
               </p>
-              <p>Màu sắc: Xanh</p>
-              <p>Chất liệu: Vải Tuýt si</p>
-              <p>
-                <a href="/">Hướng dẫn bảo quản, giặt là</a>
-              </p>
-            </div>
-            <div className="product-style">
-              <p>Xanh</p>
-              <a href="/">
-                <img
-                  src="https://product.hstatic.net/200000000133/product/21able012x_21aqde064x_99fe88d9009a447cabfbb61c64066a54_small.jpg"
-                  alt=""
-              />
-              </a>
+              <p>Màu sắc: {detailPro.color}</p>
+              <p>Chất liệu: {detailPro.material}</p>
             </div>
             <div className="size-area">
               <p>Size</p>
@@ -139,6 +120,15 @@ const DetailPro = () => (
       <FindShop />
       <Footer />
     </div>
-);
-
-export default DetailPro;
+)};
+const mapStateToProps = (state) =>{
+  return {
+    product: [
+      ...state.Shirt,
+      ...state.Skirt,
+      ...state.Dress,
+      ...state.Trousers
+    ]
+  }
+}
+export default connect(mapStateToProps)(DetailPro);

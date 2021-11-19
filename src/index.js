@@ -13,12 +13,14 @@ import {firebase} from './firebase/firebase';
 import {startSetLogin, logout, stopLogin} from './actions/user';
 import getSkirt from './query/getSkirt'
 import getTrousers from './query/getTrousers';
-
+const loadData = async () => {
+  await getSkirt(store.dispatch)
+  await getShirt(store.dispatch);
+  await getDress(store.dispatch);
+  await getTrousers(store.dispatch);
+}
 const store = configureStore();
-getSkirt(store.dispatch)
-getShirt(store.dispatch);
-getDress(store.dispatch);
-getTrousers(store.dispatch);
+
 const jsx =( 
   <React.StrictMode>
     <ApolloProvider client={client}>
@@ -41,13 +43,15 @@ const renderApp = () => {
 firebase.auth().onAuthStateChanged(function(user){
   if(user){console.log(user);
     store.dispatch(startSetLogin({name: user.displayName, email: user.email})).then((response) => {
+      loadData();
       renderApp();
       history.push('/')
     })
     
   }else{
     store.dispatch(logout());
-    renderApp();
+    loadData();
+    setTimeout(renderApp,2000);
   }
 }) 
 

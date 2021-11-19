@@ -21,7 +21,7 @@ const Approuter = () => (
                     <Route path="/product" component={Product} /> 
                     <Route path="/account" component={User}  />         
                     <Route path="/dress" component={Dress}  /> 
-                    <Route path="/detail" component={DetailPro}  /> 
+                    <Route path="/detail/:code" component={DetailPro}  /> 
 
                 </Switch>
             </div>
