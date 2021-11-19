@@ -1,12 +1,12 @@
 import client from '../client/client';
 import {gql} from '@apollo/client';
-import {startSetDress} from '../actions/dress';
-const getDress = (dispatch) => {
+import {startSetTrousers} from '../actions/trousers';
+const getTrousers = (dispatch) => {
     client
         .query({
             query: gql`
-            query GetDress {
-                getDress {
+            query GetTrousers {
+                getTrousers {
                     id
                     name
                     description
@@ -27,7 +27,7 @@ const getDress = (dispatch) => {
         })
         .then(result => {
             console.log(result);
-            dispatch(startSetDress(result.data.getDress))
+            dispatch(startSetTrousers(result.data.getTrousers))
         })
 };
-export default getDress;
+export default getTrousers;

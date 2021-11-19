@@ -46,7 +46,7 @@ const Shirt = ({shirt}) => {
             <h1>Shirt</h1>
             <table className="table">
                 <thead>
-                    <tr>
+                    <tr className="table-tr">
                         <th scope="col">STT</th>
                         <th scope="col">id</th>
                         <th scope="col">CreatedAt</th>

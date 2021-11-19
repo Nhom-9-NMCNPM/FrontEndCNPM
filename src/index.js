@@ -11,10 +11,14 @@ import getShirt from './query/getShirt';
 import getDress from './query/getDress';
 import {firebase} from './firebase/firebase';
 import {startSetLogin, logout, stopLogin} from './actions/user';
+import getSkirt from './query/getSkirt'
+import getTrousers from './query/getTrousers';
 
 const store = configureStore();
+getSkirt(store.dispatch)
 getShirt(store.dispatch);
-//getDress(store.dispatch);
+getDress(store.dispatch);
+getTrousers(store.dispatch);
 const jsx =( 
   <React.StrictMode>
     <ApolloProvider client={client}>

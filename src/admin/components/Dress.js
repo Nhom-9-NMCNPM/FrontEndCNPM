@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react"
 import Add from "../Add";
+import Update from "../Update";
 import { connect } from "react-redux";
 import { gql, useMutation } from '@apollo/client';
+import deleteDress from '../../mutation/deleteDress';
 const ADD_DRESS = gql`
     mutation Mutation($data: createDressInput!) {
         createDress(data: $data) {
@@ -10,27 +12,39 @@ const ADD_DRESS = gql`
         }
 }
 `
+const UPDATE_DRESS = gql`
+    mutation Mutation($data: updateDressInput!, $updateDressId: Int!) {
+        updateDress(data: $data, id: $updateDressId) {
+            id
+            name
+        }
+    }
+`;
 const Dress = ({dress}) => {
-    const [showModal, setShowModal]= useState(false);
+    const [showModalAdd, setShowModalAdd]= useState(false);
+    const [flag, setFlag] = useState(0);
+    const [showModalUpdate, setShowModalUpdate]= useState(false);
+    const [update, { data_update, loading_update, error_update }] = useMutation(UPDATE_DRESS);
     const [add, { data, loading, error }] = useMutation(ADD_DRESS);
         
-        const handleUpdateDress= () => {
-
+        const handleUpdateDress= (id) => {
+            setFlag(id);
+            setShowModalUpdate(true);
         }
 
-        const handleRemoveDress = () => {
-            
+        const handleRemoveDress = (id) => {
+            deleteDress(id);
         }
 
         const handleAddDress = () => {
-            setShowModal(true);
+            setShowModalAdd(true);
         }
     return (
         <div className="margin-bottom">
             <h1>Dress</h1>
             <table className="table">
                 <thead>
-                    <tr>
+                    <tr className="table-tr">
                         <th scope="col">STT</th>
                         <th scope="col">id</th>
                         <th scope="col">CreatedAt</th>
@@ -73,17 +87,18 @@ const Dress = ({dress}) => {
                                 <td className='content'>{item.color}</td>
                                 <td className='content'>
                                     <button 
-                                        onClick={handleRemoveDress}
+                                        onClick={()=>handleRemoveDress(item.id)}
                                         className='btn-remove'
                                     >
                                         X
                                     </button>
                                     <button 
                                         className='btn-update'
-                                        onClick={handleUpdateDress}
+                                        onClick={()=>handleUpdateDress(item.id)}
                                     >
                                         Sửa
                                     </button>
+                                    {showModalUpdate&&(flag===item.id)&&<Update isDisplay={showModalUpdate} update={update} loading={loading_update} error={error_update}  setShowModalUpdate={setShowModalUpdate} product={item}/>}
                                 </td>
                             </tr>
                         )
@@ -94,7 +109,7 @@ const Dress = ({dress}) => {
 
             <button className='btn-add' onClick={handleAddDress}>Thêm mới</button>
             
-            <Add isDisplay={showModal} add={add} loading={loading} error={error}  setShowModal={setShowModal} />
+            <Add isDisplay={showModalAdd} add={add} loading={loading} error={error}  setShowModalAdd={setShowModalAdd} />
             
             
         </div>

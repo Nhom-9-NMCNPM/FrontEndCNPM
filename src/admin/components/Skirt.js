@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react"
+import { connect } from "react-redux";
 import { gql, useMutation } from '@apollo/client';
 import Add from "../Add";
+import Update from "../Update";
+import deleteSkirt from '../../mutation/deleteSkirt'
 const ADD_SKIRT = gql`
         mutation Mutation($data: createSkirtInput!) {
         createSkirt(data: $data) {
@@ -8,30 +11,39 @@ const ADD_SKIRT = gql`
             name
         }
     }
-`
-const Skirt = () => {
-    const [shirts, setShirts] = useState([])
-    const [count, setCount] = useState(1)
-    const [showModal, setShowModal]= useState(false);
+`;
+const UPDATE_SKIRT = gql`
+    mutation Mutation($data: updateSkirtInput!, $updateSkirtId: Int!) {
+        updateSkirt(data: $data, id: $updateSkirtId) {
+            id
+            name
+        }
+    }
+`;
+const Skirt = ({skirt}) => {
+    const [showModalAdd, setShowModalAdd]= useState(false);
+    const [flag, setFlag] = useState(0);
+    const [showModalUpdate, setShowModalUpdate]= useState(false);
+    const [update, { data_update, loading_update, error_update }] = useMutation(UPDATE_SKIRT);
     const [add, { data, loading, error }] = useMutation(ADD_SKIRT);
     
-        
-        const handleUpdateShirt = () => {
-
+        const handleUpdateSkirt= (id) => {
+            setFlag(id);
+            setShowModalUpdate(true);
         }
 
-        const handleRemoveShirt = () => {
-            
+        const handleRemoveSkirt = (id) => {
+            deleteSkirt(id);
         }
-        const handleAddShirt = () => {
-            setShowModal(true);
+        const handleAddSkirt = () => {
+            setShowModalAdd(true);
         }
     return (
         <div className="margin-bottom">
             <h1>Skirt</h1>
-            <table class="table">
+            <table className="table">
                 <thead>
-                    <tr>
+                    <tr className="table-tr">
                         <th scope="col">STT</th>
                         <th scope="col">id</th>
                         <th scope="col">CreatedAt</th>
@@ -52,45 +64,58 @@ const Skirt = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">{count}</th>
-                        <td className='content'>dddddddddddddddddddddddddddddddddđ</td>
-                        <td className='content'>Otto</td>
-                        <td className='content'>@mdo</td>
-                        <td className='content'>Mark</td>
-                        <td className='content'>Otto</td>
-                        <td className='content'>@mdo</td>
-                        <td className='content'>Mark</td>
-                        <td className='content'>Otto</td>
-                        <td className='content'>@mdo</td>
-                        <td className='content'>Mark</td>
-                        <td className='content'>Otto</td>
-                        <td className='content'>@mdo</td>
-                        <td className='content'>Mark</td>
-                        <td className='content'>Otto</td>
-                        <td className='content'>
-                            <button 
-                                onClick={handleRemoveShirt}
-                                className='btn-remove'
-                            >
-                                X
-                            </button>
-                            <button 
-                                className='btn-update'
-                                onClick={handleUpdateShirt}
-                            >
-                                Sửa
-                            </button>
-                        </td>
-                    </tr>
-                 
+                    
+                    {skirt.map((item,index) => {
+
+                        return (
+                            <tr key={item.id}>
+                                <th scope="row">{index + 1}</th>
+                                <td className='content'>{item.id}</td>
+                                <td className='content'>21/2/30</td>
+                                <td className='content'>21/42/3</td>
+                                <td className='content'>{item.name}</td>
+                                <td className='content '>{item.description}</td>
+                                <td className='content content-img'>{item.img}</td>
+                                <td className='content'>{item.price}</td>
+                                <td className='content'>{item.codePro}</td>
+                                <td className='content'>{item.size_M}</td>
+                                <td className='content'>{item.size_S}</td>
+                                <td className='content'>{item.size_L}</td>
+                                <td className='content'>{item.size_XL}</td>
+                                <td className='content'>{item.material}</td>
+                                <td className='content'>{item.color}</td>
+                                <td className='content'>
+                                    <button 
+                                        onClick={()=>handleRemoveSkirt(item.id)}
+                                        className='btn-remove'
+                                    >
+                                        X
+                                    </button>
+                                    <button 
+                                        className='btn-update'
+                                        onClick={()=>handleUpdateSkirt(item.id)}
+                                    >
+                                        Sửa
+                                    </button>
+                                    {showModalUpdate&&(flag===item.id)&&<Update isDisplay={showModalUpdate} update={update} loading={loading_update} error={error_update}  setShowModalUpdate={setShowModalUpdate} product={item}/>}
+                                </td>
+                            </tr>
+                        )
+                    })}
+                    
                 </tbody>
             </table>
 
-            <button className='btn-add' onClick={handleAddShirt}>Thêm mới</button>
-            <Add isDisplay={showModal} add={add} loading={loading} error={error} setShowModal={setShowModal} />
+            <button className='btn-add' onClick={handleAddSkirt}>Thêm mới</button>
+            <Add isDisplay={showModalAdd} add={add} loading={loading} error={error} setShowModalAdd={setShowModalAdd} />
         </div>
     )
 }
 
-export default Skirt
+const mapStateToProps = (state) => {
+    return {
+        skirt: state.Skirt,
+    }
+}
+
+export default connect(mapStateToProps)(Skirt)
