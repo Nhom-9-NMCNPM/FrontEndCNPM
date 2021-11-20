@@ -6,14 +6,14 @@ const IntroEliteProduct = () => {
         <div>
             <div className="intro-elite-product">
             <div className="intro-elite-product-img">
-                <Link href="/" title="THE SYMPHONY OF ELITE">
+                <Link to="/" title="THE SYMPHONY OF ELITE">
                     <img src="https://theme.hstatic.net/200000000133/1000569834/14/home_aboutus.jpg?v=5160"
                         className="new-product-img" alt=""/>
                 </Link>
             </div>
             <div className="intro-elite-product-about">
                 <div className="intro-elite-product-title">
-                    <Link href="/">
+                    <Link to="/">
                         <h2>THE SYMPHONY OF ELITE VOL 2</h2>
                     </Link>
                 </div>
@@ -27,7 +27,7 @@ const IntroEliteProduct = () => {
                         năm.</p>
                 </div>
                 <div className="intro-elite-product-learn-more">
-                    <Link href="/">
+                    <Link to="/">
                         <p className="intro-elite-product-learn-more-content">Tìm hiểu thêm</p>
                     </Link>
                 </div>

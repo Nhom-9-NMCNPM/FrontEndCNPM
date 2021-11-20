@@ -59,7 +59,7 @@ const Footer = () => {
                                 </div>
                                 <div className="sign-up-form ">
                                     <input type="email" required id="email" />
-                                    <label for="email" className="input-placeholder">Nhập email của bạn</label>
+                                    <label htmlFor="email" className="input-placeholder">Nhập email của bạn</label>
                                     <button className="submit-btn" type="submit">
                                         <i className="fa fa-angle-right" aria-hidden="true"></i>
                                     </button>

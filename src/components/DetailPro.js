@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 import format_curency from "../utils/displayPrice";
 import { Link } from "react-router-dom";
 import {addCart} from '../actions/cart';
-import "../style/Message.css"
+//import "../style/Message.css"
 
 const size = ['M','S','L', 'XL']
 const DetailPro = ({product, match, dispatch}) => { 
@@ -28,6 +28,7 @@ const DetailPro = ({product, match, dispatch}) => {
       size: keyActive,
       price: detailPro.price,
     }))
+    
   }
   return (
     <div>
