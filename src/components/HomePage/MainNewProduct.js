@@ -4,18 +4,15 @@ import {connect} from 'react-redux'
 import format_curency from '../../utils/displayPrice';
 import { useEffect } from "react"
 import { Link } from "react-router-dom";
-import $ from 'jquery'
-import 'slick-slider'
+import Slider from "react-slick";
 const MainNewProduct = ({product}) => {
-    useEffect(() => {
-        $('.main-new-product-slide').slick({
-            slidesToShow: 4,
-            slidesToScroll: 1,
-            autoplay: true,
-            autoplaySpeed: 2000,
-            arrows:true,    
-          });
-    },[])
+    const settings = {
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        arrows:true,
+    }
     return (
         <div>
              <div className="main-new-product container-xl">
@@ -31,10 +28,12 @@ const MainNewProduct = ({product}) => {
                         </p>
                     </h2>
                 </div>
-                <div className="main-new-product-slide">
+                <Slider className="main-new-product-slide" 
+                    {...settings}
+                >
                     {product.map((item,index) => {
                         return (index <= 8) && (
-                            <div className="new-product-slide-item " key={index}>
+                            <div className="new-product-slide-item " data-index={index} key={index}>
                                 <Link to={`/detail/${item.codePro}`}>
                                     <div className="new-product-img">
                                         <img src={item.img[0]}
@@ -59,7 +58,7 @@ const MainNewProduct = ({product}) => {
                         )
                     })}
                     
-                </div>
+                </Slider>
             </div>
         </div>
     )

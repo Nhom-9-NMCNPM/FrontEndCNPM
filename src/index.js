@@ -13,6 +13,8 @@ import {firebase} from './firebase/firebase';
 import {startSetLogin, logout, stopLogin} from './actions/user';
 import getSkirt from './query/getSkirt'
 import getTrousers from './query/getTrousers';
+import 'slick-slider';
+import GetData from './query/GetData';
 const loadData = async () => {
   await getSkirt(store.dispatch)
   await getShirt(store.dispatch);
@@ -31,7 +33,13 @@ const jsx =(
   </React.StrictMode>
 );
 
-
+const jsx2 = (
+  <ApolloProvider client={client}>
+    <Provider store={store}>
+      <GetData />
+    </Provider>
+  </ApolloProvider>
+)
 let hasRendered = false;
 const renderApp = () => {
   if (!hasRendered) {
@@ -39,19 +47,20 @@ const renderApp = () => {
     hasRendered = true;
   }
 };
-
+ReactDOM.render(jsx2, document.getElementById('root'));
 firebase.auth().onAuthStateChanged(function(user){
   if(user){console.log(user);
     store.dispatch(startSetLogin({name: user.displayName, email: user.email})).then((response) => {
-      loadData();
+      // loadData();
       renderApp();
-      history.push('/')
+     // history.push('/home')
     })
     
   }else{
     store.dispatch(logout());
-    loadData();
-    setTimeout(renderApp,2000);
+    // loadData();
+    renderApp();
+    //history.push('/home')
   }
 }) 
 
