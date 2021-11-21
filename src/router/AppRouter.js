@@ -14,7 +14,8 @@ import ProShirt from '../components/Product/ProShirt';
 import ProSkirt from '../components/Product/ProSkirt';
 import ProTrousers from '../components/Product/ProTrousers';
 export const history = createBrowserHistory();
-const Approuter = () => (
+const Approuter = () => {
+    return (
         <Router history={history}>
             <div>
                 <Switch>
@@ -31,5 +32,5 @@ const Approuter = () => (
             </div>
         </Router>
        
-);
+)};
 export default Approuter;

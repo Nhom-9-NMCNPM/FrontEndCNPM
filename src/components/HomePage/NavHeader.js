@@ -117,9 +117,10 @@ const NavHeader = ({user,cart, removeCart}) => {
                                 <img alt="anh" src="https://theme.hstatic.net/200000000133/1000569834/14/bagIcon2.png?v=5127"
                                     title="Giỏ hàng" className="header-cart-img" />
                             </Link>
+                            <div className="count-product">{cart.length}</div>
                             <div className="header__cart-list">
                                 {( cart.length === 0)  ? 
-                                     ( <>
+                                     (   <>
                                         
                                         <i className="fas fa-cart-arrow-down no--cart"></i>
                                         <span className="header__cart-list--no-cart-msg">

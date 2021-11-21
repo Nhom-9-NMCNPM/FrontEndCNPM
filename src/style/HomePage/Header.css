@@ -128,7 +128,14 @@ header {
 .sub-nav-list ul {
     margin: 0;
 }
-
+.count-product{
+    position: absolute;
+    top: -7px;
+    right: -8px;
+    background-color: #e29481;
+    padding: 0px 8px;
+    border-radius: 50%;
+}
 .sub-nav-item {
     float: left;
     width: 25%;
@@ -409,4 +416,7 @@ header {
 
 .header__cart-list>img {
     width: 100px;
+}
+.header-cart{
+    position: relative;
 }
