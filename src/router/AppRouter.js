@@ -18,7 +18,8 @@ import Shirt from '../admin/components/Shirt';
 import Skirt from '../admin/components/Skirt';
 import Trousers from '../admin/components/Trousers';
 export const history = createBrowserHistory();
-const Approuter = () => (
+const Approuter = () => {
+    return (
         <Router history={history}>
             <div>
                 <Switch>
@@ -40,5 +41,5 @@ const Approuter = () => (
             </div>
         </Router>
        
-);
+)};
 export default Approuter;

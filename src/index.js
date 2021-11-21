@@ -15,13 +15,18 @@ import getSkirt from './query/getSkirt'
 import getTrousers from './query/getTrousers';
 import 'slick-slider';
 import GetData from './query/GetData';
-const loadData = async () => {
-  await getSkirt(store.dispatch)
-  await getShirt(store.dispatch);
-  await getDress(store.dispatch);
-  await getTrousers(store.dispatch);
-}
+
+
 const store = configureStore();
+const loadData = () => {
+  getSkirt(store.dispatch)
+  getShirt(store.dispatch);
+  getDress(store.dispatch);
+  getTrousers(store.dispatch);
+}
+const fetchData = new Promise((resolve, reject) => {
+  loadData();
+})
 
 const jsx =( 
   <React.StrictMode>
@@ -47,7 +52,10 @@ const renderApp = () => {
     hasRendered = true;
   }
 };
+//loadData();
+
 ReactDOM.render(jsx2, document.getElementById('root'));
+
 firebase.auth().onAuthStateChanged(function(user){
   if(user){console.log(user);
     store.dispatch(startSetLogin({name: user.displayName, email: user.email})).then((response) => {
@@ -58,9 +66,7 @@ firebase.auth().onAuthStateChanged(function(user){
     
   }else{
     store.dispatch(logout());
-    // loadData();
-    renderApp();
-    history.push('/')
+    setTimeout(renderApp, 2000)
   }
 }) 
 
