@@ -157,6 +157,10 @@
     margin: 10px;
 }
 
+.contact-icon {
+    font-size: 25px;
+}
+
 /* ---Address---- */
 .address {
     display: flex;

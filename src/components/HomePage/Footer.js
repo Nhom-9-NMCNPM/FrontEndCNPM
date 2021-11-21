@@ -68,29 +68,14 @@ const Footer = () => {
                         </div>
                     </div>
                     <div className="contact">
-                        <Link to="/"><i className="fa fa-facebook " aria-hidden="true"></i></Link>
-                        <Link to="/"><i className="fa fa-instagram " aria-hidden="true"></i></Link>
-                        <Link to="/"><i className="fa fa-youtube " aria-hidden="true"></i></Link>
-                        <Link to="/"><i className="fa fa-twitter " aria-hidden="true"></i></Link>
-                        <Link to="/"><i className="fa fa-weixin" aria-hidden="true"></i></Link>
+                        <Link to="/"><i className="fab fa-facebook contact-icon" aria-hidden="true"></i></Link>
+                        <Link to="/"><i className="fab fa-instagram contact-icon" aria-hidden="true"></i></Link>
+                        <Link to="/"><i className="fab fa-youtube contact-icon" aria-hidden="true"></i></Link>
+                        <Link to="/"><i className="fab fa-twitter contact-icon" aria-hidden="true"></i></Link>
 
                     </div>
                     <div className="address">
-                        <div className="address-left">
-                            <div className="address-title">
-                                Công ty TNHH Mỹ Phục
-                            </div>
-                            <div className="address-content">
-                                0104972419 - Ngày cấp: 27/10/2010 - Nơi cấp: Sở kế hoạch và đầu tư Hà Nội
-                                <br />
-                                Trụ sở chính: Phòng 208.2, Trung Tâm Thương Mại VinCom Galleriers, số 114 Mai Hắc Đế, Phường Lê Đại
-                                Hành, Quận Hai Bà Trưng, Thành phố Hà Nội
-                            </div>
-                        </div>
                         <div className="address-right">
-                            <div className="address-copyright">
-                                @ 2021 Eva de Eva
-                            </div>
                             <div className="address-tem">
                                 <Link to="/">
                                     <img src="https://theme.hstatic.net/200000000133/1000569834/14/logo-bct.png?v=5160" alt="anh" />
