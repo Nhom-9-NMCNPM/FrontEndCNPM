@@ -8,31 +8,36 @@
 }
 
 .field-info {
+    display: flex;
     padding-bottom: 15px;
 }
+
+.field-info>label {
+    width: 10%;
+}
+
 .ReactModalPortal>div {
     opacity: 0;
+}
 
-  }
-  
-  .ReactModalPortal .ReactModal__Overlay {
+.ReactModalPortal .ReactModal__Overlay {
     align-items: center;
     display: flex;
     justify-content: center;
     transition: opacity 200ms ease-in-out;
-  }
-  
-  .ReactModalPortal .ReactModal__Overlay--after-open {
+}
+
+.ReactModalPortal .ReactModal__Overlay--after-open {
     opacity: 1;
     z-index: 101;
-    background-color: rgba(127,127,127,0.55) !important;
-  }
-  
-  .ReactModalPortal .ReactModal__Overlay--before-close {
+    background-color: rgba(127, 127, 127, 0.55) !important;
+}
+
+.ReactModalPortal .ReactModal__Overlay--before-close {
     opacity: 0;
-  }
-  
-  .modal-react {
+}
+
+.modal-react {
     background: #fff;
     /* color: white; */
     width: 80rem;
@@ -48,21 +53,22 @@
     z-index: 100;
     height: 48rem;
     padding: 2rem 0;
-  }
-  
-  .modal__title {
+}
+
+.modal__title {
     margin: 0 0 1.6rem 0;
-    padding: 1rem 0 2rem 0; 
-  }
-  
-  .modal-body-react{
+    padding: 1rem 0 2rem 0;
+}
+
+.modal-body-react {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-top: 4rem;
-  }
-  .login-with{
+}
+
+.login-with {
     padding: .5rem .5rem;
     width: 25rem;
     background-color: #fff;
@@ -70,31 +76,38 @@
     justify-content: space-around;
     cursor: pointer;
     align-items: center;
-  }
-  .login-with>p{
-      margin:0;
-  }
-.close-modal{
+}
+
+.login-with>p {
+    margin: 0;
+}
+
+.close-modal {
     position: absolute;
     top: 2rem;
     right: 2rem;
     cursor: pointer;
 }
-.modal-sub{
+
+.modal-sub {
     padding: 2rem 0;
     margin-top: 2rem;
     width: 100%;
     border-top: 1px solid;
 }
-.modal-sub>a{
+
+.modal-sub>a {
     color: #fe2c55;
 }
-.payment{
-  height:10rem;
+
+.payment {
+    height: 10rem;
 }
-.sub-input{
-  width: 6.5rem;
+
+.sub-input {
+    width: 6.5rem;
 }
-.modal-user{
-   width:75rem;
+
+.modal-user {
+    width: 75rem;
 }

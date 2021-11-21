@@ -19,10 +19,14 @@ const NavHeader = ({user,cart, removeCart}) => {
         const handleHeaderNav = () => {
             if (window.pageYOffset >= sticky) {
                 headerNav.classList.add("sticky")
-                headerSub.style.top = "80px"
+                if(!user.admin) {
+                    headerSub.style.top = "80px"
+                }
             } else {
                 headerNav.classList.remove("sticky")
-                headerSub.style.top = "115px"
+                if(!user.admin) {
+                    headerSub.style.top = "115px"
+                }
             }
         }
     }, [])
@@ -40,15 +44,16 @@ const NavHeader = ({user,cart, removeCart}) => {
                        <Link to="/">
                             <img alt="anh" src="https://file.hstatic.net/1000358207/file/logo_eva.svg" className="header-logo-img" />
                         </Link>
+                        
                     </div>
 
-                    <div className="header-nav-main">
+                    <div className="header-nav-main" >
                         <ul className="header-nav-content">
                             <li className="header-nav-content-item">
-                               <Link to="/" className="header-nav-content-item-link" title="Hàng mới về">HÀNG MỚI VỀ</Link>
+                               {user.admin ?<Link to="/admin-skirt" className="header-nav-content-item-link" title="VÁY">VÁY</Link> :<Link to="/" className="header-nav-content-item-link" title="Hàng mới về">HÀNG MỚI VỀ</Link>}
                             </li>
                             <li className="header-nav-content-item hasItemMenu">
-                               <Link to="/product" className="header-nav-content-item-link" title="Sản phẩm">SẢN PHẨM</Link>
+                                {user.admin ? <Link to="/admin-trousers" className="header-nav-content-item-link" title="QUẦN">QUẦN</Link>  :         <>       <Link to="/product" className="header-nav-content-item-link" title="Sản phẩm">SẢN PHẨM</Link>
                                 <div className="header-sub-nav">
                                     <div className="sub-nav-list">
                                         <ul>
@@ -83,28 +88,24 @@ const NavHeader = ({user,cart, removeCart}) => {
                                         </ul>
                                     </div>
 
-                                </div>
+                                </div></>}
                             </li>
-                               {
-                                   user.admin&&<li className="header-nav-content-item hasItemMenu"><Link to="/table" className="header-nav-content-item-link" title="Chọn theo dịp">QUẢN LÝ</Link></li>
-                               }
-                    
                             <li className="header-nav-content-item">
-                               <Link to="/" className="header-nav-content-item-link" title="Ưu đãi">ƯU ĐÃI</Link>
+                               {user.admin ? <Link to="/admin-shirt" className="header-nav-content-item-link" title="ÁO">ÁO</Link> :<Link to="/" className="header-nav-content-item-link" title="Ưu đãi">ƯU ĐÃI</Link>}
                             </li>
                             
                             <li className="header-nav-content-item">
-                               <Link to="/" className="header-nav-content-item-link" title="Phụ kiện">PHỤ KIỆN</Link>
+                               {user.admin ? <Link to="/admin-dress" className="header-nav-content-item-link" title="ĐẦM">ĐẦM</Link>:<Link to="/" className="header-nav-content-item-link" title="Phụ kiện">PHỤ KIỆN</Link>}
                             </li>
 
                         </ul>
                     </div>
 
-                    <div className="header-nav-right">
+                    <div className={`header-nav-right ${user.admin && "d-none"}`}>
                         <form action="search" className="header-form">
                             <input type="text" className="header-search" placeholder="Tìm sản phẩm..." />
                             <input type="submit" className="header-search-btn" value="" />
-                        </form>
+                        </form> 
                         <div className="header-user">
                            <Link to="/account" title="Tài khoản">
                                 <img alt="anh" src="https://theme.hstatic.net/200000000133/1000569834/14/accountIcon.png?v=5127"
@@ -168,6 +169,7 @@ const NavHeader = ({user,cart, removeCart}) => {
                         </div>
                     </div>
                 </div>
+                
              </div>
         </div>
     )

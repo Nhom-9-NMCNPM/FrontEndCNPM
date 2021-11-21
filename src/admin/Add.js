@@ -53,6 +53,17 @@ const Add = ({isDisplay, add, loading, error, setShowModalAdd}) => {
                     ...newData
                 }}
             })
+            setName('')
+            setDescription('')
+            setPrice(0)
+            setCode('')
+            setSize_M(0)
+            setSize_L(0)
+            setSize_S(0)
+            setSize_XL(0)
+            setMaterial('')
+            setColor('')
+            setFile([])
             setShowModalAdd(false);
             if (loading) return <LoadingPage />;
             alert("Thêm thành công!");

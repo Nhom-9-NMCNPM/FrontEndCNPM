@@ -9,23 +9,36 @@ import MainProduct from "./HomePage/MainProduct"
 import NavHeader from "./HomePage/NavHeader"
 import News from "./HomePage/News"
 import Slider from "./HomePage/Slider"
+import { connect } from "react-redux"
+import { Redirect } from "react-router"
+const Home = ({user}) => { 
+    if( user.admin) {
+        return (
+            <Redirect to="/admin-shirt"></Redirect>
+            
+        )
+    } else {
 
-const Home = () => { 
-    return (
-        <div>
-            <NavHeader />
-            <Slider />
-            <MainProduct/>
-            <MainNewProduct />
-            <IntroEliteProduct />
-            <MainEliteProduct />
-            <BackgroundFashion />
-            <News />
-            <FeedBack/>
-            <FindShop/>
-            <Footer/>   
-        </div>
-    )
+        return (
+            <div>
+                <NavHeader />
+                <Slider />
+                <MainProduct/>
+                <MainNewProduct />
+                <IntroEliteProduct />
+                <MainEliteProduct />
+                <BackgroundFashion />
+                <News />
+                <FeedBack/>
+                <FindShop/>
+                <Footer/>   
+            </div>
+        )
+    }
 }
-
-export default Home
+const mapStateToProps = (state) => {
+    return {
+        user : state.User,
+    }
+}
+export default connect(mapStateToProps)(Home)

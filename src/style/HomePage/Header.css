@@ -9,6 +9,14 @@
 
 /* -----------Header---------------- */
 
+.admin-login {
+    padding-left: 18px;
+    padding-top: 13px;
+    font-size: 18px;
+    width: 100%;
+    background: #fff;
+}
+
 header {
     width: 100%;
 }

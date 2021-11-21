@@ -13,6 +13,10 @@ import ProDress from '../components/Product/ProDress';
 import ProShirt from '../components/Product/ProShirt';
 import ProSkirt from '../components/Product/ProSkirt';
 import ProTrousers from '../components/Product/ProTrousers';
+import Dress from '../admin/components/Dress';
+import Shirt from '../admin/components/Shirt';
+import Skirt from '../admin/components/Skirt';
+import Trousers from '../admin/components/Trousers';
 export const history = createBrowserHistory();
 const Approuter = () => (
         <Router history={history}>
@@ -27,6 +31,11 @@ const Approuter = () => (
                     <Route path="/shirt" component={ProShirt} />
                     <Route path="/skirt" component={ProSkirt} />
                     <Route path="/trousers" component={ProTrousers} />
+                    <PrivateRouter path="/admin-shirt" component={Shirt} />
+                    <PrivateRouter path="/admin-skirt" component={Skirt} />
+                    <PrivateRouter path="/admin-trousers" component={Trousers} />
+                    <PrivateRouter path="/admin-dress" component={Dress} />
+
                 </Switch>
             </div>
         </Router>

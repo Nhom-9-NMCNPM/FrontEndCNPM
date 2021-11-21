@@ -14,10 +14,6 @@ const deleteSkirt = (id)=>{
             deleteSkirtId: id
         }
     })
-    .then(response =>  {
-        alert("Xoa thanh cong")
-       
-    })
     .catch(err =>  {
         alert("Hệ thống xảy ra lỗi, vui lòng thử lại!")});
 }

@@ -6,6 +6,7 @@
     float: right;
     border-color: #000;
     border-radius: 8px;
+    margin-bottom: 20px;
 }
 
 .btn-remove {
@@ -35,7 +36,7 @@
     height: 50px;
 }
 
-.content {
+.content {  
     max-width: 200px;
     word-wrap: break-word;
 }
@@ -52,4 +53,17 @@
 
 .table-tr th {
     background: #ccc;
+}
+
+.event-btn {
+    display: flex;
+}
+
+.custom-modal-react {
+    width: 18%;
+    height: 26%;
+}
+
+.btn-modal-remove {
+    margin-right: 20px;
 }
