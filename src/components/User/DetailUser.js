@@ -26,14 +26,14 @@ const DetailUser = ({user, login, logout}) => {
                             <h3>TÀI KHOẢN</h3>
                             <ul className="user-list">
                                 <li>
-                                    <a href="/">
+                                    <Link to="/">
                                         Thông tin tài khoản
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a href="/">
+                                    <Link to="/">
                                         Danh sách địa chỉ
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
                                     <span onClick={logout}>

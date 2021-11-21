@@ -112,7 +112,7 @@ const NavHeader = ({user,cart, removeCart}) => {
                             </Link>
                         </div>
                         <div className="header-cart">
-                           <Link to="/" title="Giỏ hàng">
+                           <Link to="#" title="Giỏ hàng">
                                
                                 <img alt="anh" src="https://theme.hstatic.net/200000000133/1000569834/14/bagIcon2.png?v=5127"
                                     title="Giỏ hàng" className="header-cart-img" />

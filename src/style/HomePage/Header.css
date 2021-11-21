@@ -105,7 +105,8 @@ header {
     right: 24%;
     width: 51%;
     min-width: 127px;
-    padding: 20px 0;
+    padding-top: 20px;
+    padding-right: 22px;
     background: #fff;
     opacity: 0;
     visibility: hidden;
