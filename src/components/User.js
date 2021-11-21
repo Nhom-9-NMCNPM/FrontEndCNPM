@@ -4,6 +4,7 @@ import NavHeader from "./HomePage/NavHeader"
 import FindShop from "./HomePage/FindShop"
 import Footer from "./HomePage/Footer"
 const User = () => {
+    window.scrollTo(0,0)
     return (
         <div>
             <NavHeader />

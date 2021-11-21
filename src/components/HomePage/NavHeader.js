@@ -113,16 +113,25 @@ const NavHeader = ({user,cart, removeCart}) => {
                         </div>
                         <div className="header-cart">
                            <Link to="/" title="Giỏ hàng">
+                               
                                 <img alt="anh" src="https://theme.hstatic.net/200000000133/1000569834/14/bagIcon2.png?v=5127"
                                     title="Giỏ hàng" className="header-cart-img" />
                             </Link>
                             <div className="header__cart-list">
-                                {/* <img src="../../../public/img/no_cart.png" alt="" class="header__cart-list--no-cart-img" />
-                                <span class="header__cart-list--no-cart-msg">
-                                    Chưa có sản phẩm
-                                </span>  */}
-                                <h4 className="header__cart-heading">Sản phẩm đã thêm</h4>
-                                    <ul className="header__cart-list-item">
+                                {( cart.length === 0)  ? 
+                                     ( <>
+                                        
+                                        <i className="fas fa-cart-arrow-down no--cart"></i>
+                                        <span className="header__cart-list--no-cart-msg">
+                                            Chưa có sản phẩm
+                                        </span> 
+                                        </>
+                                    )
+                                    :
+                                    (
+                                        <>
+                                            <h4 className="header__cart-heading">Sản phẩm đã thêm</h4>
+                                        <ul className="header__cart-list-item">
                                         {cart.map((item,index) => {
                                             return (
                                                 <li className="header__cart-item" key={index}>
@@ -151,7 +160,10 @@ const NavHeader = ({user,cart, removeCart}) => {
                                         <li className="cart-checkout">
                                             <button>THANH TOÁN</button>
                                         </li>
-                                    </ul>
+                                    </ul></>
+                                    )
+                                }
+
                             </div>
                         </div>
                     </div>

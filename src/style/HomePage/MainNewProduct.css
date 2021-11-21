@@ -45,6 +45,10 @@
 
 /* ------New-Product-Slider-------- */
 
+.main-new-product-slide {
+    min-width: 1%;
+}
+
 .new-product-slide-item {
     height: auto;
     padding: 0 15px;

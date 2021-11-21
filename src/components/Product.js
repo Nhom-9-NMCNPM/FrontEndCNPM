@@ -7,6 +7,7 @@ import Footer from "./HomePage/Footer"
 import FindShop from "./HomePage/FindShop"
 import { connect } from "react-redux"
 const Product=({dress,trousers}) => {
+    window.scrollTo(0,0)
     return (
        <div>
            <NavHeader />
