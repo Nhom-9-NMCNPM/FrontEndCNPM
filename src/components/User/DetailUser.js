@@ -1,9 +1,9 @@
 import "../../style/User/DetailUser.css"
 import "../../style/HomePage/responsive.css"
 import {connect} from "react-redux";
-import {startLogin} from'../../actions/user';
+import {startLogin, stopLogin} from'../../actions/user';
 import { Link } from "react-router-dom";
-const DetailUser = ({user, login}) => {
+const DetailUser = ({user, login, logout}) => {
     return (
         <div>
             <div className="title-user">
@@ -36,9 +36,9 @@ const DetailUser = ({user, login}) => {
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/">
+                                    <span onClick={logout}>
                                         Đăng xuất
-                                    </a>
+                                    </span>
                                 </li>
                             </ul>
                         </div>
@@ -63,6 +63,7 @@ const mapStateToProps = (state)  => {
 const mapDispatchToProps = (dispatch)=>{
     return {
         login:()=> dispatch(startLogin()),
+        logout:()=> dispatch(stopLogin())
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(DetailUser)

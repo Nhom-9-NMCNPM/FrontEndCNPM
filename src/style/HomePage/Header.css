@@ -116,7 +116,7 @@ header {
     border-left: 1px solid var(--color-border);
     border-right: 1px solid var(--color-border);
     border-bottom: 1px solid var(--color-border);
-    z-index: 10;
+    z-index: 100;
 }
 
 .sub-nav-list {

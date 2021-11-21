@@ -53,14 +53,14 @@ firebase.auth().onAuthStateChanged(function(user){
     store.dispatch(startSetLogin({name: user.displayName, email: user.email})).then((response) => {
       // loadData();
       renderApp();
-     // history.push('/home')
+     history.push('/')
     })
     
   }else{
     store.dispatch(logout());
     // loadData();
     renderApp();
-    //history.push('/home')
+    history.push('/')
   }
 }) 
 

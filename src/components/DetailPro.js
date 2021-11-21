@@ -13,13 +13,13 @@ import "../style/Toast.css"
 const size = ['M','S','L', 'XL']
 const DetailPro = ({product, match, dispatch}) => { 
   window.scrollTo(0,0)
-  const [keyActive, setkeyActive] = useState('')
+  const [keyActive, setkeyActive] = useState('M')
   const [quantity, setQuantity] = useState(1)
   const detailPro = product.filter((item) => item.codePro === match.params.code)[0];
   const [activeImg, setActiveImg ] = useState(0)
 
 
-  function toast({ title = "", message = "", type = "success", duration = 3000 }) {
+  function toast({ title = "", message = "", type = "success", duration = 1000 }) {
     const main = document.getElementById("toast");
     if (main) {
       const toast = document.createElement("div");
@@ -27,7 +27,7 @@ const DetailPro = ({product, match, dispatch}) => {
       // Auto remove toast
       const autoRemoveId = setTimeout(function () {
         main.removeChild(toast);
-      }, duration + 2000);
+      }, duration + 1000);
   
       // Remove toast when clicked
       toast.onclick = function (e) {
@@ -66,7 +66,7 @@ const DetailPro = ({product, match, dispatch}) => {
       title: "Thành công!",
       message: "Bạn đã thêm vào giỏ hàng",
       type: "success",
-      duration: 5000
+      duration: 1000
     })
     console.log(1);
   }

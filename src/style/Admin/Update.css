@@ -24,7 +24,7 @@
   
   .ReactModalPortal .ReactModal__Overlay--after-open {
     opacity: 1;
-    z-index: 10;
+    z-index: 101;
     background-color: rgba(127,127,127,0.55) !important;
   }
   

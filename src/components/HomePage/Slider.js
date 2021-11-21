@@ -9,7 +9,7 @@ const Slider = () => {
         $('.img-slider').slick({
             slidesToShow: 1, 
             dots: false,
-            infinite: true,
+            infinite: true, 
             autoplay: true,
             autoplaySpeed: 3000,
             fade: true,
