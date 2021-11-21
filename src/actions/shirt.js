@@ -10,3 +10,16 @@ export const addShirt = (shirt) => {
         data:shirt,
     }
 }
+export const removeShirt = (id) => {
+    return {
+        type: 'REMOVE-SHIRT',
+        id
+    }
+}
+export const updateShirt = (id,shirt) => {
+    return {
+        type: 'UPDATE-SHIRT',
+        id,
+        shirt
+    }
+}

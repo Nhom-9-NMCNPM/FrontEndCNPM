@@ -1,7 +1,9 @@
 .product-container {
   margin: 20px 0px 20px 40px;
 }
-
+.product{
+  width: 100%;
+}
 .thumb-item {
   line-height: 0;
   margin-bottom: 10px;

@@ -15,8 +15,9 @@ const Slider = () => {
             fade: true,
             cssEase: 'linear',
             arrows: false,
-        });
-    }, []) 
+          });          
+    },[])
+    
     return (
         <div>
             <div className="img-slider">

@@ -4,6 +4,24 @@ const trousersReducer = (state=[], action) =>{
             return [
                 ...action.data,
             ]
+        case 'ADD-TROUSERS':
+            return [
+                ...state,
+                action.data
+            ]
+        case 'REMOVE-TROUSERS': 
+            return state.filter((item) => item.id!== action.id);
+        case 'UPDATE-TROUSERS':
+            return state.map((item) =>{
+                if(item.id===action.id){
+                    return {
+                        ...item,
+                        ...action.trousers,
+                    }
+                }else{
+                    return item;
+                }
+            })
         default: return state;
     }
 }

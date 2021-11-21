@@ -9,6 +9,19 @@ const shirtReducer = (state=[], action) =>{
                 ...state,
                 action.data
             ]
+        case 'REMOVE-SHIRT': 
+            return state.filter((item) => item.id!== action.id);
+        case 'UPDATE-SHIRT':
+            return state.map((item) =>{
+                if(item.id===action.id){
+                    return {
+                        ...item,
+                        ...action.shirt,
+                    }
+                }else{
+                    return item;
+                }
+            })
         default: return state;
     }
 }

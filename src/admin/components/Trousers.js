@@ -4,11 +4,26 @@ import Add from "../Add";
 import Update from "../Update";
 import { connect } from "react-redux";
 import deleteTrousers from "../../mutation/deleteTrousers";
+import { addTrousers, updateTrousers, removeTrousers } from "../../actions/trousers";
 const ADD_TROUSERS = gql`
     mutation Mutation($data: createTrousersInput!) {
         createTrousers(data: $data) {
             id
             name
+            description
+            img
+            updatedAt
+            createdAt
+            price
+            codePro
+            size_M
+            size_S
+            size_L
+            size_XL
+            material
+            color
+            publish
+            newPro
         }
     }
 `;
@@ -17,15 +32,37 @@ const UPDATE_TROUSERS = gql`
         updateTrousers(data: $data, id: $updateTrousersId) {
             id
             name
+            description
+            img
+            updatedAt
+            createdAt
+            price
+            codePro
+            size_M
+            size_S
+            size_L
+            size_XL
+            material
+            color
+            publish
+            newPro
         }
     }
 `;
-const Trousers = ({trousers}) => {
+const Trousers = ({trousers, addTrousers, updateTrousers, removeTrousers}) => {
     const [showModalAdd, setShowModalAdd]= useState(false);
     const [flag, setFlag] = useState(0);
     const [showModalUpdate, setShowModalUpdate]= useState(false);
-    const [update, { data_update, loading_update, error_update }] = useMutation(UPDATE_TROUSERS);
-    const [add, { data, loading, error }] = useMutation(ADD_TROUSERS);
+    const [update, { data_update, loading_update, error_update }] = useMutation(UPDATE_TROUSERS,{
+        onCompleted: (data)=>{
+            updateTrousers(data.updateTrousers.id, data.updateTrousers);
+        }
+    });
+    const [add, { data, loading, error }] = useMutation(ADD_TROUSERS,{
+        onCompleted:(data)=>{
+            addTrousers(data.createTrousers)
+        }
+    });
     
         
         const handleUpdateTrousers = (id) => {
@@ -35,6 +72,7 @@ const Trousers = ({trousers}) => {
 
         const handleRemoveTrousers = (id) => {
             deleteTrousers(id);
+            removeTrousers(id);
         }
         const handleAddTrousers = () => {
             setShowModalAdd(true);
@@ -66,16 +104,17 @@ const Trousers = ({trousers}) => {
                 </thead>
                 <tbody>
                 {trousers.map((item,index) => {
-
+                    var createdAt = new Date(parseFloat(item.createdAt));
+                    var updatedAt = new Date(parseFloat(item.updatedAt));
                         return (
                             <tr key={item.id}>
                                 <th scope="row">{index + 1}</th>
                                 <td className='content'>{item.id}</td>
-                                <td className='content'>21/2/30</td>
-                                <td className='content'>21/42/3</td>
+                                <td className='content'>{createdAt.toLocaleString()}</td>
+                                <td className='content'>{updatedAt.toLocaleString()}</td>
                                 <td className='content'>{item.name}</td>
                                 <td className='content '>{item.description}</td>
-                                <td className='content content-img'>{item.img}</td>
+                                <td className='content '>{item.img.join('\n')}</td>
                                 <td className='content'>{item.price}</td>
                                 <td className='content'>{item.codePro}</td>
                                 <td className='content'>{item.size_M}</td>
@@ -117,5 +156,9 @@ const mapStateToProps = (state) => {
         trousers: state.Trousers,
     }
 }
-
-export default connect(mapStateToProps)(Trousers)
+const mapDispatchToProps = (dispatch) =>({
+    addTrousers:(data)=> dispatch(addTrousers(data)),
+    updateTrousers:(id,data) => dispatch(updateTrousers(id,data)),
+    removeTrousers:(id) => dispatch(removeTrousers(id)),
+})
+export default connect(mapStateToProps, mapDispatchToProps)(Trousers)
