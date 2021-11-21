@@ -117,7 +117,7 @@ const NavHeader = ({user,cart, removeCart}) => {
                                     title="Giỏ hàng" className="header-cart-img" />
                             </Link>
                             <div className="header__cart-list">
-                                {/* <img src="./assets/img/no_cart.png" alt="" class="header__cart-list--no-cart-img" />
+                                {/* <img src="../../../public/img/no_cart.png" alt="" class="header__cart-list--no-cart-img" />
                                 <span class="header__cart-list--no-cart-msg">
                                     Chưa có sản phẩm
                                 </span>  */}

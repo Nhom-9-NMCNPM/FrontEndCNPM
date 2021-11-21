@@ -2,6 +2,7 @@ import "../../style/User/DetailUser.css"
 import "../../style/HomePage/responsive.css"
 import {connect} from "react-redux";
 import {startLogin} from'../../actions/user';
+import { Link } from "react-router-dom";
 const DetailUser = ({user, login}) => {
     return (
         <div>
@@ -43,6 +44,10 @@ const DetailUser = ({user, login}) => {
                         </div>
                         <div className="col-9 user-info-detail">
                             <h3>THÔNG TIN TÀI KHOẢN</h3>
+                            <div className="user-name">{user.name}</div>
+                            <div className="user-email">{user.email}</div>
+                            <Link to="/" className="user-add">Xem địa chỉ</Link>
+        
                         </div>
                     </div>
                 </div>)

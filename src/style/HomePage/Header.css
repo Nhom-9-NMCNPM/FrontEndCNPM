@@ -356,11 +356,10 @@ header {
 
 .header__cart-list--no-cart-img {
     width: 54%;
-    display: none;
 }
 
 .header__cart-list--no-cart-msg {
-    display: none;
+   
     font-size: 1.4rem;
     margin-top: 14px;
     color: var(--text-color);
@@ -395,4 +394,8 @@ header {
 .cart-checkout button:hover {
     color: #fff;
     background: var(--color-hover);
+}
+
+.header__cart-list > img {
+    width: 100px;
 }

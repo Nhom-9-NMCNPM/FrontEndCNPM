@@ -51,3 +51,19 @@
     border-bottom: 1px solid #f1f1f1;
     padding-bottom: 8px;
 }
+
+.user-name {
+    font-size: 18px;
+    margin-bottom: 4px;
+}
+
+.user-email {
+    margin-bottom: 4px;
+}
+.user-add {
+    transition: color .2s linear;
+}
+.user-add:hover {
+    text-decoration: none;
+    color: #E29481;
+}
