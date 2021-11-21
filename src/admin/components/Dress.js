@@ -4,11 +4,26 @@ import Update from "../Update";
 import { connect } from "react-redux";
 import { gql, useMutation } from '@apollo/client';
 import deleteDress from '../../mutation/deleteDress';
+import {addDress, updateDress, removeDress} from '../../actions/dress';
 const ADD_DRESS = gql`
     mutation Mutation($data: createDressInput!) {
         createDress(data: $data) {
             id
             name
+            description
+            img
+            updatedAt
+            createdAt
+            price
+            codePro
+            size_M
+            size_S
+            size_L
+            size_XL
+            material
+            color
+            publish
+            newPro
         }
 }
 `
@@ -17,15 +32,39 @@ const UPDATE_DRESS = gql`
         updateDress(data: $data, id: $updateDressId) {
             id
             name
+            description
+            img
+            updatedAt
+            createdAt
+            price
+            codePro
+            size_M
+            size_S
+            size_L
+            size_XL
+            material
+            color
+            publish
+            newPro
         }
     }
 `;
-const Dress = ({dress}) => {
+const Dress = ({dress, addDress, updateDress, removeDress }) => {
     const [showModalAdd, setShowModalAdd]= useState(false);
     const [flag, setFlag] = useState(0);
     const [showModalUpdate, setShowModalUpdate]= useState(false);
-    const [update, { data_update, loading_update, error_update }] = useMutation(UPDATE_DRESS);
-    const [add, { data, loading, error }] = useMutation(ADD_DRESS);
+    const [update, { data_update, loading_update, error_update }] = useMutation(UPDATE_DRESS,{
+        onCompleted: (data)=>{
+            updateDress(data.updateDress.id, data.updateDress);
+        }
+    });
+    const [add, { data, loading, error }] = useMutation(ADD_DRESS,
+            {
+                onCompleted:(data)=>{
+                    addDress(data.createDress);
+                }
+            }
+        );
         
         const handleUpdateDress= (id) => {
             setFlag(id);
@@ -34,6 +73,7 @@ const Dress = ({dress}) => {
 
         const handleRemoveDress = (id) => {
             deleteDress(id);
+            removeDress(id);
         }
 
         const handleAddDress = () => {
@@ -67,16 +107,17 @@ const Dress = ({dress}) => {
                 <tbody>
                     
                     {dress.map((item,index) => {
-
+                        var createdAt = new Date(parseFloat(item.createdAt));
+                        var updatedAt = new Date(parseFloat(item.updatedAt));
                         return (
                             <tr key={item.id}>
                                 <th scope="row">{index + 1}</th>
                                 <td className='content'>{item.id}</td>
-                                <td className='content'>21/2/30</td>
-                                <td className='content'>21/42/3</td>
+                                <td className='content'>{createdAt.toLocaleString()}</td>
+                                <td className='content'>{updatedAt.toLocaleString()}</td>
                                 <td className='content'>{item.name}</td>
                                 <td className='content '>{item.description}</td>
-                                <td className='content content-img'>{item.img}</td>
+                                <td className='content '>{item.img.join('\n')}</td>
                                 <td className='content'>{item.price}</td>
                                 <td className='content'>{item.codePro}</td>
                                 <td className='content'>{item.size_M}</td>
@@ -121,5 +162,11 @@ const mapStateToProps = (state) => {
         dress: state.Dress,
     }
 }
-
-export default connect(mapStateToProps)(Dress)
+const mapDispatchToProps = (dispatch) =>{
+    return {
+        addDress:(data) => dispatch(addDress(data)),
+        updateDress:(id,data) => dispatch(updateDress(id,data)),
+        removeDress:(id) => dispatch(removeDress(id)),
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Dress)

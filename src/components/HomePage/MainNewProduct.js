@@ -15,7 +15,7 @@ const MainNewProduct = ({product}) => {
     }
     return (
         <div>
-             <div className="main-new-product container-xl">
+             <div className="main-new-product">
                 <div className="main-new-product-title">
                     <h2 className="product-title">
                         <Link to="/product" title="SẢN PHẨM MỚI NHẤT">

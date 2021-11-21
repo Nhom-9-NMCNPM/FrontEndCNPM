@@ -11,6 +11,8 @@ const getTrousers = (dispatch) => {
                     name
                     description
                     img
+                    updatedAt
+                    createdAt
                     price
                     codePro
                     size_M

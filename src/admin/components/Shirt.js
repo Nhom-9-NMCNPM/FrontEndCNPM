@@ -1,32 +1,72 @@
 import { useState} from "react"
 import Add from "../Add";
 import Update from "../Update";
+import LoadingPage from "../../components/LoadingPage";
 import { connect } from "react-redux";
 import { gql, useMutation } from '@apollo/client';
 import deleteShirt from "../../mutation/deleteShirt";
+import {addShirt, updateShirt, removeShirt} from '../../actions/shirt';
 const ADD_SHIRT = gql`
     mutation Mutation($data: createShirtInput!) {
         createShirt(data: $data) {
             id
             name
+            description
+            img
+            updatedAt
+            createdAt
+            price
+            codePro
+            size_M
+            size_S
+            size_L
+            size_XL
+            material
+            color
+            publish
+            newPro
         }
     }
 `;
 const UPDATE_SHIRT = gql`
     mutation Mutation($data: updateShirtInput!, $updateShirtId: Int!) {
         updateShirt(data: $data, id: $updateShirtId) {
-        id
-        name
+            id
+            name
+            description
+            img
+            updatedAt
+            createdAt
+            price
+            codePro
+            size_M
+            size_S
+            size_L
+            size_XL
+            material
+            color
+            publish
+            newPro
         }
     }
 `;
 
-const Shirt = ({shirt}) => {
+const Shirt = ({shirt, addShirt, updateShirt, removeShirt}) => {
     const [showModalAdd, setShowModalAdd]= useState(false);
     const [flag, setFlag] = useState(0);
     const [showModalUpdate, setShowModalUpdate]= useState(false);
-    const [add, { data, loading, error }] = useMutation(ADD_SHIRT);
-    const [update, { data_update, loading_update, error_update }] = useMutation(UPDATE_SHIRT);
+    const [add, { data, loading, error }] = useMutation(ADD_SHIRT,{
+            onCompleted:(data)=>{
+                addShirt(data.createShirt)
+            }
+        }
+    );
+    
+    const [update, { data_update, loading_update, error_update }] = useMutation(UPDATE_SHIRT,{
+        onCompleted: (data)=>{
+            updateShirt(data.updateShirt.id, data.updateShirt);
+        }
+    });
         const handleUpdateShirt = (id) => {
             setFlag(id);
             setShowModalUpdate(true);
@@ -35,6 +75,7 @@ const Shirt = ({shirt}) => {
 
         const handleRemoveShirt = (id) => {
             deleteShirt(id);
+            removeShirt(id);
         }
 
         const handleAddShirt = () => {
@@ -69,16 +110,17 @@ const Shirt = ({shirt}) => {
                 <tbody>
                     
                     {shirt.map((item,index) => {
-
+                        var createdAt = new Date(parseFloat(item.createdAt));
+                        var updatedAt = new Date(parseFloat(item.updatedAt));
                         return (
-                            <tr key={item.id}>
+                            <tr key={index}>
                                 <th scope="row">{index + 1}</th>
                                 <td className='content'>{item.id}</td>
-                                <td className='content'>21/2/30</td>
-                                <td className='content'>21/42/3</td>
+                                <td className='content'>{createdAt.toLocaleString()}</td>
+                                <td className='content'>{updatedAt.toLocaleString()}</td>
                                 <td className='content'>{item.name}</td>
                                 <td className='content '>{item.description}</td>
-                                <td className='content content-img'>{item.img}</td>
+                                <td className='content '>{item.img.join('\n')}</td>
                                 <td className='content'>{item.price}</td>
                                 <td className='content'>{item.codePro}</td>
                                 <td className='content'>{item.size_M}</td>
@@ -120,5 +162,11 @@ const mapStateToProps = (state) => {
         shirt: state.Shirt,
     }
 }
-
-export default connect(mapStateToProps)(Shirt)
+const mapDispatchToProps = (dispatch) =>{
+    return {
+        addShirt:(shirt)=>dispatch(addShirt(shirt)),
+        updateShirt:(id,data) => dispatch(updateShirt(id,data)),
+        removeShirt:(id) => dispatch(removeShirt(id)),
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Shirt)

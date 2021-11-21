@@ -3,7 +3,7 @@ import React from 'react'
 import { gql, useMutation } from '@apollo/client';
 import { useState } from "react";
 import Modal from "react-modal";
-
+import LoadingPage from '../components/LoadingPage'
 const UPLOAD = gql`
     mutation Mutation($file: [Upload!]!) {
         upLoadFile(file: $file) {
@@ -33,29 +33,32 @@ const Add = ({isDisplay, add, loading, error, setShowModalAdd}) => {
             const numberSize_M = parseInt(size_M, 10);
             const numberSize_L = parseInt(size_L, 10);
             const numberSize_XL = parseInt(size_XL, 10);
+            const newData = {
+                name,
+                description,
+                price: newPrice,
+                codePro: code,
+                size_M:numberSize_M,
+                size_L:numberSize_L,
+                size_S: numberSize_S,
+                size_XL:numberSize_XL,
+                material,
+                color,
+                publish,
+                newPro,
+                img: data.upLoadFile.url,
+            }
             add({
                 variables:{data:{
-                    name,
-                    description,
-                    price: newPrice,
-                    codePro: code,
-                    size_M:numberSize_M,
-                    size_L:numberSize_L,
-                    size_S: numberSize_S,
-                    size_XL:numberSize_XL,
-                    material,
-                    color,
-                    publish,
-                    newPro,
-                    img: data.upLoadFile.url,
+                    ...newData
                 }}
             })
             setShowModalAdd(false);
+            if (loading) return <LoadingPage />;
             alert("Thêm thành công!");
-            window.location.reload();
         }
     })
-    if (loading) return 'Submitting...';
+    
     if (error) return `Submission error! ${error.message}`;
     const onhandleUpload = (e)=>{
         setFile(e.target.files);

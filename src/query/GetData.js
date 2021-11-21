@@ -11,6 +11,7 @@ const GET_DATA = gql`
   getDress {
     id
     createdAt
+    updatedAt
     name
     description
     img
@@ -28,6 +29,7 @@ const GET_DATA = gql`
   getTrousers {
     id
     createdAt
+    updatedAt
     name
     description
     img
@@ -45,6 +47,7 @@ const GET_DATA = gql`
   getShirt {
     id
     createdAt
+    updatedAt
     name
     description
     img
@@ -62,6 +65,7 @@ const GET_DATA = gql`
   getSkirt {
     id
     createdAt
+    updatedAt
     name
     description
     img

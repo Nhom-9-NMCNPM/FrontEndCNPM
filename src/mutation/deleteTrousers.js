@@ -16,7 +16,6 @@ const deleteTrousers = (id)=>{
     })
     .then(response =>  {
         alert("Xoa thanh cong")
-        window.location.reload();
     })
     .catch(err =>  {
         alert("Hệ thống xảy ra lỗi, vui lòng thử lại!")});
