@@ -10,11 +10,12 @@
 /* -----------Header---------------- */
 
 .admin-login {
-    padding-left: 18px;
+    padding-left: 222px;
     padding-top: 13px;
-    font-size: 18px;
-    width: 100%;
+    width: 30%;
     background: #fff;
+    float: right;
+    font-size: 30px;
 }
 
 header {
@@ -136,7 +137,8 @@ header {
 .sub-nav-list ul {
     margin: 0;
 }
-.count-product{
+
+.count-product {
     position: absolute;
     top: -7px;
     right: -8px;
@@ -144,6 +146,7 @@ header {
     padding: 0px 8px;
     border-radius: 50%;
 }
+
 .sub-nav-item {
     float: left;
     width: 25%;
@@ -425,6 +428,7 @@ header {
 .header__cart-list>img {
     width: 100px;
 }
-.header-cart{
+
+.header-cart {
     position: relative;
 }

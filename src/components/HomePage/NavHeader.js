@@ -101,7 +101,7 @@ const NavHeader = ({user,cart, removeCart}) => {
                         </ul>
                     </div>
 
-                    <div className={`header-nav-right ${user.admin && "d-none"}`}>
+                    {user.admin ?  <div className="admin-login">Quản lý cửa hàng</div>  :<div className="header-nav-right">
                         <form action="search" className="header-form">
                             <input type="text" className="header-search" placeholder="Tìm sản phẩm..." />
                             <input type="submit" className="header-search-btn" value="" />
@@ -168,7 +168,7 @@ const NavHeader = ({user,cart, removeCart}) => {
 
                             </div>
                         </div>
-                    </div>
+                    </div>}
                 </div>
                 
              </div>
