@@ -12,10 +12,23 @@
 .admin-login {
     padding-left: 222px;
     padding-top: 13px;
-    width: 30%;
     background: #fff;
     float: right;
     font-size: 30px;
+}
+
+.admin-login button {
+    height: 40px;
+    padding: 2px;
+    background: #fff;
+    border-color: #ccc;
+    border-radius: 4px;
+    font-weight: 400;
+    transition: all .2s linear;
+}
+.admin-login button:hover {
+    background: #E29481;
+    color: #fff;
 }
 
 header {
@@ -247,8 +260,8 @@ header {
 .header__cart-list {
     display: none;
     position: absolute;
-    top: 115px;
-    right: 27px;
+    top: 46px;
+    right: -12px;
     background: #fff;
     min-width: 21%;
     border-radius: 2px;

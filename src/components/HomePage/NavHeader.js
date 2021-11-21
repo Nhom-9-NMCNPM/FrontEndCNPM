@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom'
 import {useEffect} from 'react'
 import {connect} from 'react-redux'
 import format_curency from '../../utils/displayPrice';
+import {logout, startLogin, stopLogin} from'../../actions/user';
 import {removeCart} from '../../actions/cart'
-const NavHeader = ({user,cart, removeCart}) => {
+const NavHeader = ({user,cart, removeCart,logout}) => {
 
     useEffect(() => {
         const headerNav = document.querySelector('.header-nav')
@@ -20,12 +21,12 @@ const NavHeader = ({user,cart, removeCart}) => {
             if (window.pageYOffset >= sticky) {
                 headerNav.classList.add("sticky")
                 if(!user.admin) {
-                    headerSub.style.top = "80px"
+                    headerSub.style.top = "40px"
                 }
             } else {
                 headerNav.classList.remove("sticky")
                 if(!user.admin) {
-                    headerSub.style.top = "115px"
+                    headerSub.style.top = "46px"
                 }
             }
         }
@@ -101,7 +102,12 @@ const NavHeader = ({user,cart, removeCart}) => {
                         </ul>
                     </div>
 
-                    {user.admin ?  <div className="admin-login">Quản lý cửa hàng</div>  :<div className="header-nav-right">
+                    {user.admin ?  <div>
+                        <div className="admin-login">Quản lý cửa hàng
+                        <span><button onClick={logout}>ĐĂNG XUẤT</button></span>
+                        </div>
+                        
+                    </div>  :<div className="header-nav-right">
                         <form action="search" className="header-form">
                             <input type="text" className="header-search" placeholder="Tìm sản phẩm..." />
                             <input type="submit" className="header-search-btn" value="" />
@@ -160,7 +166,7 @@ const NavHeader = ({user,cart, removeCart}) => {
                                             )
                                         })}
                                         <li className="cart-checkout">
-                                            <button>THANH TOÁN</button>
+                                            <button>ĐẶT HÀNG</button>
                                         </li>
                                     </ul></>
                                     )
@@ -184,7 +190,8 @@ const mapStateToProps = (state)  => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        removeCart : (id,size) => dispatch(removeCart(id,size))
+        removeCart : (id,size) => dispatch(removeCart(id,size)),
+        logout : () => dispatch(stopLogin())
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(NavHeader);
