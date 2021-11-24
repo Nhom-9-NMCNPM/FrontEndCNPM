@@ -1,0 +1,79 @@
+.title-user {
+    text-align: center;
+    margin-bottom: 60px;
+    padding: 100px 15px;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.title-user h1 {
+    font-size: 44px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.title-user h1::after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 4px;
+    margin: 50px auto 0;
+    background: #000;
+}
+
+.user-sidebar h3,
+.user-info-detail h3 {
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    position: relative;
+   
+}
+
+.user-list li a {
+    display: block;
+    position: relative;
+    padding: 5px 0px;
+    transition: all .3s;
+}
+.user-list li span {
+    display: block;
+    position: relative;
+    padding: 5px 0px;
+    transition: all .3s;
+}
+.user-list li a:hover {
+    text-decoration: none;
+    color: #E29481;
+}
+
+.user-list li span:hover {
+    text-decoration: none;
+    color: #E29481;
+    cursor: pointer;
+}
+.user-info {
+    padding-bottom: 50px;
+}
+
+.user-info-detail h3 {
+    border-bottom: 1px solid #f1f1f1;
+    padding-bottom: 8px;
+}
+
+.user-name {
+    font-size: 18px;
+    margin-bottom: 4px;
+}
+
+.user-email {
+    margin-bottom: 4px;
+}
+.user-add {
+    transition: color .2s linear;
+}
+.user-add:hover {
+    text-decoration: none;
+    color: #E29481;
+}

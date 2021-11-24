@@ -4,31 +4,71 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import AppRouter, {history} from './router/AppRouter';
 import client from './client/client';
-// import {ApolloProvider} from '@apollo/client';
-// import {Provider} from 'react-redux';
-// import configureStore from './store/configureStore';
-// import {firebase} from './firebase/firebase';
-// import {startSetLogin, logout, stopLogin} from './actions/user';
-// const store = configureStore();
+import {ApolloProvider} from '@apollo/client';
+import {Provider} from 'react-redux';
+import configureStore from './store/configureStore';
+import getShirt from './query/getShirt';
+import getDress from './query/getDress';
+import {firebase} from './firebase/firebase';
+import {startSetLogin, logout, stopLogin} from './actions/user';
+import getSkirt from './query/getSkirt'
+import getTrousers from './query/getTrousers';
+import 'slick-slider';
+import GetData from './query/GetData';
+
+
+const store = configureStore();
+const loadData = () => {
+  getSkirt(store.dispatch)
+  getShirt(store.dispatch);
+  getDress(store.dispatch);
+  getTrousers(store.dispatch);
+}
+const fetchData = new Promise((resolve, reject) => {
+  loadData();
+})
+
 const jsx =( 
   <React.StrictMode>
-        <AppRouter/>    
+    <ApolloProvider client={client}>
+      <Provider store={store}>
+        <AppRouter/>
+      </Provider>
+    </ApolloProvider>
   </React.StrictMode>
 );
 
-ReactDOM.render(jsx, document.getElementById('root'));
-// firebase.auth().onAuthStateChanged(function(user){
-//   if(user){console.log(user);
-//     store.dispatch(startSetLogin({uid: user.uid, name: user.displayName, email: user.email})).then((response) => {
-//       renderApp();
-//       history.push('/')
-//     })
+const jsx2 = (
+  <ApolloProvider client={client}>
+    <Provider store={store}>
+      <GetData />
+    </Provider>
+  </ApolloProvider>
+)
+let hasRendered = false;
+const renderApp = () => {
+  if (!hasRendered) {
+    ReactDOM.render(jsx, document.getElementById('root'));
+    hasRendered = true;
+  }
+};
+//loadData();
+
+ReactDOM.render(jsx2, document.getElementById('root'));
+
+firebase.auth().onAuthStateChanged(function(user){
+  if(user){console.log(user);
+    store.dispatch(startSetLogin({name: user.displayName, email: user.email})).then((response) => {
+      // loadData();
+      renderApp();
+     history.push('/')
+    })
     
-//   }else{
-//     store.dispatch(logout());
-//     renderApp();
-//   }
-// }) 
+  }else{
+    store.dispatch(logout());
+    setTimeout(renderApp, 2000)
+  }
+}) 
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

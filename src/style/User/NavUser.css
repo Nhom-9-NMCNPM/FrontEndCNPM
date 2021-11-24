@@ -1,0 +1,36 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 14px;
+}
+
+.user {
+    margin-bottom: 5px;
+    padding: 0 40px;
+
+}
+
+.user-nav {
+    display: flex;
+    list-style: none;
+    background: #f5f5f5;
+    padding: 8px 15px;
+ 
+}
+.user-nav li a {
+    color: #111111;
+    transition: all .3s;
+}
+
+.user-nav li a:hover {
+    text-decoration: none;
+    color: #E29481;
+}
+
+.user-account::before {
+    padding: 0 5px;
+    color: #ccc;
+    content: "/\00a0";
+}

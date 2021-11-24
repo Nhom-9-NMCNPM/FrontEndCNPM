@@ -1,0 +1,197 @@
+import { useState} from "react"
+import Add from "../Add";
+import Update from "../Update";
+import LoadingPage from "../../components/LoadingPage";
+import { connect } from "react-redux";
+import { gql, useMutation } from '@apollo/client';
+import deleteShirt from "../../mutation/deleteShirt";
+import {addShirt, updateShirt, removeShirt} from '../../actions/shirt';
+import NavHeader from "../../components/HomePage/NavHeader";
+import Modal from 'react-modal'
+const ADD_SHIRT = gql`
+    mutation Mutation($data: createShirtInput!) {
+        createShirt(data: $data) {
+            id
+            name
+            description
+            img
+            updatedAt
+            createdAt
+            price
+            codePro
+            size_M
+            size_S
+            size_L
+            size_XL
+            material
+            color
+            publish
+            newPro
+        }
+    }
+`;
+const UPDATE_SHIRT = gql`
+    mutation Mutation($data: updateShirtInput!, $updateShirtId: Int!) {
+        updateShirt(data: $data, id: $updateShirtId) {
+            id
+            name
+            description
+            img
+            updatedAt
+            createdAt
+            price
+            codePro
+            size_M
+            size_S
+            size_L
+            size_XL
+            material
+            color
+            publish
+            newPro
+        }
+    }
+`;
+
+const Shirt = ({shirt, addShirt, updateShirt, removeShirt}) => {
+    const [showModalRemove, setShowModalRemove] = useState(false)
+    const [showModalAdd, setShowModalAdd]= useState(false);
+    const [flag, setFlag] = useState(0);
+    const [showModalUpdate, setShowModalUpdate]= useState(false);
+    const [add, { data, loading, error }] = useMutation(ADD_SHIRT,{
+            onCompleted:(data)=>{
+                addShirt(data.createShirt)
+            }
+        }
+    );
+    
+    const [update, { data_update, loading_update, error_update }] = useMutation(UPDATE_SHIRT,{
+        onCompleted: (data)=>{
+            updateShirt(data.updateShirt.id, data.updateShirt);
+        }
+    });
+        const handleUpdateShirt = (id) => {
+            setFlag(id);
+            setShowModalUpdate(true);
+            
+        }
+
+        const handleRemoveShirt = (id) => {
+            deleteShirt(id);
+            removeShirt(id);
+            setShowModalRemove(false)
+        }
+
+        const handleAddShirt = () => {
+            setShowModalAdd(true);
+
+        }
+    return (
+        <div>
+            <NavHeader />
+            <div className="margin-bottom">
+            <h1>ÁO</h1>
+            <table className="table">
+                <thead>
+                    <tr className="table-tr">
+                        <th scope="col">STT</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">NGÀY TẠO</th>
+                        <th scope="col">NGÀY CẬP NHẬT</th>
+                        <th scope="col">TÊN</th>
+                        <th scope="col">MÔ TẢ</th>
+                        <th scope="col">ẢNH</th>
+                        <th scope="col">GIÁ</th>
+                        <th scope="col">MÃ SẢN PHẨM</th>
+                        <th scope="col">Size_M</th>
+                        <th scope="col">Size_S</th>
+                        <th scope="col">Size_L</th>
+                        <th scope="col">Size_XL</th>
+                        <th scope="col">CHẤT LIỆU</th>
+                        <th scope="col">MÀU</th>
+                        <th scope="col">THAO TÁC</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {shirt.map((item,index) => {
+                        var createdAt = new Date(parseFloat(item.createdAt));
+                        var updatedAt = new Date(parseFloat(item.updatedAt));
+                        return (
+                            <tr key={index}>
+                                <th scope="row">{index + 1}</th>
+                                <td className='content'>{item.id}</td>
+                                <td className='content'>{createdAt.toLocaleString()}</td>
+                                <td className='content'>{updatedAt.toLocaleString()}</td>
+                                <td className='content'>{item.name}</td>
+                                <td className='content '>{item.description}</td>
+                                <td className='content '>{item.img.join('\n')}</td>
+                                <td className='content'>{item.price}</td>
+                                <td className='content'>{item.codePro}</td>
+                                <td className='content'>{item.size_M}</td>
+                                <td className='content'>{item.size_S}</td>
+                                <td className='content'>{item.size_L}</td>
+                                <td className='content'>{item.size_XL}</td>
+                                <td className='content'>{item.material}</td>
+                                <td className='content'>{item.color}</td>
+                                <td className='content event-btn'>
+                                    <button 
+                                        onClick={()=>setShowModalRemove(item.id)}
+                                        className='btn-remove'
+                                    >
+                                        Xóa
+                                    </button>
+                                    <button 
+                                        className='btn-update'
+                                        onClick={()=>handleUpdateShirt(item.id)}
+                                    >
+                                        Sửa
+                                    </button>
+                                    {showModalUpdate&&(flag===item.id)&&<Update isDisplay={showModalUpdate} update={update} loading={loading_update} error={error_update}  setShowModalUpdate={setShowModalUpdate} product={item}/>}
+                                    <Modal
+                                        isOpen={showModalRemove}
+                                        className="modal-react custom-modal-react"
+                                        ariaHideApp={false}
+                                    >
+                                        <div className="modal-body-react" >
+                                            <div className="close-modal" onClick={()=>setShowModalRemove(false)}>
+                                                <i className="far fa-times-circle"></i>
+                                            </div>
+                                            <div>
+                                                <div>Bạn có chắc chắn xóa không ?</div>
+                                                <div className="modal-btn">
+                                                    <button type="button" class="btn btn-danger btn-modal-remove" onClick={() => handleRemoveShirt(item.id)}>Chắc chắn</button>
+                                                    <button type="button" class="btn btn-primary btn-modal-cancel" onClick={() => setShowModalRemove(false)} >Hủy</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                     </Modal>
+                                </td>
+                            </tr>
+                        )
+                    })}
+                    
+                </tbody>
+            </table>
+
+            <button className='btn-add' onClick={handleAddShirt}>Thêm mới</button>
+            <Add isDisplay={showModalAdd} add={add} loading={loading} error={error} setShowModalAdd={setShowModalAdd} />
+        </div>
+        </div>
+    )
+}
+
+const mapStateToProps = (state) => {
+    return {
+        shirt: state.Shirt,
+    }
+}
+const mapDispatchToProps = (dispatch) =>{
+    return {
+        addShirt:(shirt)=>dispatch(addShirt(shirt)),
+        updateShirt:(id,data) => dispatch(updateShirt(id,data)),
+        removeShirt:(id) => dispatch(removeShirt(id)),
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Shirt)

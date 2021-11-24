@@ -1,0 +1,20 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 14px;
+}
+/* ---Background-Fashion---- */
+
+.background-fashion {
+    position: relative;
+    background-attachment: fixed;
+    background-size: 100%;
+    background-position: center;
+    background: url(https://theme.hstatic.net/200000000133/1000569834/14/homeBannerCenter_1.jpg?v=5160);
+    background-repeat: no-repeat;
+    padding: 150px 0;
+    cursor: pointer;
+}

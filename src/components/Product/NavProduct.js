@@ -1,16 +1,14 @@
-import '../../style/NavProduct.css'
+import { Link } from 'react-router-dom'
+import '../../style/Product/NavProduct.css'
 const NavProduct = () => {
     return (
         <div>
             <ul className="itemscope">
                 <li>
-                    <a href="">Trang chủ</a>
+                    <Link to="/">Trang chủ</Link>
                 </li>
                 <li>
-                    <a href="">Danh mục sản phẩm</a>
-                </li>
-                <li>
-                    <a href=""><b>Sản phẩm</b></a>
+                    <Link to="/product">Danh mục sản phẩm</Link>
                 </li>
             </ul>
 
@@ -19,31 +17,19 @@ const NavProduct = () => {
                     <span className="Mot">Sản phẩm</span>
                     <ul className="menuCollection">
                         <li>
-                            <a href="">Đầm</a>
+                            <Link to="/dress">Đầm</Link>
                         </li>
                         <li>
-                            <a href="">Áo</a>
+                            <Link to="/shirt">Áo</Link>
                         </li>
                         <li>
-                            <a href="">Áo sơ mi</a>
+                            <Link to="/skirt">Chân váy</Link>
                         </li>
                         <li>
-                            <a href="">Áo Kiểu</a>
+                            <Link to="/trousers">Quần</Link>
                         </li>
                         <li>
-                            <a href="">Jumpsuit</a>
-                        </li>
-                        <li>
-                            <a href="">Chân váy</a>
-                        </li>
-                        <li>
-                            <a href="">Quần</a>
-                        </li>
-                        <li>
-                            <a href=""><b>Tất cả sản phẩm</b></a>
-                        </li>
-                        <li>
-                            <a href="">Phụ kiện</a>
+                            <Link to="">Phụ kiện</Link>
                         </li>
                     </ul>
                 </div>
@@ -53,38 +39,6 @@ const NavProduct = () => {
                             <span className="">Bộ lọc:</span>
                         </div>
                         <ul className="group-filter">
-                            <li>
-                                <div>
-                                    <b>Size</b>
-                                    <span><i className="fa fa-sort-down"></i></span>
-                                </div>
-                                <ul className="check-box-list">
-                                    <li>
-                                        <input type="checkbox" name="" id="data-size-p1"/>
-                                        <label for="data-size-p1">
-                                            <span>S</span>
-                                        </label>
-                                    </li>
-                                    <li>
-                                        <input type="checkbox" name="" id="data-size-p2"/>
-                                        <label for="data-size-p2">
-                                            <span>M</span>
-                                        </label>
-                                    </li>
-                                    <li>
-                                        <input type="checkbox" name="" id="data-size-p3"/>
-                                        <label for="data-size-p3">
-                                            <span>L</span>
-                                        </label>
-                                    </li>
-                                    <li>
-                                        <input type="checkbox" name="" id="data-size-p4"/>
-                                        <label for="data-size-p4">
-                                            <span>XS</span>
-                                        </label>
-                                    </li>                                                                         
-                                </ul>
-                            </li>
                             <li>
                                 <div>
                                     <b>Giá sản phẩm</b>
@@ -134,47 +88,6 @@ const NavProduct = () => {
                                         <div style={{width: "25px", height: "25px", backgroundColor: "#000", display: "inline-block", margin: "5px", border: "1px solid", color:"#d2dae2" }}></div>
                                         <div style={{width: "25px", height: "25px", backgroundColor: "#fff", display: "inline-block", margin: "5px", border: "1px solid", color:"#d2dae2" }}></div>
                                         <div style={{width: "25px", height: "25px", backgroundColor: "#ff3f34", display: "inline-block", margin: "5px", border: "1px solid", color:"#d2dae2" }}></div>
-                                    </li>
-                                    <li>
-                                        
-                                    </li>
-                                    <li>
-                                        
-                                    </li>
-                                    <li>
-                                        
-                                    </li>                                                                         
-                                </ul>
-                            </li>
-                            <li>
-                                <div>
-                                    <b>Theo dịp</b>
-                                    <span><i className="fa fa-sort-down"></i></span>
-                                </div>
-                                <ul className="check-box-list">
-                                    <li>
-                                        <input type="checkbox" name="" id="1"/> 
-                                        <label for="1">
-                                            <span>Công sở</span>
-                                        </label>
-                                    </li>
-                                    <li>
-                                        <input type="checkbox" name="" id="2"/>
-                                        <label for="2">
-                                            <span>Dạo phố</span>
-                                        </label>
-                                    </li>
-                                    <li>
-                                        <input type="checkbox" name="" id="3"/>
-                                        <label for="3">
-                                            <span>Dự tiệc</span>
-                                        </label>
-                                    </li>
-                                    <li>
-                                        <input type="checkbox" name="" id="4"/>
-                                        <label for="4">
-                                            <span>Đặc biệt</span>
-                                        </label>
                                     </li>                                                                         
                                 </ul>
                             </li>

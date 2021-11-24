@@ -1,0 +1,106 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 14px;
+}
+
+/* -----New Product------ */
+
+.main-new-product {
+    display: block;
+    margin-top: 100px;
+}
+
+.main-new-product-title {
+    margin: 40px 0;
+}
+
+.main-new-product .main-new-product-title .product-title {
+    text-align: center;
+}
+
+.main-new-product .main-new-product-title .product-title a {
+    font-size: 29px;
+    text-decoration: none;
+    color: var(--color-text);
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.main-new-product .main-new-product-title .product-title a:hover {
+    color: var(--color-hover);
+}
+
+.main-new-product .main-new-product-title .product-title .product-view-more {
+    margin-top: 20px;
+}
+
+.main-new-product .main-new-product-title .product-title .product-view-more a {
+    font-weight: 500;
+    font-size: 18px;
+}
+
+
+/* ------New-Product-Slider-------- */
+
+.main-new-product-slide {
+    min-width: 1%;
+}
+
+.new-product-slide-item {
+    height: auto;
+    padding: 0 15px;
+}
+
+.new-product-img {
+    position: relative;
+}
+
+.new-product-img img {
+    width: 100%;
+    transition: all .6s;
+}
+
+.new-product-img .img-change {
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 1;
+}
+
+.new-product-img:hover .img-change {
+    opacity: 0;
+}
+
+.new-product-lable-tag {
+    position: absolute;
+    top: 6px;
+    right: 5px;
+}
+
+.new-product-lable-tag img {
+    width: 54px;
+    height: 54px;
+}
+
+.new-product-content {
+    margin-top: 8px;
+}
+
+.new-product-content-title a {
+    color: var(--color-text);
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.new-product-content-title a:hover {
+    color: var(--color-hover);
+}
+
+.new-product-content .new-product-content-title-price {
+    color: var(--color-text);
+    font-size: 13px;
+}
+

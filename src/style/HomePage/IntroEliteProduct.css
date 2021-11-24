@@ -1,0 +1,94 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 14px;
+}
+
+
+/* -------Intro-Elite-Product------- */
+
+.intro-elite-product {
+    display: flex;
+    width: 100%;
+    margin-top: 70px;
+}
+
+.intro-elite-product-img {
+    width: 52%;
+}
+
+.intro-elite-product-img a img {
+    width: 100%;
+}
+
+.intro-elite-product-about {
+    width: 48%;
+    padding: 5% 5% 6% 15%;
+}
+
+.intro-elite-product-title {
+    margin-top: 50px;
+    padding: 0 50px;
+}
+
+.intro-elite-product-title a {
+    text-decoration: none;
+}
+
+.intro-elite-product-title a h2:hover {
+    color: var(--color-hover);
+}
+
+.intro-elite-product-title a h2 {
+    width: 100%;
+    display: block;
+    color: var(--color-text);
+    border-bottom: 1px solid rgb(238, 228, 228);
+    font-size: 23px;
+    font-weight: 400;
+    padding-bottom: 30px;
+    text-align: center;
+    transition: color .3s linear;
+}
+
+.intro-elite-product-content {
+    margin-top: 50px;
+}
+
+.intro-elite-product-content p {
+    font-size: 17px;
+    font-weight: 400;
+    font-style: italic;
+    text-align: justify;
+    color: var(--color-text);
+}
+
+.intro-elite-product-learn-more {
+    display: block;
+    margin-top: 50px;
+    width: 35%;
+    text-align: center;
+    border: 1px solid rgb(238, 228, 228);
+    transition: background .3s ease;
+}
+
+.intro-elite-product-learn-more a {
+    text-decoration: none;
+}
+
+.intro-elite-product-learn-more-content {
+    color: var(--color-text);
+    display: block;
+    padding: 15px;
+    margin: 0;
+}
+
+.intro-elite-product-learn-more:hover {
+    background: var(--color-hover);
+}
+
+.intro-elite-product-learn-more-content:hover {
+    color: #fff;
+}

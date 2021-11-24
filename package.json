@@ -11,14 +11,18 @@
     "firebase": "^8.8.0",
     "graphql": "^15.6.1",
     "history": "^4.10.1",
+    "jquery": "^3.6.0",
     "react": "^17.0.2",
+    "react-bootstrap-table": "file:react-bootstrap-table",
     "react-dom": "^17.0.2",
     "react-modal": "^3.14.3",
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "react-slick": "^0.28.1",
     "redux": "^4.1.0",
     "redux-thunk": "^2.3.0",
+    "slick-slider": "^1.8.2",
     "web-vitals": "^1.0.1"
   },
   "scripts": {

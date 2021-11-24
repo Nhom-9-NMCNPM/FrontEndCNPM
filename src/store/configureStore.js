@@ -1,21 +1,22 @@
 import {createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import cartReducer from '../reduce/cartReducer';
+import shirtReducer from '../reduce/shirtReducer';
+import dressReducer from '../reduce/dressReducer';
 import userReducer from '../reduce/userReducer';
-import pizzaReducer from '../reduce/pizzaReducer';
-import waterReducer from '../reduce/waterReducer';
-import comboReducer from '../reduce/comboReducer';
-
+import skirtReducer from '../reduce/skirtReducer'
+import trousersReducer from '../reduce/trousersReducer';
+import cartReducer from '../reduce/cartReducer';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 const configureStore = () => {
     return createStore(
         combineReducers (
             {
-                combo: comboReducer,
-                water: waterReducer,
-                pizza: pizzaReducer,
-                cart: cartReducer,
-                user: userReducer,
+                Shirt: shirtReducer,
+                Dress: dressReducer,
+                Skirt: skirtReducer,
+                Trousers: trousersReducer,
+                User: userReducer,
+                Cart: cartReducer
             }
         ),
        composeEnhancers(applyMiddleware(thunk)),
