@@ -15,10 +15,13 @@ import getSkirt from './query/getSkirt'
 import getTrousers from './query/getTrousers';
 import 'slick-slider';
 import GetData from './query/GetData';
+import getUser from './query/getUser';
 
 
 const store = configureStore();
+getUser(store.dispatch);
 const loadData = () => {
+ 
   getSkirt(store.dispatch)
   getShirt(store.dispatch);
   getDress(store.dispatch);
@@ -67,6 +70,7 @@ firebase.auth().onAuthStateChanged(function(user){
   }else{
     store.dispatch(logout());
     setTimeout(renderApp, 2000)
+    history.push('/')
   }
 }) 
 

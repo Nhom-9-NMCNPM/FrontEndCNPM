@@ -61,9 +61,13 @@
 
 .custom-modal-react {
     width: 18%;
-    height: 26%;
+    height: 23%;
+    padding: 0 0;
 }
 
 .btn-modal-remove {
     margin-right: 20px;
+}
+.modal-btn{
+    padding-top: 1rem;
 }
