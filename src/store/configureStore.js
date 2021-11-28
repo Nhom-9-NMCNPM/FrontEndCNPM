@@ -7,6 +7,7 @@ import skirtReducer from '../reduce/skirtReducer'
 import trousersReducer from '../reduce/trousersReducer';
 import cartReducer from '../reduce/cartReducer';
 import orderReducer from '../reduce/orderReducer';
+import adminReducer from '../reduce/adminReducer';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 const configureStore = () => {
     return createStore(
@@ -19,6 +20,7 @@ const configureStore = () => {
                 User: userReducer,
                 Cart: cartReducer,
                 Order: orderReducer,
+                UserList: adminReducer,
             }
         ),
        composeEnhancers(applyMiddleware(thunk)),

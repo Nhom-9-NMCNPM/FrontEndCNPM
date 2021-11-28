@@ -92,11 +92,14 @@ const NavHeader = ({user,cart, removeCart,logout}) => {
                                 </div></>}
                             </li>
                             <li className="header-nav-content-item">
-                               {user.admin ? <Link to="/admin-shirt" className="header-nav-content-item-link" title="ÁO">ÁO</Link> :<Link to="/" className="header-nav-content-item-link" title="Ưu đãi">ƯU ĐÃI</Link>}
+                               {user.admin ? <Link to="/admin-shirt" className="header-nav-content-item-link" title="ÁO">ÁO</Link> :<Link to="/" className="header-nav-content-item-link" title="Phụ kiện">PHỤ KIỆN</Link>}
                             </li>
                             
                             <li className="header-nav-content-item">
-                               {user.admin ? <Link to="/admin-dress" className="header-nav-content-item-link" title="ĐẦM">ĐẦM</Link>:<Link to="/" className="header-nav-content-item-link" title="Phụ kiện">PHỤ KIỆN</Link>}
+                               {user.admin ? <Link to="/admin-dress" className="header-nav-content-item-link" title="ĐẦM">ĐẦM</Link>:<Link to="/" className="header-nav-content-item-link" title="Ưu đãi">ƯU ĐÃI</Link>}
+                            </li>
+                            <li className="header-nav-content-item">
+                               {user.admin && <Link to="/admin-user" className="header-nav-content-item-link" title="ĐẦM">NGƯỜI DÙNG</Link>}
                             </li>
                             <li className="header-nav-content-item">
                                {user.admin && <Link to="/admin-order" className="header-nav-content-item-link" title="ORDER">ĐƠN HÀNG</Link>}

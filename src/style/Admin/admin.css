@@ -61,7 +61,8 @@
 
 .custom-modal-react {
     width: 18%;
-    height: 26%;
+    height: 23%;
+    padding: 0 0;
 }
 
 .btn-modal-remove {
@@ -91,4 +92,7 @@
 .select-option {
     width: 4%;
     height: 33px;
+}
+.modal-btn{
+    padding-top: 1rem;
 }

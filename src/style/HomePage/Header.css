@@ -16,7 +16,9 @@
     float: right;
     font-size: 30px;
 }
-
+.is-active{
+    color: #E29481;
+}
 .admin-login button {
     height: 40px;
     padding: 2px;
