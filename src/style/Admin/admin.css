@@ -67,3 +67,28 @@
 .btn-modal-remove {
     margin-right: 20px;
 }
+
+.btn-margin-left {
+
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    margin-bottom: 20px;
+}
+.btn-margin-right {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    margin-bottom: 20px;
+}
+
+.btn-center {
+    border-radius: 0px;
+    margin-bottom: 20px;
+}
+.revenue {
+    display: flex;
+}
+
+.select-option {
+    width: 4%;
+    height: 33px;
+}

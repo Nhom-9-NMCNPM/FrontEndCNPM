@@ -98,7 +98,9 @@ const NavHeader = ({user,cart, removeCart,logout}) => {
                             <li className="header-nav-content-item">
                                {user.admin ? <Link to="/admin-dress" className="header-nav-content-item-link" title="ĐẦM">ĐẦM</Link>:<Link to="/" className="header-nav-content-item-link" title="Phụ kiện">PHỤ KIỆN</Link>}
                             </li>
-
+                            <li className="header-nav-content-item">
+                               {user.admin && <Link to="/admin-order" className="header-nav-content-item-link" title="ORDER">ĐƠN HÀNG</Link>}
+                            </li>
                         </ul>
                     </div>
 

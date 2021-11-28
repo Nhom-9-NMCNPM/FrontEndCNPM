@@ -15,6 +15,7 @@ import getSkirt from './query/getSkirt'
 import getTrousers from './query/getTrousers';
 import 'slick-slider';
 import GetData from './query/GetData';
+import getOrder from './query/getOrder';
 
 
 const store = configureStore();
@@ -23,6 +24,7 @@ const loadData = () => {
   getShirt(store.dispatch);
   getDress(store.dispatch);
   getTrousers(store.dispatch);
+  getOrder(store.dispatch)
 }
 const fetchData = new Promise((resolve, reject) => {
   loadData();

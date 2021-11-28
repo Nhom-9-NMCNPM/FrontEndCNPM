@@ -17,6 +17,7 @@ import Dress from '../admin/components/Dress';
 import Shirt from '../admin/components/Shirt';
 import Skirt from '../admin/components/Skirt';
 import Trousers from '../admin/components/Trousers';
+import Order from '../admin/components/Order';
 export const history = createBrowserHistory();
 const Approuter = () => {
     return (
@@ -36,6 +37,7 @@ const Approuter = () => {
                     <PrivateRouter path="/admin-skirt" component={Skirt} />
                     <PrivateRouter path="/admin-trousers" component={Trousers} />
                     <PrivateRouter path="/admin-dress" component={Dress} />
+                    <PrivateRouter path="/admin-order" component={Order} />
 
                 </Switch>
             </div>
