@@ -7,6 +7,7 @@ import deleteTrousers from "../../mutation/deleteTrousers";
 import { addTrousers, updateTrousers, removeTrousers } from "../../actions/trousers";
 import NavHeader from "../../components/HomePage/NavHeader";
 import Modal from 'react-modal'
+import format_curency from "../../utils/displayPrice";
 const ADD_TROUSERS = gql`
     mutation Mutation($data: createTrousersInput!) {
         createTrousers(data: $data) {
@@ -86,25 +87,26 @@ const Trousers = ({trousers, addTrousers, updateTrousers, removeTrousers}) => {
             <NavHeader />
             <div className="margin-bottom">
             <h1>QUẦN</h1>
-            <table class="table">
+            <div className="table-product" >
+            <table class="table table-bordered">
                 <thead>
-                    <tr className="table-tr">
-                        <th scope="col">STT</th>
-                        <th scope="col">ID</th>
-                        <th scope="col">NGÀY TẠO</th>
-                        <th scope="col">NGÀY CẬP NHẬT</th>
-                        <th scope="col">TÊN</th>
-                        <th scope="col">MÔ TẢ</th>
-                        <th scope="col">ẢNH</th>
-                        <th scope="col">GIÁ</th>
-                        <th scope="col">MÃ SẢN PHẨM</th>
-                        <th scope="col">Size_M</th>
-                        <th scope="col">Size_S</th>
-                        <th scope="col">Size_L</th>
-                        <th scope="col">Size_XL</th>
-                        <th scope="col">CHẤT LIỆU</th>
-                        <th scope="col">MÀU</th>
-                        <th scope="col">THAO TÁC</th>
+                    <tr className="table-tr table-warning" >
+                        <th scope="col" className="table-title-pro">STT</th>
+                        <th scope="col" className="table-title-pro">ID</th>
+                        <th scope="col" className="table-title-pro">NGÀY TẠO</th>
+                        <th scope="col" className="table-title-pro">NGÀY CẬP NHẬT</th>
+                        <th scope="col" className="table-title-pro">TÊN</th>
+                        <th scope="col" className="table-title-pro pro-des">MÔ TẢ</th>
+                        <th scope="col" className="table-title-pro">ẢNH</th>
+                        <th scope="col" className="table-title-pro">GIÁ</th>
+                        <th scope="col" className="table-title-pro">MÃ SẢN PHẨM</th>
+                        <th scope="col" className="table-title-pro">Size_M</th>
+                        <th scope="col" className="table-title-pro">Size_S</th>
+                        <th scope="col" className="table-title-pro">Size_L</th>
+                        <th scope="col" className="table-title-pro">Size_XL</th>
+                        <th scope="col" className="table-title-pro">CHẤT LIỆU</th>
+                        <th scope="col" className="table-title-pro">MÀU</th>
+                        <th scope="col" className="table-title-pro">THAO TÁC</th>
                         
                     </tr>
                 </thead>
@@ -120,8 +122,8 @@ const Trousers = ({trousers, addTrousers, updateTrousers, removeTrousers}) => {
                                 <td className='content'>{updatedAt.toLocaleString()}</td>
                                 <td className='content'>{item.name}</td>
                                 <td className='content '>{item.description}</td>
-                                <td className='content '>{item.img.join('\n')}</td>
-                                <td className='content'>{item.price}</td>
+                                <td className='content '><img src={item.img[1]} alt=""/></td>
+                                <td className='content'>{format_curency(item.price)}đ</td>
                                 <td className='content'>{item.codePro}</td>
                                 <td className='content'>{item.size_M}</td>
                                 <td className='content'>{item.size_S}</td>
@@ -132,12 +134,12 @@ const Trousers = ({trousers, addTrousers, updateTrousers, removeTrousers}) => {
                                 <td className='content event-btn'>
                                     <button 
                                         onClick={()=>setShowModalRemove(item.id)}
-                                        className='btn-remove'
+                                        className='btn-remove btn btn-danger btn-sm px-3'
                                     >
                                         Xóa
                                     </button>
                                     <button 
-                                        className='btn-update'
+                                        className='btn-update btn btn-warning'
                                         onClick={()=>handleUpdateTrousers(item.id)}
                                     >
                                         Sửa
@@ -169,7 +171,8 @@ const Trousers = ({trousers, addTrousers, updateTrousers, removeTrousers}) => {
                     </tbody>
                 </table>
 
-            <button className='btn-add' onClick={handleAddTrousers}>Thêm mới</button>
+            </div>
+            <button className='btn-add  btn btn-success' onClick={handleAddTrousers}>Thêm mới</button>
             <Add isDisplay={showModalAdd} add={add} loading={loading} error={error}  setShowModalAdd={setShowModalAdd} />
         </div>
         </div>
