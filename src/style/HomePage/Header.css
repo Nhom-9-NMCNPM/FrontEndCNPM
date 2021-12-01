@@ -8,31 +8,98 @@
 
 
 /* -----------Header---------------- */
-
+/* --------Header-Admin--------------------- */
 .admin-login {
-    padding-left: 222px;
+    display: flex;
     padding-top: 13px;
     background: #fff;
-    float: right;
     font-size: 30px;
+    width: 30%;
+    justify-content: flex-end;
+}
+.admin-search {
+    width: 32px;
+    height: 32px;
+    background: #E29481;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 32px;
+    cursor: pointer;
+    margin-right: 20px;
+    position: relative;
+    display: block;
+}
+.admin-search:hover {
+    background-color: #e8866e;
+}
+.admin-search >i {
+    color: #fff;
+}
+.header-form-admin {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0px;
+    top: 0px;
+    background: #fff;
+    border-radius: 10px;
+    opacity: 0;
+    visibility: hidden;
+    transition: .3s;
+    right: 50px;
+    top: -4px;
+    width: 310px;
+}
+.header-form-admin input {
+    color: #86898E;
+    font-size: 14px;
+    height: 40px;
+    width: 100%;
+    padding-left: 50px;
+    border: 0;
+    padding-right: 15px;
+    background: transparent;
+    border-radius: 30px;
+    border: 0;
+    border: 1px solid #dca395;
+    font-weight: 400;
+}
+
+.header-form-admin input:focus {
+    outline: none;
+}
+.close-search {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background: transparent;
+    font-size: 12px;
+    border: 0;
+    padding-left: 20px;
+    padding-right: 13px;
+    color: #E29481;
+}
+.admin-log-out {
+    display: block;
+    padding-right: 22px;
+    cursor: pointer;
+}
+.admin-log-out i {
+    font-size: 30px;
+    color: #E29481;
+}
+.admin-log-out i:hover {
+    color: #e8866e;
+}
+.active-admin-search {
+    opacity: 1;
+    visibility: visible;
 }
 .is-active{
     color: #E29481;
 }
-.admin-login button {
-    height: 40px;
-    padding: 2px;
-    background: #fff;
-    border-color: #ccc;
-    border-radius: 4px;
-    font-weight: 400;
-    transition: all .2s linear;
-}
-.admin-login button:hover {
-    background: #E29481;
-    color: #fff;
-}
-
+/* =================================================================== */
 header {
     width: 100%;
 }

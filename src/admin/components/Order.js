@@ -95,12 +95,13 @@ const Order = ({order}) => {
         <div>
             <NavHeader />
             <div className="margin-bottom">
-                <h1>ĐƠN HÀNG</h1>
-                <button type="button" className="btn btn-outline-secondary btn-margin-left" onClick={handleShowDelivered}>Đơn hàng đã giao</button>
-                <button type="button" className="btn btn-outline-secondary btn-center" onClick={handleShowDelivering}>Đơn hàng đang giao</button>
-                <button type="button" className="btn btn-outline-secondary btn-center" onClick={handleShowPending}>Đơn hàng đang chờ xử lý</button>
-                <button type="button" className="btn btn-outline-secondary btn-margin-right" onClick={handleShowCanceled}>Đơn hàng đã hủy</button>
-
+                <div className="table-title-revenue">
+                    <h1>ĐƠN HÀNG</h1>
+                    <button type="button" className="btn btn-outline-secondary btn-margin-left" onClick={handleShowDelivered}>Đơn hàng đã giao</button>
+                    <button type="button" className="btn btn-outline-secondary btn-center" onClick={handleShowDelivering}>Đơn hàng đang giao</button>
+                    <button type="button" className="btn btn-outline-secondary btn-center" onClick={handleShowPending}>Đơn hàng đang chờ xử lý</button>
+                    <button type="button" className="btn btn-outline-secondary btn-margin-right" onClick={handleShowCanceled}>Đơn hàng đã hủy</button>
+                </div>
                 {showDelivered && <div className="revenue">
                     <h3 className="title-revenue">Doanh thu tháng</h3>
                     <select className="form-select  mb-3 select-option" value={valueState.month} onChange={(e) => {setValueState({...valueState, month: e.target.value})}} >
@@ -120,20 +121,23 @@ const Order = ({order}) => {
                         return  (time.getMonth() + 1) === Number(valueState.month) && (num.status === "Đã giao hàng") ?  (parseInt(parseInt(num.price) + total)) : (total)
                     }, 0))}đ</h3>   
                 </div>}
+                <div className="table-product table-revenue">
+
                
                 {showDelivered && <table className="table">
                     <thead>
                         <tr className="table-tr">
-                        <th scope="col">STT</th>
-                        <th scope="col">ID</th>
-                        <th scope="col">ĐƠN HÀNG</th>
-                        <th scope="col">GIÁ</th>
-                        <th scope="col">NGÀY TẠO</th>
-                        <th scope="col">NGÀY CẬP NHẬT</th>
+                        <th scope="col" style={{width: '1%'}} >STT</th>
+                        <th scope="col"style={{width: '4%'}}>ID</th>
+                        <th scope="col"className="table-50">ĐƠN HÀNG</th>
+                        <th scope="col"style={{width: '10%'}}>GIÁ</th>
+                        <th scope="col"style={{width: '15%'}}>NGÀY TẠO</th>
+                        <th scope="col"style={{width: '15%'}}>NGÀY CẬP NHẬT</th>
                         </tr>
                     </thead>
-                    <tbody>  
-                        {orderCurrent.length > 0 ? orderCurrent.map((item,index) => {
+                    {orderCurrent.length > 0  ?  
+                    <tbody className="table-body">  
+                        {orderCurrent.map((item,index) => {
                              var createdAt = new Date(parseFloat(item.createdAt));
                              var updatedAt = new Date(parseFloat(item.updatedAt));
                             return  (
@@ -146,62 +150,65 @@ const Order = ({order}) => {
                                     <td>{updatedAt.toLocaleString()}</td>
                                 </tr>
                             )
-                        }) : <span>Không có dữ liệu</span>}
-                        
-                    </tbody>
+                            })}
+                    </tbody>  
+                    
+                    : <div style={{width: '100%'}}>Không có dữ liệu</div>
+                               
+                        }
                 </table>}
                 {showDelivering && <table className="table">
                     <thead>
                         <tr className="table-tr">
-                        <th scope="col">STT</th>
-                        <th scope="col">ID</th>
-                        <th scope="col">ĐƠN HÀNG</th>
-                        <th scope="col">GIÁ</th>
-                        <th scope="col">NGÀY TẠO</th>
-                        <th scope="col">NGÀY CẬP NHẬT</th>
-                        <th scope="col">TRẠNG THÁI</th>
+                        <th scope="col" style={{width: '1%'}}>STT</th>
+                        <th scope="col"style={{width: '5%'}}>ID</th>
+                        <th scope="col" className="table-50">ĐƠN HÀNG</th>
+                        <th scope="col"style={{width: '5%'}}>GIÁ</th>
+                        <th scope="col"style={{width: '10%'}}>NGÀY TẠO</th>
+                        <th scope="col"style={{width: '10%'}}>NGÀY CẬP NHẬT</th>
+                        <th scope="col"style={{width: '10%'}}>TRẠNG THÁI</th>
                         </tr>
                     </thead>
-                    <tbody>  
-                        {orderCurrent.length > 0 ? orderCurrent.map((item,index) => {
-                             var createdAt = new Date(parseFloat(item.createdAt));
-                             var updatedAt = new Date(parseFloat(item.updatedAt));
-                            return (
-                                <tr>
-                                    <th scope="row" key={index}>{index + 1}</th>
-                                    <td>{item.id}</td>
-                                    <td>{item.namePro.join(' ; ')}</td>
-                                    <td>{item.price}</td>
-                                    <td>{createdAt.toLocaleString()}</td>
-                                    <td>{updatedAt.toLocaleString()}</td>
-                                    <td><select className="form-select  mb-3 select-option-status" value={stateOrder[1]} onChange={(e) => handleChangeState(item,e.target.value)}>
-                                        
-                                        <option value={stateOrder[0]} key={index} disabled={isDisable}>{stateOrder[0]}</option>
-                                        <option value={stateOrder[1]} key={index} disabled={isDisable}>{stateOrder[1]}</option>
-                                        <option value={stateOrder[2]} key={index} disabled={!isDisable}>{stateOrder[2]}</option>
-                                        <option value={stateOrder[3]} key={index} disabled={isDisable}>{stateOrder[3]}</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                            )
-                        }) : <span>Không có dữ liệu</span>}
-                        
-                    </tbody>
+                    {orderCurrent.length > 0 ? <tbody className="table-body">  
+                        {orderCurrent.map((item,index) => {
+                                var createdAt = new Date(parseFloat(item.createdAt));
+                                var updatedAt = new Date(parseFloat(item.updatedAt));
+                                return (
+                                    <tr>
+                                        <th scope="row" key={index}>{index + 1}</th>
+                                        <td>{item.id}</td>
+                                        <td>{item.namePro.join(' ; ')}</td>
+                                        <td>{item.price}</td>
+                                        <td>{createdAt.toLocaleString()}</td>
+                                        <td>{updatedAt.toLocaleString()}</td>
+                                        <td><select className="form-select  mb-3 select-option-status" value={stateOrder[1]} onChange={(e) => handleChangeState(item,e.target.value)}>
+                                            
+                                            <option value={stateOrder[0]} key={index} disabled={isDisable}>{stateOrder[0]}</option>
+                                            <option value={stateOrder[1]} key={index} disabled={isDisable}>{stateOrder[1]}</option>
+                                            <option value={stateOrder[2]} key={index} disabled={!isDisable}>{stateOrder[2]}</option>
+                                            <option value={stateOrder[3]} key={index} disabled={isDisable}>{stateOrder[3]}</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                )
+                            })}
+                    </tbody>  : <span className="no-data">Không có dữ liệu</span>}
+                    
                 </table>}
                 {showPending && <table className="table">
                     <thead>
                         <tr className="table-tr">
-                        <th scope="col">STT</th>
-                        <th scope="col">ID</th>
-                        <th scope="col">ĐƠN HÀNG</th>
-                        <th scope="col">GIÁ</th>
-                        <th scope="col">NGÀY TẠO</th>
-                        <th scope="col">NGÀY CẬP NHẬT</th>
-                        <th scope="col">TRẠNG THÁI</th>
+                        <th scope="col" style={{width: '1%'}}>STT</th>
+                        <th scope="col"style={{width: '5%'}}>ID</th>
+                        <th scope="col" className="table-50">ĐƠN HÀNG</th>
+                        <th scope="col"style={{width: '5%'}}>GIÁ</th>
+                        <th scope="col"style={{width: '10%'}}>NGÀY TẠO</th>
+                        <th scope="col"style={{width: '10%'}}>NGÀY CẬP NHẬT</th>
+                        <th scope="col"style={{width: '10%'}}>TRẠNG THÁI</th>
                         </tr>
                     </thead>
-                    <tbody>  
-                        {orderCurrent.length > 0 ?  orderCurrent.map((item,index) => {
+                    {orderCurrent.length > 0 ?   <tbody className="table-body">  
+                        {orderCurrent.map((item,index) => {
                              var createdAt = new Date(parseFloat(item.createdAt));
                              var updatedAt = new Date(parseFloat(item.updatedAt));
                              return (
@@ -222,24 +229,24 @@ const Order = ({order}) => {
                                     </td>
                                 </tr>
                             )
-                        }) : <span>Không có dữ liệu</span>}
-                        
-                    </tbody>
+                        }) }
+                    </tbody> : <span className="no-data">Không có dữ liệu</span>}
+                  
                 </table>}
                 {showCanceled && <table className="table">
                     <thead>
                         <tr className="table-tr">
-                        <th scope="col">STT</th>
-                        <th scope="col">ID</th>
-                        <th scope="col">ĐƠN HÀNG</th>
-                        <th scope="col">GIÁ</th>
-                        <th scope="col">NGÀY TẠO</th>
-                        <th scope="col">NGÀY CẬP NHẬT</th>
-                        <th scope="col">TRẠNG THÁI</th>
+                        <th scope="col" style={{width: '1%'}}>STT</th>
+                        <th scope="col"style={{width: '5%'}}>ID</th>
+                        <th scope="col" className="table-50">ĐƠN HÀNG</th>
+                        <th scope="col"style={{width: '5%'}}>GIÁ</th>
+                        <th scope="col"style={{width: '10%'}}>NGÀY TẠO</th>
+                        <th scope="col"style={{width: '10%'}}>NGÀY CẬP NHẬT</th>
+                        <th scope="col"style={{width: '10%'}}>TRẠNG THÁI</th>
                         </tr>
                     </thead>
-                    <tbody>  
-                        {orderCurrent.length > 0 ?  orderCurrent.map((item,index) => {
+                    {orderCurrent.length > 0 ? <tbody className="table-body">
+                        {orderCurrent.map((item,index) => {
                              var createdAt = new Date(parseFloat(item.createdAt));
                              var updatedAt = new Date(parseFloat(item.updatedAt));
                              return (
@@ -260,9 +267,11 @@ const Order = ({order}) => {
                                     </td>
                                 </tr>
                             )
-                        }) : <span>Không có dữ liệu</span>}
-                    </tbody>
+                        }) }  
+                    </tbody> : <span className="no-data">Không có dữ liệu</span>}
+                    
                 </table>}
+                </div>
             </div>
         </div>
     )

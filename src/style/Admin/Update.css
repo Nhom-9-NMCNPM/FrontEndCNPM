@@ -12,10 +12,14 @@
     padding-bottom: 15px;
 }
 
-.field-info>label {
-    width: 10%;
-}
 
+.field-info>label {
+    width: 20%;
+}
+.img-product {
+    height: 50%;
+    margin-bottom: 8px;
+}
 .ReactModalPortal>div {
     opacity: 0;
 }

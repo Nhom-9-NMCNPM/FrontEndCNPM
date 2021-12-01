@@ -85,11 +85,14 @@ const Skirt = ({skirt, addSkirt}) => {
         <div>
             <NavHeader />
             <div className="margin-bottom">
-            <h1>VÁY</h1>
             <div className="table-product " >
-                <table className="table table-bordered">
+                <div className="table-product-title">
+                    <h1>VÁY</h1>
+                    <button className='btn-add btn btn-success' onClick={handleAddSkirt}><i className="fas fa-plus" />Thêm mới</button>
+                </div>
+                <table className="table">
                     <thead >
-                        <tr className="table-tr table-warning">
+                        <tr className="table-tr">
                             <th scope="col" className="table-title-pro">STT</th>
                             <th scope="col"className="table-title-pro">ID</th>
                             <th scope="col" className="table-title-pro">NGÀY TẠO</th>
@@ -109,7 +112,7 @@ const Skirt = ({skirt, addSkirt}) => {
                             
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="table-body">
                         
                         {skirt.map((item,index) => {
                             var createdAt = new Date(parseFloat(item.createdAt));
@@ -136,13 +139,13 @@ const Skirt = ({skirt, addSkirt}) => {
                                             onClick={()=>setShowModalRemove(item.id)}
                                             className='btn-remove btn btn-danger btn-sm px-3'
                                         >
-                                            Xóa
+                                            <i class="fas fa-trash-alt"></i>
                                         </button>
                                         <button 
                                             className='btn-update btn btn-warning'
                                             onClick={()=>handleUpdateSkirt(item.id)}
                                         >
-                                            Sửa
+                                            <i class="fas fa-edit"></i>
                                         </button>
                                         {showModalUpdate&&(flag===item.id)&&<Update isDisplay={showModalUpdate} update={update} loading={loading_update} error={error_update}  setShowModalUpdate={setShowModalUpdate} product={item}/>}
                                         <Modal
@@ -172,7 +175,7 @@ const Skirt = ({skirt, addSkirt}) => {
                 </table>
             </div>
 
-            <button className='btn-add btn btn-success' onClick={handleAddSkirt}>Thêm mới</button>
+            
             <Add isDisplay={showModalAdd} add={add} loading={loading} error={error} setShowModalAdd={setShowModalAdd} />
         </div>
         </div>
