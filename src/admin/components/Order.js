@@ -153,7 +153,7 @@ const Order = ({order}) => {
                             })}
                     </tbody>  
                     
-                    : <div style={{width: '100%'}}>Không có dữ liệu</div>
+                    : <span className="no-data">Không có dữ liệu</span>
                                
                         }
                 </table>}

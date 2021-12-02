@@ -26,17 +26,25 @@ const Update = ({isDisplay, update, loading,error, setShowModalUpdate, product})
     const [publish, setPublish] = useState(true);
     const [newPro, setNewPro] = useState(true);
     const [file,setFile] = useState([]);
-    const [avatar, setAvatar] = useState([])
+    const [avatar, setAvatar] = useState()
+    const avatarList = []
     useEffect(() => {   
         return() => {
             avatar && URL.revokeObjectURL(avatar.preview)
         }
     }, [avatar])
     const handlePreviewAvatar = (e) => {
-        const file = e.target.files
-        file.preview = URL.createObjectURL(file)
-        console.log(file.preview);
-        setAvatar(file)
+        const fileList = Array.from(e.target.files)
+        // const file = e.target.files[0]
+        fileList.forEach((item,index) => {
+            item = e.target.files[index]
+            item.preview = URL.createObjectURL(item)
+            avatarList.push(item)
+        })
+        setAvatar()
+        avatarList.forEach(item => {
+            console.log(item);
+        })
     }
     const [uploadFile] = useMutation(UPLOAD, {
         onCompleted: (data)=>{
@@ -133,7 +141,7 @@ const Update = ({isDisplay, update, loading,error, setShowModalUpdate, product})
                                     onChange={(e)=>{setName(e.target.value)}}
                                     name="name" id="name"type="text" required class="form-control"/>
                                     </div>
-                                    <div class="field-info"><label htmlFor="des" class="" type="text">Mô tả</label><input value={description}
+                                    <div class="field-info"><label htmlFor="des" class="" type="text">Mô Tả</label><input value={description}
                                     onChange={(e)=>{setDescription(e.target.value)}}
                                     name="des" id="des" required class="form-control" /></div>
                                     <div class="field-info"><label htmlFor="price" class="">Giá tiền</label><input value={price}
@@ -154,10 +162,10 @@ const Update = ({isDisplay, update, loading,error, setShowModalUpdate, product})
                                     <div class="field-info"><label htmlFor="size-XL" class="">Size-XL</label><input value={size_XL}
                                     onChange={(e)=>{setSize_XL(e.target.value)}}
                                     name="size-XL" id="size-XL" type="number" required class="form-control"/></div>
-                                    <div class="field-info"><label htmlFor="material" class="">Chất liệu</label><input value={material}
+                                    <div class="field-info"><label htmlFor="material" class="">Chất Liệu</label><input value={material}
                                     onChange={(e)=>{setMaterial(e.target.value)}}
                                     name="material" id="material" type="text" required class="form-control"/></div>
-                                    <div class="field-info"><label htmlFor="color" class="">Màu sắc</label><input value={color} 
+                                    <div class="field-info"><label htmlFor="color" class="">Màu Sắc</label><input value={color} 
                                     onChange={(e)=>{setColor(e.target.value)}}
                                     name="color" id="color" type="text" required class="form-control"/></div>
                                     <div class="field-info"><label htmlFor="img" class="">Ảnh</label><input 
@@ -167,20 +175,20 @@ const Update = ({isDisplay, update, loading,error, setShowModalUpdate, product})
                                     }}
                                     name="file" id="img" required type="file" class="form-control-file" multiple />
                                     </div>
-                                    <button class="mt-1 btn btn-primary" onClick={(e)=>handleClickUpload(e)}>Thêm mới</button>
+                                    <button class="mt-1 btn btn-primary" onClick={(e)=>handleClickUpload(e)}>Sửa</button>
                                 </form>
                             </div>
                             <div className="col-6 row">
                                 {product.img.map((item, index) => {
                                     return (
-                                        <div className="col-6 img-product">
+                                        <div className="col-6 img-product" key={index}>
                                             <img src={item} alt="" width="50%" height="100%"/>
                                         </div>
                                     )
                                 }) }
-                                {avatar && (
-                                    <div className="col-6 img-product"><img src={avatar.preview} alt="" width="50%" height="100%" /></div>
-                                )}
+                                {avatarList.map((item, index) => (
+                                    <div key={index} className="col-6 img-product"><img src={`${item.preview}`} alt="" width="50%" height="100%" /></div>
+                                ))}
                             </div>
                         </div>
                     </div>
