@@ -21,17 +21,6 @@ import getUser from './query/getUser';
 
 const store = configureStore();
 getUser(store.dispatch);
-const loadData = () => {
- 
-  getSkirt(store.dispatch)
-  getShirt(store.dispatch);
-  getDress(store.dispatch);
-  getTrousers(store.dispatch);
-  getOrder(store.dispatch)
-}
-const fetchData = new Promise((resolve, reject) => {
-  loadData();
-})
 
 const jsx =( 
   <React.StrictMode>
@@ -66,7 +55,7 @@ firebase.auth().onAuthStateChanged(function(user){
     store.dispatch(startSetLogin({name: user.displayName, email: user.email})).then((response) => {
       // loadData();
       renderApp();
-     history.push('/')
+     history.push(history.location.pathname)
     })
     
   }else{

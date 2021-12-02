@@ -57,12 +57,12 @@ const Dress = ({dress, addDress, updateDress, removeDress }) => {
     const [showModalAdd, setShowModalAdd]= useState(false);
     const [flag, setFlag] = useState(0);
     const [showModalUpdate, setShowModalUpdate]= useState(false);
-    const [update, { data_update, loading_update, error_update }] = useMutation(UPDATE_DRESS,{
+    const [update, statusUpdate] = useMutation(UPDATE_DRESS,{
         onCompleted: (data)=>{
             updateDress(data.updateDress.id, data.updateDress);
         }
     });
-    const [add, { data, loading, error }] = useMutation(ADD_DRESS,
+    const [add, statusAdd] = useMutation(ADD_DRESS,
             {
                 onCompleted:(data)=>{
                     addDress(data.createDress);
@@ -148,7 +148,7 @@ const Dress = ({dress, addDress, updateDress, removeDress }) => {
                                         >
                                             Sửa
                                         </button>
-                                        {showModalUpdate&&(flag===item.id)&&<Update isDisplay={showModalUpdate} update={update} loading={loading_update} error={error_update}  setShowModalUpdate={setShowModalUpdate} product={item}/>}
+                                        {showModalUpdate&&(flag===item.id)&&<Update isDisplay={showModalUpdate} update={update} status={statusUpdate}  setShowModalUpdate={setShowModalUpdate} product={item}/>}
                                         <Modal
                                             isOpen={showModalRemove}
                                             className="modal-react custom-modal-react"
@@ -180,7 +180,7 @@ const Dress = ({dress, addDress, updateDress, removeDress }) => {
 
             <button className='btn-add  btn btn-success' onClick={handleAddDress}>Thêm mới</button>
             
-            <Add isDisplay={showModalAdd} add={add} loading={loading} error={error}  setShowModalAdd={setShowModalAdd} />
+            <Add isDisplay={showModalAdd} add={add} status={statusAdd}  setShowModalAdd={setShowModalAdd} />
             
             
         </div>

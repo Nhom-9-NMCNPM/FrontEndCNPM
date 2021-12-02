@@ -59,14 +59,14 @@ const Shirt = ({shirt, addShirt, updateShirt, removeShirt}) => {
     const [showModalAdd, setShowModalAdd]= useState(false);
     const [flag, setFlag] = useState(0);
     const [showModalUpdate, setShowModalUpdate]= useState(false);
-    const [add, { data, loading, error }] = useMutation(ADD_SHIRT,{
+    const [add, statusAdd] = useMutation(ADD_SHIRT,{
             onCompleted:(data)=>{
                 addShirt(data.createShirt)
             }
         }
     );
     
-    const [update, { data_update, loading_update, error_update }] = useMutation(UPDATE_SHIRT,{
+    const [update, statusUpdate] = useMutation(UPDATE_SHIRT,{
         onCompleted: (data)=>{
             updateShirt(data.updateShirt.id, data.updateShirt);
         }
@@ -150,7 +150,7 @@ const Shirt = ({shirt, addShirt, updateShirt, removeShirt}) => {
                                     >
                                         Sửa
                                     </button>
-                                    {showModalUpdate&&(flag===item.id)&&<Update isDisplay={showModalUpdate} update={update} loading={loading_update} error={error_update}  setShowModalUpdate={setShowModalUpdate} product={item}/>}
+                                    {showModalUpdate&&(flag===item.id)&&<Update isDisplay={showModalUpdate} update={update} status={statusUpdate}  setShowModalUpdate={setShowModalUpdate} product={item}/>}
                                     <Modal
                                         isOpen={showModalRemove}
                                         className="modal-react custom-modal-react"
@@ -179,7 +179,7 @@ const Shirt = ({shirt, addShirt, updateShirt, removeShirt}) => {
             </div>
 
             <button className='btn-add btn btn-success' onClick={handleAddShirt}>Thêm mới</button>
-            <Add isDisplay={showModalAdd} add={add} loading={loading} error={error} setShowModalAdd={setShowModalAdd} />
+            <Add isDisplay={showModalAdd} add={add} status={statusAdd} setShowModalAdd={setShowModalAdd} />
         </div>
         </div>
     )

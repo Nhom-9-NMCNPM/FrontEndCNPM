@@ -90,7 +90,6 @@ const ManagerUser = ({userList}) => {
                     }
                 </tbody>    
             </table>
-            <Footer />
         </div>
     )
 }

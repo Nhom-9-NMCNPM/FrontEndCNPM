@@ -11,7 +11,7 @@ const UPLOAD = gql`
         }
     }
     `
-const Add = ({isDisplay, add, loading, error, setShowModalAdd}) => {
+const Add = ({isDisplay, add, status, setShowModalAdd}) => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState(0);
@@ -25,7 +25,7 @@ const Add = ({isDisplay, add, loading, error, setShowModalAdd}) => {
     const [publish, setPublish] = useState(true);
     const [newPro, setNewPro] = useState(true);
     const [file,setFile] = useState([]);
-    const [uploadFile] = useMutation(UPLOAD, {
+    const [uploadFile, {loading, error}] = useMutation(UPLOAD, {
         onCompleted: (data)=>{
             console.log(data.upLoadFile.url)
             const newPrice = parseInt(price, 10);
@@ -65,12 +65,13 @@ const Add = ({isDisplay, add, loading, error, setShowModalAdd}) => {
             setColor('')
             setFile([])
             setShowModalAdd(false);
-            if (loading) return <LoadingPage />;
             alert("Thêm thành công!");
         }
     })
-    
-    if (error) return `Submission error! ${error.message}`;
+    if(loading) return <LoadingPage />;
+    if(error) return `Submission error! ${error.message}`;
+    if(status.loading) return <LoadingPage />
+    if (status.error) return `Submission error! ${status.error.message}`;
     const onhandleUpload = (e)=>{
         setFile(e.target.files);
         if(!file) return

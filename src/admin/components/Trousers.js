@@ -57,12 +57,12 @@ const Trousers = ({trousers, addTrousers, updateTrousers, removeTrousers}) => {
     const [showModalAdd, setShowModalAdd]= useState(false);
     const [flag, setFlag] = useState(0);
     const [showModalUpdate, setShowModalUpdate]= useState(false);
-    const [update, { data_update, loading_update, error_update }] = useMutation(UPDATE_TROUSERS,{
+    const [update, statusUpdate] = useMutation(UPDATE_TROUSERS,{
         onCompleted: (data)=>{
             updateTrousers(data.updateTrousers.id, data.updateTrousers);
         }
     });
-    const [add, { data, loading, error }] = useMutation(ADD_TROUSERS,{
+    const [add, statusAdd] = useMutation(ADD_TROUSERS,{
         onCompleted:(data)=>{
             addTrousers(data.createTrousers)
         }
@@ -144,7 +144,7 @@ const Trousers = ({trousers, addTrousers, updateTrousers, removeTrousers}) => {
                                     >
                                         Sửa
                                     </button>
-                                    {showModalUpdate&&(flag===item.id)&&<Update isDisplay={showModalUpdate} update={update} loading={loading_update} error={error_update}  setShowModalUpdate={setShowModalUpdate} product={item}/>}
+                                    {showModalUpdate&&(flag===item.id)&&<Update isDisplay={showModalUpdate} update={update} status={statusUpdate}  setShowModalUpdate={setShowModalUpdate} product={item}/>}
                                     <Modal
                                         isOpen={showModalRemove}
                                         className="modal-react custom-modal-react"
@@ -173,7 +173,7 @@ const Trousers = ({trousers, addTrousers, updateTrousers, removeTrousers}) => {
 
             </div>
             <button className='btn-add  btn btn-success' onClick={handleAddTrousers}>Thêm mới</button>
-            <Add isDisplay={showModalAdd} add={add} loading={loading} error={error}  setShowModalAdd={setShowModalAdd} />
+            <Add isDisplay={showModalAdd} add={add} status={statusAdd}  setShowModalAdd={setShowModalAdd} />
         </div>
         </div>
     )

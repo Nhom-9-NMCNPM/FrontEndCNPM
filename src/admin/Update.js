@@ -3,6 +3,7 @@ import React from 'react'
 import { gql, useMutation } from '@apollo/client';
 import { useState } from "react";
 import Modal from "react-modal";
+import LoadingPage from "../components/LoadingPage";
 
 const UPLOAD = gql`
     mutation Mutation($file: [Upload!]!) {
@@ -11,8 +12,7 @@ const UPLOAD = gql`
         }
     }
     `
-const Update = ({isDisplay, update, loading,error, setShowModalUpdate, product}) => {
-    console.log(product)
+const Update = ({isDisplay, update, status, setShowModalUpdate, product}) => {
     const [name, setName] = useState(product.name);
     const [description, setDescription] = useState(product.description);
     const [price, setPrice] = useState(product.price);
@@ -55,18 +55,17 @@ const Update = ({isDisplay, update, loading,error, setShowModalUpdate, product})
             })
             setShowModalUpdate(false);
             alert("Sửa thành công!");
-            window.location.reload();
         }
     })
-    if (loading) return 'Submitting...';
-    if (error) return `Submission error! ${error.message}`;
+    if (status.loading) console.log(status.loading);
+    if (status.error) return `Submission error! ${status.error.message}`;
     const onhandleUpload = (e)=>{
         setFile(e.target.files);
         if(!file) return
     };
     const handleClickUpload = (e)=>{
         e.preventDefault();
-        if(!file){
+        if(!!file){
             const newPrice = parseInt(price, 10);
             const numberSize_S = parseInt(size_S, 10);
             const numberSize_M = parseInt(size_M, 10);
@@ -92,8 +91,6 @@ const Update = ({isDisplay, update, loading,error, setShowModalUpdate, product})
                 }
             })
             setShowModalUpdate(false);
-            alert("Sửa thành công!");
-            window.location.reload();
         }else{
             uploadFile({variables: {file}});
         }
