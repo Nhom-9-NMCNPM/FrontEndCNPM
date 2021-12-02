@@ -3,6 +3,10 @@ import React from 'react'
 import { gql, useMutation } from '@apollo/client';
 import { useState } from "react";
 import Modal from "react-modal";
+// import { ADD_SHIRT, UPDATE_SHIRT } from "./mutation/shirt";
+// import { ADD_SKIRT, UPDATE_SKIRT } from "./mutation/skirt";
+// import { ADD_TROUSERS, UPDATE_TROUSERS } from "./mutation/trousers";
+// import { ADD_DRESS, UPDATE_DRESS } from "./mutation/derss";
 import LoadingPage from '../components/LoadingPage'
 const UPLOAD = gql`
     mutation Mutation($file: [Upload!]!) {
@@ -12,6 +16,10 @@ const UPLOAD = gql`
     }
     `
 const Add = ({isDisplay, add, status, setShowModalAdd}) => {
+    // const [addShirt, {loading: mutationLoading, error: mutationError}] = useMutation(ADD_SHIRT);
+    // const [updateShirt, {loading: mutationLoading, error: mutationError}] = useMutation(UPDATE_SHIRT);
+    // const [addSkirt, {loading: mutationLoading, error: mutationError}] = useMutation(ADD_SKIRT);
+
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState(0);
@@ -24,7 +32,8 @@ const Add = ({isDisplay, add, status, setShowModalAdd}) => {
     const [color, setColor] = useState('');
     const [publish, setPublish] = useState(true);
     const [newPro, setNewPro] = useState(true);
-    const [file,setFile] = useState([]);
+    const [file,setFile] = useState([]); 
+    const [avatar, setAvatar] = useState([])
     const [uploadFile, {loading, error}] = useMutation(UPLOAD, {
         onCompleted: (data)=>{
             console.log(data.upLoadFile.url)
@@ -68,13 +77,12 @@ const Add = ({isDisplay, add, status, setShowModalAdd}) => {
             alert("Thêm thành công!");
         }
     })
-    if(loading) return <LoadingPage />;
-    if(error) return `Submission error! ${error.message}`;
-    if(status.loading) return <LoadingPage />
-    if (status.error) return `Submission error! ${status.error.message}`;
     const onhandleUpload = (e)=>{
         setFile(e.target.files);
-        if(!file) return
+        setAvatar([...e.target.files].map((file)=>{
+            file.preview = URL.createObjectURL(file)
+            return file;
+        }))
     };
     const handleClickUpload = (e)=>{
         e.preventDefault();
@@ -94,7 +102,7 @@ const Add = ({isDisplay, add, status, setShowModalAdd}) => {
                     <div className="container" style={{overflow: 'auto'}}>
                         <h1 className="title">THÔNG TIN SẢN PHẨM</h1>
                         <div className="info row">
-                            <div className="info-left col-12 ">
+                            <div className="info-left col-6 ">
                                 <form class="">
                                     <div class="field-info"><label htmlFor="id" class="">ID</label><input name="id" id="id" type="text" class="form-control" readOnly={true} /></div>
                                     <div class="field-info"><label htmlFor="name" class="">Name</label><input value={name}
@@ -129,11 +137,20 @@ const Add = ({isDisplay, add, status, setShowModalAdd}) => {
                                     onChange={(e)=>{setColor(e.target.value)}}
                                     name="color" id="color" type="text" required class="form-control"/></div>
                                     <div class="field-info"><label htmlFor="img" class="">Image</label><input 
-                                    onChange={onhandleUpload}
+                                    onChange={(e)=>onhandleUpload(e)}
                                     name="file" id="img" required type="file" class="form-control-file" multiple />
                                     </div>
                                     <button class="mt-1 btn btn-primary" onClick={(e)=>handleClickUpload(e)}>Submit</button>
                                 </form>
+                            </div>
+                            <div className="col-6 row">
+                                {avatar.length>0 && (
+                                    avatar.map((item, index) =>(
+                                        <div key={index} className="col-6 img-product">
+                                            <img src={item.preview} alt="" width="50%" height="100%" />
+                                        </div>
+                                    ))
+                                )}
                             </div>
                         </div>
                     </div>

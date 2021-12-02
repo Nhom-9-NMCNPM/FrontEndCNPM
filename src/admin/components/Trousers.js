@@ -31,8 +31,8 @@ const ADD_TROUSERS = gql`
     }
 `;
 const UPDATE_TROUSERS = gql`
-    mutation Mutation($data: updateTrousersInput!, $updateTrousersId: Int!) {
-        updateTrousers(data: $data, id: $updateTrousersId) {
+    mutation Mutation($data: updateTrousersInput!, $proId: Int!) {
+        updateTrousers(data: $data, proId: $proId) {
             id
             name
             description
@@ -86,11 +86,14 @@ const Trousers = ({trousers, addTrousers, updateTrousers, removeTrousers}) => {
         <div>
             <NavHeader />
             <div className="margin-bottom">
-            <h1>QUẦN</h1>
             <div className="table-product" >
-            <table class="table table-bordered">
+                <div className="table-product-title">
+                    <h1>QUẦN</h1>
+                    <button className='btn-add  btn btn-success' onClick={handleAddTrousers}><i className="fas fa-plus" />Thêm mới</button>
+                </div>
+            <table class="table">
                 <thead>
-                    <tr className="table-tr table-warning" >
+                    <tr className="table-tr " >
                         <th scope="col" className="table-title-pro">STT</th>
                         <th scope="col" className="table-title-pro">ID</th>
                         <th scope="col" className="table-title-pro">NGÀY TẠO</th>
@@ -110,7 +113,7 @@ const Trousers = ({trousers, addTrousers, updateTrousers, removeTrousers}) => {
                         
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className="table-body">
                 {trousers.map((item,index) => {
                     var createdAt = new Date(parseFloat(item.createdAt));
                     var updatedAt = new Date(parseFloat(item.updatedAt));
@@ -131,18 +134,18 @@ const Trousers = ({trousers, addTrousers, updateTrousers, removeTrousers}) => {
                                 <td className='content'>{item.size_XL}</td>
                                 <td className='content'>{item.material}</td>
                                 <td className='content'>{item.color}</td>
-                                <td className='content event-btn'>
+                                <td className='content event-btn' >
                                     <button 
                                         onClick={()=>setShowModalRemove(item.id)}
                                         className='btn-remove btn btn-danger btn-sm px-3'
                                     >
-                                        Xóa
+                                        <i class="fas fa-trash-alt"></i>
                                     </button>
                                     <button 
                                         className='btn-update btn btn-warning'
                                         onClick={()=>handleUpdateTrousers(item.id)}
                                     >
-                                        Sửa
+                                        <i class="fas fa-edit"></i>
                                     </button>
                                     {showModalUpdate&&(flag===item.id)&&<Update isDisplay={showModalUpdate} update={update} status={statusUpdate}  setShowModalUpdate={setShowModalUpdate} product={item}/>}
                                     <Modal
@@ -172,8 +175,8 @@ const Trousers = ({trousers, addTrousers, updateTrousers, removeTrousers}) => {
                 </table>
 
             </div>
-            <button className='btn-add  btn btn-success' onClick={handleAddTrousers}>Thêm mới</button>
-            <Add isDisplay={showModalAdd} add={add} status={statusAdd}  setShowModalAdd={setShowModalAdd} />
+            
+            <Add isDisplay={showModalAdd} add={add} status={statusAdd}   setShowModalAdd={setShowModalAdd} />
         </div>
         </div>
     )

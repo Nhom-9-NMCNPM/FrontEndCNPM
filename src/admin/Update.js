@@ -1,7 +1,7 @@
 import "../style/Admin/Update.css"
-import React from 'react'
+import React, { useEffect } from 'react'
 import { gql, useMutation } from '@apollo/client';
-import { useState } from "react";
+import { useState} from "react";
 import Modal from "react-modal";
 import LoadingPage from "../components/LoadingPage";
 
@@ -26,6 +26,12 @@ const Update = ({isDisplay, update, status, setShowModalUpdate, product}) => {
     const [publish, setPublish] = useState(true);
     const [newPro, setNewPro] = useState(true);
     const [file,setFile] = useState([]);
+    const [avatar, setAvatar] = useState([])
+    useEffect(() => {   
+        return() => {
+            avatar && URL.revokeObjectURL(avatar.preview)
+        }
+    }, [avatar])
     const [uploadFile] = useMutation(UPLOAD, {
         onCompleted: (data)=>{
             const newPrice = parseInt(price, 10);
@@ -50,18 +56,19 @@ const Update = ({isDisplay, update, status, setShowModalUpdate, product}) => {
                         newPro,
                         img: data.upLoadFile.url,
                     },
-                    updateShirtId: product.id
+                    proId: product.id
                 }
             })
             setShowModalUpdate(false);
             alert("Sửa thành công!");
         }
     })
-    if (status.loading) console.log(status.loading);
-    if (status.error) return `Submission error! ${status.error.message}`;
     const onhandleUpload = (e)=>{
         setFile(e.target.files);
-        if(!file) return
+        setAvatar([...e.target.files].map((file)=>{
+            file.preview = URL.createObjectURL(file)
+            return file;
+        }))
     };
     const handleClickUpload = (e)=>{
         e.preventDefault();
@@ -87,7 +94,7 @@ const Update = ({isDisplay, update, status, setShowModalUpdate, product}) => {
                         publish,
                         newPro,
                     },
-                    updateShirtId: product.id
+                    proId: product.id
                 }
             })
             setShowModalUpdate(false);
@@ -96,6 +103,7 @@ const Update = ({isDisplay, update, status, setShowModalUpdate, product}) => {
         }
       
     }
+   
     return (
 
         <Modal
@@ -110,20 +118,20 @@ const Update = ({isDisplay, update, status, setShowModalUpdate, product}) => {
                     <div className="container" style={{overflow: 'auto'}}>
                         <h1 className="title">THÔNG TIN SẢN PHẨM</h1>
                         <div className="info row">
-                            <div className="info-left col-12 ">
+                            <div className="info-left col-6 ">
                                 <form class="">
                                     <div class="field-info"><label htmlFor="id" class="">ID</label><input name="id" id="id" type="text" class="form-control" readOnly={true} /></div>
-                                    <div class="field-info"><label htmlFor="name" class="">Name</label><input value={name}
+                                    <div class="field-info"><label htmlFor="name" class="">Tên Sản Phẩm</label><input value={name}
                                     onChange={(e)=>{setName(e.target.value)}}
                                     name="name" id="name"type="text" required class="form-control"/>
                                     </div>
-                                    <div class="field-info"><label htmlFor="des" class="">Description</label><input value={description}
+                                    <div class="field-info"><label htmlFor="des" class="" type="text">Mô tả</label><input value={description}
                                     onChange={(e)=>{setDescription(e.target.value)}}
                                     name="des" id="des" required class="form-control" /></div>
-                                    <div class="field-info"><label htmlFor="price" class="">Price</label><input value={price}
+                                    <div class="field-info"><label htmlFor="price" class="">Giá tiền</label><input value={price}
                                     onChange={(e)=>{setPrice(e.target.value)}}
                                     name="price" id="price" type="number" required class="form-control"/></div>
-                                    <div class="field-info"><label htmlFor="code-pro" class="">Code Pro</label><input value={code}
+                                    <div class="field-info"><label htmlFor="code-pro" class="">Mã Sản Phẩm</label><input value={code}
                                     onChange={(e)=>{setCode(e.target.value)}}
                                     name="code-pro" id="code-pro" type="text" required class="form-control"/></div>
                                     <div class="field-info"><label htmlFor="size-M" class="">Size-M</label><input value={size_M}
@@ -138,18 +146,36 @@ const Update = ({isDisplay, update, status, setShowModalUpdate, product}) => {
                                     <div class="field-info"><label htmlFor="size-XL" class="">Size-XL</label><input value={size_XL}
                                     onChange={(e)=>{setSize_XL(e.target.value)}}
                                     name="size-XL" id="size-XL" type="number" required class="form-control"/></div>
-                                    <div class="field-info"><label htmlFor="material" class="">Material</label><input value={material}
+                                    <div class="field-info"><label htmlFor="material" class="">Chất liệu</label><input value={material}
                                     onChange={(e)=>{setMaterial(e.target.value)}}
                                     name="material" id="material" type="text" required class="form-control"/></div>
-                                    <div class="field-info"><label htmlFor="color" class="">Color</label><input value={color} 
+                                    <div class="field-info"><label htmlFor="color" class="">Màu sắc</label><input value={color} 
                                     onChange={(e)=>{setColor(e.target.value)}}
                                     name="color" id="color" type="text" required class="form-control"/></div>
-                                    <div class="field-info"><label htmlFor="img" class="">Image</label><input 
-                                    onChange={onhandleUpload}
+                                    <div class="field-info"><label htmlFor="img" class="">Ảnh</label><input 
+                                    onChange={(e) => {
+                                        onhandleUpload(e)
+                                    }}
                                     name="file" id="img" required type="file" class="form-control-file" multiple />
                                     </div>
-                                    <button class="mt-1 btn btn-primary" onClick={(e)=>handleClickUpload(e)}>Submit</button>
+                                    <button class="mt-1 btn btn-primary" onClick={(e)=>handleClickUpload(e)}>Thêm mới</button>
                                 </form>
+                            </div>
+                            <div className="col-6 row">
+                                {product.img.map((item, index) => {
+                                    return (
+                                        <div className="col-6 img-product">
+                                            <img src={item} alt="" width="50%" height="100%"/>
+                                        </div>
+                                    )
+                                }) }
+                                {avatar.length>0 && (
+                                    avatar.map((item, index) =>(
+                                        <div key={index} className="col-6 img-product">
+                                            <img src={item.preview} alt="" width="50%" height="100%" />
+                                        </div>
+                                    ))
+                                )}
                             </div>
                         </div>
                     </div>
