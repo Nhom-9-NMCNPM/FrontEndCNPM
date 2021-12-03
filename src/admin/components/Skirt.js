@@ -31,8 +31,8 @@ const ADD_SKIRT = gql`
     }
 `;
 const UPDATE_SKIRT = gql`
-    mutation Mutation($data: updateSkirtInput!, $updateSkirtId: Int!) {
-        updateSkirt(data: $data, id: $updateSkirtId) {
+    mutation Mutation($data: updateSkirtInput!, $proId: Int!) {
+        updateSkirt(data: $data, proId: $proId) {
             id
             name
             description
@@ -57,12 +57,12 @@ const Skirt = ({skirt, addSkirt}) => {
     const [showModalAdd, setShowModalAdd]= useState(false);
     const [flag, setFlag] = useState(0);
     const [showModalUpdate, setShowModalUpdate]= useState(false);
-    const [update, { data_update, loading_update, error_update }] = useMutation(UPDATE_SKIRT,{
+    const [update, statusUpdate] = useMutation(UPDATE_SKIRT,{
         onCompleted: (data)=>{
             updateSkirt(data.updateSkirt.id, data.updateSkirt);
         }
     });
-    const [add, { data, loading, error }] = useMutation(ADD_SKIRT,{
+    const [add, statusAdd] = useMutation(ADD_SKIRT,{
         onCompleted: (data)=>{
             addSkirt(data.createSkirt);
         }
@@ -99,7 +99,7 @@ const Skirt = ({skirt, addSkirt}) => {
                             <th scope="col" className="table-title-pro">NGÀY CẬP NHẬT</th>
                             <th scope="col" className="table-title-pro">TÊN</th>
                             <th scope="col" className="table-title-pro pro-des">MÔ TẢ</th>
-                            <th scope="col" className="table-title-pro">ẢNH</th>
+                            <th scope="col" className="table-title-pro"style={{width: '10%'}}>ẢNH</th>
                             <th scope="col" className="table-title-pro">GIÁ</th>
                             <th scope="col" className="table-title-pro">MÃ SẢN PHẨM</th>
                             <th scope="col" className="table-title-pro"> Size_M</th>
@@ -147,7 +147,7 @@ const Skirt = ({skirt, addSkirt}) => {
                                         >
                                             <i class="fas fa-edit"></i>
                                         </button>
-                                        {showModalUpdate&&(flag===item.id)&&<Update isDisplay={showModalUpdate} update={update} loading={loading_update} error={error_update}  setShowModalUpdate={setShowModalUpdate} product={item}/>}
+                                        {showModalUpdate&&(flag===item.id)&&<Update isDisplay={showModalUpdate} update={update} status={statusUpdate}  setShowModalUpdate={setShowModalUpdate} product={item}/>}
                                         <Modal
                                             isOpen={showModalRemove}
                                             className="modal-react custom-modal-react"
@@ -176,7 +176,7 @@ const Skirt = ({skirt, addSkirt}) => {
             </div>
 
             
-            <Add isDisplay={showModalAdd} add={add} loading={loading} error={error} setShowModalAdd={setShowModalAdd} />
+            <Add isDisplay={showModalAdd} add={add} status={statusAdd} setShowModalAdd={setShowModalAdd} />
         </div>
         </div>
     )

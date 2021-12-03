@@ -3,6 +3,10 @@ import React from 'react'
 import { gql, useMutation } from '@apollo/client';
 import { useState, useEffect } from "react";
 import Modal from "react-modal";
+// import { ADD_SHIRT, UPDATE_SHIRT } from "./mutation/shirt";
+// import { ADD_SKIRT, UPDATE_SKIRT } from "./mutation/skirt";
+// import { ADD_TROUSERS, UPDATE_TROUSERS } from "./mutation/trousers";
+// import { ADD_DRESS, UPDATE_DRESS } from "./mutation/derss";
 import LoadingPage from '../components/LoadingPage'
 const UPLOAD = gql`
     mutation Mutation($file: [Upload!]!) {
@@ -11,7 +15,11 @@ const UPLOAD = gql`
         }
     }
     `
-const Add = ({isDisplay, add, loading, error, setShowModalAdd}) => {
+const Add = ({isDisplay, add, status, setShowModalAdd}) => {
+    // const [addShirt, {loading: mutationLoading, error: mutationError}] = useMutation(ADD_SHIRT);
+    // const [updateShirt, {loading: mutationLoading, error: mutationError}] = useMutation(UPDATE_SHIRT);
+    // const [addSkirt, {loading: mutationLoading, error: mutationError}] = useMutation(ADD_SKIRT);
+
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState(0);
@@ -24,20 +32,9 @@ const Add = ({isDisplay, add, loading, error, setShowModalAdd}) => {
     const [color, setColor] = useState('');
     const [publish, setPublish] = useState(true);
     const [newPro, setNewPro] = useState(true);
-    const [file,setFile] = useState([]);
-    const [avatar, setAvatar] = useState()
-    useEffect(() => {   
-        return() => {
-            avatar && URL.revokeObjectURL(avatar.preview)
-        }
-    }, [avatar])
-    const handlePreviewAvatar = (e) => {
-        const file = e.target.files[0]
-        file.preview = URL.createObjectURL(file)
-        console.log(file.preview);
-        setAvatar(file)
-    }
-    const [uploadFile] = useMutation(UPLOAD, {
+    const [file,setFile] = useState([]); 
+    const [avatar, setAvatar] = useState([])
+    const [uploadFile, {loading, error}] = useMutation(UPLOAD, {
         onCompleted: (data)=>{
             console.log(data.upLoadFile.url)
             const newPrice = parseInt(price, 10);
@@ -77,15 +74,15 @@ const Add = ({isDisplay, add, loading, error, setShowModalAdd}) => {
             setColor('')
             setFile([])
             setShowModalAdd(false);
-            if (loading) return <LoadingPage />;
             alert("Thêm thành công!");
         }
     })
-    
-    if (error) return `Submission error! ${error.message}`;
     const onhandleUpload = (e)=>{
         setFile(e.target.files);
-        if(!file) return
+        setAvatar([...e.target.files].map((file)=>{
+            file.preview = URL.createObjectURL(file)
+            return file;
+        }))
     };
     const handleClickUpload = (e)=>{
         e.preventDefault();
@@ -139,20 +136,20 @@ const Add = ({isDisplay, add, loading, error, setShowModalAdd}) => {
                                     <div class="field-info"><label htmlFor="color" class="">Màu Sắc</label><input value={color} 
                                     onChange={(e)=>{setColor(e.target.value)}}
                                     name="color" id="color" type="text" required class="form-control"/></div>
-                                    <div class="field-info"><label htmlFor="img" class="">Ảnh</label><input 
-                                    onChange={(e) => {
-                                        onhandleUpload(e)
-                                        handlePreviewAvatar(e)
-                                    }
-                                    }
+                                    <div class="field-info"><label htmlFor="img" class="">Image</label><input 
+                                    onChange={(e)=>onhandleUpload(e)}
                                     name="file" id="img" required type="file" class="form-control-file" multiple />
                                     </div>
                                     <button class="mt-1 btn btn-primary" onClick={(e)=>handleClickUpload(e)}>Thêm mới</button>
                                 </form>
                             </div>
                             <div className="col-6 row">
-                                {avatar && (
-                                    <div className="col-6 img-product"><img src={avatar.preview} alt="" width="50%" height="100%" /></div>
+                                {avatar.length>0 && (
+                                    avatar.map((item, index) =>(
+                                        <div key={index} className="col-6 img-product">
+                                            <img src={item.preview} alt="" width="50%" height="100%" />
+                                        </div>
+                                    ))
                                 )}
                             </div>
                         </div>

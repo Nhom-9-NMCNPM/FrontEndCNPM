@@ -77,8 +77,11 @@
 .content.event-btn {
     height: 23vh;
     border-bottom: none;
+    margin-top: -1px;
 }
-
+.content img {
+    height: 242px;
+}
 .table-body:last-child {
    border-bottom-style:hidden;
 }

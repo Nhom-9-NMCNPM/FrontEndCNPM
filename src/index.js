@@ -66,7 +66,7 @@ firebase.auth().onAuthStateChanged(function(user){
     store.dispatch(startSetLogin({name: user.displayName, email: user.email})).then((response) => {
       // loadData();
       renderApp();
-     history.push('/')
+     history.push(history.location.pathname)
     })
     
   }else{

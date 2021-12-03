@@ -17,8 +17,15 @@
     width: 20%;
 }
 .img-product {
-    height: 50%;
     margin-bottom: 8px;
+    position: relative;
+}
+.img-cancel {
+    display: block;
+    position: absolute;
+    right: 20px;
+    top: 6px;
+    color: #8b2727;
 }
 .ReactModalPortal>div {
     opacity: 0;

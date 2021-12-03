@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import { gql, useMutation } from '@apollo/client';
 import { useState} from "react";
 import Modal from "react-modal";
+import LoadingPage from "../components/LoadingPage";
 
 const UPLOAD = gql`
     mutation Mutation($file: [Upload!]!) {
@@ -11,8 +12,7 @@ const UPLOAD = gql`
         }
     }
     `
-const Update = ({isDisplay, update, loading,error, setShowModalUpdate, product}) => {
-    console.log(product)
+const Update = ({isDisplay, update, status, setShowModalUpdate, product}) => {
     const [name, setName] = useState(product.name);
     const [description, setDescription] = useState(product.description);
     const [price, setPrice] = useState(product.price);
@@ -26,26 +26,12 @@ const Update = ({isDisplay, update, loading,error, setShowModalUpdate, product})
     const [publish, setPublish] = useState(true);
     const [newPro, setNewPro] = useState(true);
     const [file,setFile] = useState([]);
-    const [avatar, setAvatar] = useState()
-    const avatarList = []
+    const [avatar, setAvatar] = useState([])
     useEffect(() => {   
         return() => {
             avatar && URL.revokeObjectURL(avatar.preview)
         }
     }, [avatar])
-    const handlePreviewAvatar = (e) => {
-        const fileList = Array.from(e.target.files)
-        // const file = e.target.files[0]
-        fileList.forEach((item,index) => {
-            item = e.target.files[index]
-            item.preview = URL.createObjectURL(item)
-            avatarList.push(item)
-        })
-        setAvatar()
-        avatarList.forEach(item => {
-            console.log(item);
-        })
-    }
     const [uploadFile] = useMutation(UPLOAD, {
         onCompleted: (data)=>{
             const newPrice = parseInt(price, 10);
@@ -70,23 +56,23 @@ const Update = ({isDisplay, update, loading,error, setShowModalUpdate, product})
                         newPro,
                         img: data.upLoadFile.url,
                     },
-                    updateShirtId: product.id
+                    proId: product.id
                 }
             })
             setShowModalUpdate(false);
             alert("Sửa thành công!");
-            window.location.reload();
         }
     })
-    if (loading) return 'Submitting...';
-    if (error) return `Submission error! ${error.message}`;
     const onhandleUpload = (e)=>{
         setFile(e.target.files);
-        if(!file) return
+        setAvatar([...e.target.files].map((file)=>{
+            file.preview = URL.createObjectURL(file)
+            return file;
+        }))
     };
     const handleClickUpload = (e)=>{
         e.preventDefault();
-        if(!file){
+        if(!!file){
             const newPrice = parseInt(price, 10);
             const numberSize_S = parseInt(size_S, 10);
             const numberSize_M = parseInt(size_M, 10);
@@ -108,12 +94,10 @@ const Update = ({isDisplay, update, loading,error, setShowModalUpdate, product})
                         publish,
                         newPro,
                     },
-                    updateShirtId: product.id
+                    proId: product.id
                 }
             })
             setShowModalUpdate(false);
-            alert("Sửa thành công!");
-            window.location.reload();
         }else{
             uploadFile({variables: {file}});
         }
@@ -171,7 +155,6 @@ const Update = ({isDisplay, update, loading,error, setShowModalUpdate, product})
                                     <div class="field-info"><label htmlFor="img" class="">Ảnh</label><input 
                                     onChange={(e) => {
                                         onhandleUpload(e)
-                                        handlePreviewAvatar(e)
                                     }}
                                     name="file" id="img" required type="file" class="form-control-file" multiple />
                                     </div>
@@ -182,13 +165,19 @@ const Update = ({isDisplay, update, loading,error, setShowModalUpdate, product})
                                 {product.img.map((item, index) => {
                                     return (
                                         <div className="col-6 img-product" key={index}>
-                                            <img src={item} alt="" width="50%" height="100%"/>
+                                             <i class="fas fa-times img-cancel"></i>
+                                            <img src={item} alt="" width="50%" />
                                         </div>
                                     )
                                 }) }
-                                {avatarList.map((item, index) => (
-                                    <div key={index} className="col-6 img-product"><img src={`${item.preview}`} alt="" width="50%" height="100%" /></div>
-                                ))}
+                                {avatar.length>0 && (
+                                    avatar.map((item, index) =>(
+                                        <div key={index} className="col-6 img-product">
+                                            <i class="fas fa-times img-cancel"></i>
+                                            <img src={item.preview} alt="" width="50%"  />
+                                        </div>
+                                    ))
+                                )}
                             </div>
                         </div>
                     </div>
