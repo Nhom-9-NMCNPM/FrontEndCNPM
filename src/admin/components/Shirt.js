@@ -144,19 +144,21 @@ const Shirt = ({shirt, addShirt, updateShirt, removeShirt}) => {
                                     <td className='content'>{item.size_XL}</td>
                                     <td className='content'>{item.material}</td>
                                     <td className='content'>{item.color}</td>
-                                    <td className='content event-btn'>
-                                        <button 
-                                            onClick={()=>setShowModalRemove(item.id)}
-                                            className='btn-remove btn btn-danger btn-sm px-3' 
-                                        >
-                                            <i class="fas fa-trash-alt"></i>
-                                        </button>
-                                        <button 
-                                            className='btn-update  btn btn-warning'
-                                            onClick={()=>handleUpdateShirt(item.id)}
-                                        >
+                                    <td className='content '>
+                                        <div>
+                                            <button 
+                                                onClick={()=>setShowModalRemove(true)}
+                                                className='btn-remove btn btn-danger btn-sm px-3'
+                                            >
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                            <button 
+                                                className='btn-update btn btn-warning'
+                                                onClick={()=>handleUpdateShirt(item.id)}
+                                            >
                                             <i class="fas fa-edit"></i>
-                                        </button>
+                                            </button>
+                                        </div>
                                         {showModalUpdate&&(flag===item.id)&&<Update isDisplay={showModalUpdate} update={update} status={statusUpdate}  setShowModalUpdate={setShowModalUpdate} product={item}/>}
                                         <Modal
                                             isOpen={showModalRemove}
