@@ -1,7 +1,7 @@
 import "../style/Admin/Update.css"
-import React, { useEffect } from 'react'
+import ReactDOM from 'react-dom';
+import React, { useEffect, useState } from 'react'
 import { gql, useMutation } from '@apollo/client';
-import { useState} from "react";
 import Modal from "react-modal";
 import LoadingPage from "../components/LoadingPage";
 
@@ -27,6 +27,8 @@ const Update = ({isDisplay, update, status, setShowModalUpdate, product}) => {
     const [newPro, setNewPro] = useState(true);
     const [file,setFile] = useState([]);
     const [avatar, setAvatar] = useState([])
+    const [isLoading, setIsLoading] = useState(false);
+
     useEffect(() => {   
         return() => {
             avatar && URL.revokeObjectURL(avatar.preview)
@@ -70,15 +72,16 @@ const Update = ({isDisplay, update, status, setShowModalUpdate, product}) => {
             return file;
         }))
     };
-    const handleClickUpload = (e)=>{
+    const handleClickUpload =async (e)=>{
         e.preventDefault();
-        if(!!file){
+        setIsLoading(true);
+        if(file.length===0){
             const newPrice = parseInt(price, 10);
             const numberSize_S = parseInt(size_S, 10);
             const numberSize_M = parseInt(size_M, 10);
             const numberSize_L = parseInt(size_L, 10);
             const numberSize_XL = parseInt(size_XL, 10);
-            update({
+            await update({
                 variables:{
                     data:{
                         name,
@@ -97,13 +100,15 @@ const Update = ({isDisplay, update, status, setShowModalUpdate, product}) => {
                     proId: product.id
                 }
             })
-            setShowModalUpdate(false);
         }else{
-            uploadFile({variables: {file}});
+            await uploadFile({variables: {file}});
         }
-      
+        setShowModalUpdate(false)
+        setIsLoading(false)
     }
-   
+    if(isLoading){
+        return <LoadingPage />
+    }
     return (
 
         <Modal

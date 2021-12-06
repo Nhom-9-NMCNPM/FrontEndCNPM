@@ -92,7 +92,6 @@ const Dress = ({dress, addDress, updateDress, removeDress }) => {
             
             <div className="table-product">
                 <div className="table-product-title">
-                    <h1>ĐẦM</h1>
                     <button className='btn-add btn btn-success' onClick={handleAddDress}><i className="fas fa-plus"/>Thêm mới</button>
                 </div>
                     <table className="table  ">
@@ -129,8 +128,12 @@ const Dress = ({dress, addDress, updateDress, removeDress }) => {
                                         <td className='content'>{createdAt.toLocaleString()}</td>
                                         <td className='content'>{updatedAt.toLocaleString()}</td>
                                         <td className='content'>{item.name}</td>
-                                        <td className='content '>{item.description}</td>
-                                        <td className='content '><img src={item.img[0]} alt=""/></td>
+                                        <td className='content '>
+                                            <div className='content-img'>
+                                                {item.description}
+                                            </div>
+                                        </td>
+                                        <td className='content img-pro '><img src={item.img[0]} alt="" /></td>
                                         <td className='content'>{format_curency(item.price)}đ</td>
                                         <td className='content'>{item.codePro}</td>
                                         <td className='content'>{item.size_M}</td>
