@@ -142,19 +142,21 @@ const Dress = ({dress, addDress, updateDress, removeDress }) => {
                                         <td className='content'>{item.size_XL}</td>
                                         <td className='content'>{item.material}</td>
                                         <td className='content'>{item.color}</td>
-                                        <td className='content event-btn'>
-                                            <button 
-                                                onClick={()=>setShowModalRemove(true)}
-                                                className='btn-remove btn btn-danger btn-sm px-3'
-                                            >
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                            <button 
-                                                className='btn-update btn btn-warning'
-                                                onClick={()=>handleUpdateDress(item.id)}
-                                            >
-                                            <i class="fas fa-edit"></i>
-                                            </button>
+                                        <td className='content'>
+                                            <div>
+                                                <button 
+                                                    onClick={()=>setShowModalRemove(true)}
+                                                    className='btn-remove btn btn-danger btn-sm px-3'
+                                                >
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                                <button 
+                                                    className='btn-update btn btn-warning'
+                                                    onClick={()=>handleUpdateDress(item.id)}
+                                                >
+                                                <i class="fas fa-edit"></i>
+                                                </button>
+                                            </div>
                                             {showModalUpdate&&(flag===item.id)&&<Update isDisplay={showModalUpdate} update={update} status={statusUpdate}  setShowModalUpdate={setShowModalUpdate} product={item}/>}
                                             <Modal
                                                 isOpen={showModalRemove}
