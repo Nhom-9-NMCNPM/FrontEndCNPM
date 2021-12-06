@@ -87,7 +87,6 @@ const Skirt = ({skirt, addSkirt}) => {
             <div className="margin-bottom">
             <div className="table-product " >
                 <div className="table-product-title">
-                    <h1>VÁY</h1>
                     <button className='btn-add btn btn-success' onClick={handleAddSkirt}><i className="fas fa-plus" />Thêm mới</button>
                 </div>
                 <table className="table">
@@ -99,7 +98,7 @@ const Skirt = ({skirt, addSkirt}) => {
                             <th scope="col" className="table-title-pro">NGÀY CẬP NHẬT</th>
                             <th scope="col" className="table-title-pro">TÊN</th>
                             <th scope="col" className="table-title-pro pro-des">MÔ TẢ</th>
-                            <th scope="col" className="table-title-pro"style={{width: '10%'}}>ẢNH</th>
+                            <th scope="col" className="table-title-pro">ẢNH</th>
                             <th scope="col" className="table-title-pro">GIÁ</th>
                             <th scope="col" className="table-title-pro">MÃ SẢN PHẨM</th>
                             <th scope="col" className="table-title-pro"> Size_M</th>
@@ -124,8 +123,12 @@ const Skirt = ({skirt, addSkirt}) => {
                                     <td className='content'>{createdAt.toLocaleString()}</td>
                                     <td className='content'>{updatedAt.toLocaleString()}</td>
                                     <td className='content'>{item.name}</td>
-                                    <td className='content '>{item.description}</td>
-                                    <td className='content '><img src={item.img[0]} alt=""/></td>
+                                    <td className='content '>
+                                            <div className='content-img'>
+                                                {item.description}
+                                            </div>
+                                        </td>
+                                    <td className='content img-pro'><img src={item.img[0]} alt=""/></td>
                                     <td className='content'>{format_curency(item.price)}đ</td>
                                     <td className='content'>{item.codePro}</td>
                                     <td className='content'>{item.size_M}</td>

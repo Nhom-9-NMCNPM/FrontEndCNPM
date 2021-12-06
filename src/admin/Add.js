@@ -34,6 +34,7 @@ const Add = ({isDisplay, add, status, setShowModalAdd}) => {
     const [newPro, setNewPro] = useState(true);
     const [file,setFile] = useState([]); 
     const [avatar, setAvatar] = useState([])
+    const [isLoading, setIsLoading]=useState(false);
     const [uploadFile, {loading, error}] = useMutation(UPLOAD, {
         onCompleted: (data)=>{
             console.log(data.upLoadFile.url)
@@ -73,8 +74,6 @@ const Add = ({isDisplay, add, status, setShowModalAdd}) => {
             setMaterial('')
             setColor('')
             setFile([])
-            setShowModalAdd(false);
-            alert("Thêm thành công!");
         }
     })
     const onhandleUpload = (e)=>{
@@ -84,9 +83,17 @@ const Add = ({isDisplay, add, status, setShowModalAdd}) => {
             return file;
         }))
     };
-    const handleClickUpload = (e)=>{
+    const handleClickUpload =async (e)=>{
         e.preventDefault();
-        uploadFile({variables: {file}});
+        setIsLoading(true);
+        await uploadFile({variables: {file}});
+        setAvatar([]);
+        setShowModalAdd(false);
+        setIsLoading(false);
+        alert('Thêm thành công');
+    }
+    if(isLoading){
+        return <LoadingPage />
     }
     return (
 
@@ -147,7 +154,7 @@ const Add = ({isDisplay, add, status, setShowModalAdd}) => {
                                 {avatar.length>0 && (
                                     avatar.map((item, index) =>(
                                         <div key={index} className="col-6 img-product">
-                                            <img src={item.preview} alt="" width="50%" height="100%" />
+                                            <img src={item.preview} alt="" />
                                         </div>
                                     ))
                                 )}

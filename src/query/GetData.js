@@ -83,7 +83,7 @@ const GET_DATA = gql`
 }
 `;
 
-const GetData = ({startSetTrousers, startSetDress, startSetSkirt, startSetShirt}) =>{
+const GetData =({startSetTrousers, startSetDress, startSetSkirt, startSetShirt}) =>{
     const { loading, error, data } = useQuery(GET_DATA);
 
     if (loading) return <LoadingPage />;
