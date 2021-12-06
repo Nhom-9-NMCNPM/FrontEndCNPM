@@ -18,8 +18,10 @@ import GetData from './query/GetData';
 import getUser from './query/getUser';
 
 
+
 const store = configureStore();
 getUser(store.dispatch);
+
 const loadData = () => {
  
   getSkirt(store.dispatch)

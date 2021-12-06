@@ -42,12 +42,14 @@ const DetailUser = ({user, login, logout}) => {
                                 </li>
                             </ul>
                         </div>
-                        <div className="col-9 user-info-detail">
-                            <h3>THÔNG TIN TÀI KHOẢN</h3>
-                            <div className="user-name">{user.name}</div>
-                            <div className="user-email">{user.email}</div>
-                            <Link to="/" className="user-add">Xem địa chỉ</Link>
-        
+                        <div className="col-9">
+                            <div className="user-info-detail">
+                                <h3>THÔNG TIN TÀI KHOẢN</h3>
+                                <div className="user-name">{user.name}</div>
+                                <div className="user-email">{user.email}</div>
+                                <Link to="/" className="user-add">Xem địa chỉ</Link> <br/>
+                                <Link to="/account-history" className="user-add">Xem lịch sử mua hàng</Link>
+                            </div>
                         </div>
                     </div>
                 </div>)
@@ -57,7 +59,7 @@ const DetailUser = ({user, login, logout}) => {
 }
 const mapStateToProps = (state)  => {
     return {
-        user: state.User,
+        user: state.User
     }
 }
 const mapDispatchToProps = (dispatch)=>{
