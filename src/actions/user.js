@@ -25,9 +25,6 @@ export const logout = () => {
 export const stopLogin = () => {
     return (dispatch) => {
         return firebase.auth().signOut()
-        .then(() => {
-            dispatch(resetCart());
-        });
     }
 }
 
