@@ -75,9 +75,9 @@ const Dress = ({dress, addDress, updateDress, removeDress }) => {
             setShowModalUpdate(true);
         }
 
-        const handleRemoveDress = (id) => {
-            deleteDress(id);
-            removeDress(id);
+        const handleRemoveDress = (item) => {
+            deleteDress(item);
+            removeDress(item.id);
             setShowModalRemove(false)
         }
 
@@ -170,7 +170,7 @@ const Dress = ({dress, addDress, updateDress, removeDress }) => {
                                                     <div>
                                                         <div>Bạn có chắc chắn xóa không ?</div>
                                                         <div className="modal-btn">
-                                                            <button type="button" class="btn btn-danger btn-modal-remove" onClick={() => handleRemoveDress(item.id)}>Chắc chắn</button>
+                                                            <button type="button" class="btn btn-danger btn-modal-remove" onClick={() => handleRemoveDress(item)}>Chắc chắn</button>
                                                             <button type="button" class="btn btn-primary btn-modal-cancel" onClick={() => setShowModalRemove(false)}>Hủy</button>
                                                         </div>
                                                     </div>

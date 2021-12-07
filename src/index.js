@@ -64,7 +64,7 @@ ReactDOM.render(jsx2, document.getElementById('root'));
 firebase.auth().onAuthStateChanged(function(user){
   if(user){console.log(user);
     store.dispatch(startSetLogin({name: user.displayName, email: user.email})).then((response) => {
-      // loadData();
+      //window.location.reload();
       renderApp();
      history.push('/')
     })

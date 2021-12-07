@@ -74,9 +74,9 @@ const Trousers = ({trousers, addTrousers, updateTrousers, removeTrousers}) => {
             setShowModalUpdate(true);
         }
 
-        const handleRemoveTrousers = (id) => {
-            deleteTrousers(id);
-            removeTrousers(id);
+        const handleRemoveTrousers = (item) => {
+            deleteTrousers(item);
+            removeTrousers(item.id);
             setShowModalRemove(false)
         }
         const handleAddTrousers = () => {
@@ -165,7 +165,7 @@ const Trousers = ({trousers, addTrousers, updateTrousers, removeTrousers}) => {
                                             <div>
                                                 <div>Bạn có chắc chắn xóa không ?</div>
                                                 <div className="modal-btn">
-                                                    <button type="button" class="btn btn-danger btn-modal-remove" onClick={() => handleRemoveTrousers(item.id)}>Chắc chắn</button>
+                                                    <button type="button" class="btn btn-danger btn-modal-remove" onClick={() => handleRemoveTrousers(item)}>Chắc chắn</button>
                                                     <button type="button" class="btn btn-primary btn-modal-cancel"onClick={() => setShowModalRemove(false)}>Hủy</button>
                                                 </div>
                                             </div>

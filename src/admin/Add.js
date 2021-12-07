@@ -19,7 +19,7 @@ const Add = ({isDisplay, add, status, setShowModalAdd}) => {
     // const [addShirt, {loading: mutationLoading, error: mutationError}] = useMutation(ADD_SHIRT);
     // const [updateShirt, {loading: mutationLoading, error: mutationError}] = useMutation(UPDATE_SHIRT);
     // const [addSkirt, {loading: mutationLoading, error: mutationError}] = useMutation(ADD_SKIRT);
-
+    //const [isValidate, setIsValidate]=useState(0);
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState(0);
@@ -85,12 +85,12 @@ const Add = ({isDisplay, add, status, setShowModalAdd}) => {
     };
     const handleClickUpload =async (e)=>{
         e.preventDefault();
-        setIsLoading(true);
-        await uploadFile({variables: {file}});
-        setAvatar([]);
-        setShowModalAdd(false);
-        setIsLoading(false);
-        alert('Thêm thành công');
+            setIsLoading(true);
+            await uploadFile({variables: {file}});
+            setAvatar([]);
+            setShowModalAdd(false);
+            setIsLoading(false);
+       
     }
     if(isLoading){
         return <LoadingPage />
@@ -110,7 +110,7 @@ const Add = ({isDisplay, add, status, setShowModalAdd}) => {
                         <h1 className="title">THÔNG TIN SẢN PHẨM</h1>
                         <div className="info row">
                             <div className="info-left col-6 ">
-                                <form class="">
+                                <form class="" onSubmit={(e)=>handleClickUpload(e)}>
                                     <div class="field-info"><label htmlFor="id" class="">ID</label><input name="id" id="id" type="text" class="form-control" readOnly={true} /></div>
                                     <div class="field-info"><label htmlFor="name" class="">Tên Sản Phẩm</label><input value={name}
                                     onChange={(e)=>{setName(e.target.value)}}
@@ -147,7 +147,7 @@ const Add = ({isDisplay, add, status, setShowModalAdd}) => {
                                     onChange={(e)=>onhandleUpload(e)}
                                     name="file" id="img" required type="file" class="form-control-file" multiple />
                                     </div>
-                                    <button class="mt-1 btn btn-primary" onClick={(e)=>handleClickUpload(e)}>Thêm mới</button>
+                                    <button type="submit" class="mt-1 btn btn-primary">Thêm mới</button>
                                 </form>
                             </div>
                             <div className="col-6 row">

@@ -12,6 +12,11 @@ const UPLOAD = gql`
         }
     }
     `
+const DELETE_IMG = gql`
+    mutation Mutation($filesName: [String]) {
+        deleteFile(filesName: $filesName)
+    }
+`
 const Update = ({isDisplay, update, status, setShowModalUpdate, product}) => {
     const [name, setName] = useState(product.name);
     const [description, setDescription] = useState(product.description);
@@ -28,12 +33,15 @@ const Update = ({isDisplay, update, status, setShowModalUpdate, product}) => {
     const [file,setFile] = useState([]);
     const [avatar, setAvatar] = useState([])
     const [isLoading, setIsLoading] = useState(false);
+    const [arrImage, setArrImage] = useState(product.img);
+    const [arrImageDelete, setArrImageDelete] = useState([]);
 
     useEffect(() => {   
         return() => {
             avatar && URL.revokeObjectURL(avatar.preview)
         }
     }, [avatar])
+    const [deleteImg] = useMutation(DELETE_IMG);
     const [uploadFile] = useMutation(UPLOAD, {
         onCompleted: (data)=>{
             const newPrice = parseInt(price, 10);
@@ -56,7 +64,7 @@ const Update = ({isDisplay, update, status, setShowModalUpdate, product}) => {
                         color,
                         publish,
                         newPro,
-                        img: data.upLoadFile.url,
+                        img: [...data.upLoadFile.url, ...arrImage],
                     },
                     proId: product.id
                 }
@@ -75,6 +83,13 @@ const Update = ({isDisplay, update, status, setShowModalUpdate, product}) => {
     const handleClickUpload =async (e)=>{
         e.preventDefault();
         setIsLoading(true);
+        if(arrImageDelete.length>0) {
+            deleteImg({
+                variables:{
+                    filesName:arrImageDelete
+                }
+            })
+        }
         if(file.length===0){
             const newPrice = parseInt(price, 10);
             const numberSize_S = parseInt(size_S, 10);
@@ -96,6 +111,7 @@ const Update = ({isDisplay, update, status, setShowModalUpdate, product}) => {
                         color,
                         publish,
                         newPro,
+                        img:[...arrImage]
                     },
                     proId: product.id
                 }
@@ -108,6 +124,10 @@ const Update = ({isDisplay, update, status, setShowModalUpdate, product}) => {
     }
     if(isLoading){
         return <LoadingPage />
+    }
+    const handleDeleteImg = (item) => {
+        setArrImage(arrImage.filter(img => img!==item));
+        setArrImageDelete([...arrImageDelete, item]);
     }
     return (
 
@@ -124,7 +144,7 @@ const Update = ({isDisplay, update, status, setShowModalUpdate, product}) => {
                         <h1 className="title">THÔNG TIN SẢN PHẨM</h1>
                         <div className="info row">
                             <div className="info-left col-6 ">
-                                <form class="">
+                                <form class="" onSubmit={(e)=>handleClickUpload(e)}>
                                     <div class="field-info"><label htmlFor="id" class="">ID</label><input name="id" id="id" type="text" class="form-control" readOnly={true} /></div>
                                     <div class="field-info"><label htmlFor="name" class="">Tên Sản Phẩm</label><input value={name}
                                     onChange={(e)=>{setName(e.target.value)}}
@@ -161,16 +181,16 @@ const Update = ({isDisplay, update, status, setShowModalUpdate, product}) => {
                                     onChange={(e) => {
                                         onhandleUpload(e)
                                     }}
-                                    name="file" id="img" required type="file" class="form-control-file" multiple />
+                                    name="file" id="img"  type="file" class="form-control-file" multiple />
                                     </div>
-                                    <button class="mt-1 btn btn-primary" onClick={(e)=>handleClickUpload(e)}>Sửa</button>
+                                    <button type="submit" class="mt-1 btn btn-primary" >Sửa</button>
                                 </form>
                             </div>
                             <div className="col-6 row">
-                                {product.img.map((item, index) => {
+                                {arrImage.map((item, index) => {
                                     return (
                                         <div className="col-6 img-product" key={index}>
-                                             <i class="fas fa-times img-cancel"></i>
+                                             <i class="fas fa-times img-cancel" onClick={() =>handleDeleteImg(item)} ></i>
                                             <img src={item} alt="" width="50%" />
                                         </div>
                                     )
