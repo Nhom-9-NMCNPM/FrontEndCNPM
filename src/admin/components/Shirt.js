@@ -77,9 +77,9 @@ const Shirt = ({shirt, addShirt, updateShirt, removeShirt}) => {
             
         }
 
-        const handleRemoveShirt = (id) => {
-            deleteShirt(id);
-            removeShirt(id);
+        const handleRemoveShirt = (item) => {
+            deleteShirt(item);
+            removeShirt(item.id);
             setShowModalRemove(false)
         }
 
@@ -172,7 +172,7 @@ const Shirt = ({shirt, addShirt, updateShirt, removeShirt}) => {
                                                 <div>
                                                     <div>Bạn có chắc chắn xóa không ?</div>
                                                     <div className="modal-btn">
-                                                        <button type="button" class="btn btn-danger btn-modal-remove" onClick={() => handleRemoveShirt(item.id)}>Chắc chắn</button>
+                                                        <button type="button" class="btn btn-danger btn-modal-remove" onClick={() => handleRemoveShirt(item)}>Chắc chắn</button>
                                                         <button type="button" class="btn btn-primary btn-modal-cancel" onClick={() => setShowModalRemove(false)} >Hủy</button>
                                                     </div>
                                                 </div>
