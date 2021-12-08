@@ -69,7 +69,6 @@ const DetailPro = ({product, match, dispatch}) => {
       type: "success",
       duration: 1000
     })
-    console.log(1);
   }
   const handleAddCart = ()=>{
     showSuccessToast()
