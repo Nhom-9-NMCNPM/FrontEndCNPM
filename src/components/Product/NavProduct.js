@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import '../../style/Product/NavProduct.css'
 import {history} from '../../router/AppRouter'
 import { connect } from 'react-redux'
-const NavProduct = ({product}) => {
+const NavProduct = ({product, linkPro}) => {
     const linkProduct = history.location.pathname
     var newLink = linkProduct.slice(1,linkProduct.length)
     if( newLink === "dress") {
@@ -37,7 +37,7 @@ const NavProduct = ({product}) => {
                     <Link to="/product">Danh mục sản phẩm</Link>
                 </li>
                 <li>
-                    <Link to={linkProduct} className="link-product">{newLink}</Link>
+                    <Link to={linkProduct} className="link-product">{linkPro || newLink}</Link>
                 </li>
             </ul>
 
