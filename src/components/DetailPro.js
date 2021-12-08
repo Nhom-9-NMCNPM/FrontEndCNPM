@@ -87,11 +87,11 @@ const DetailPro = ({product, match, dispatch}) => {
   }
   return (
     <div>
-      <NavHeader />
+      <NavHeader  />
       <div id="toast">
       </div>
       <div className="product-container">
-        <NavProduct />
+        <NavProduct linkPro={detailPro.name}/>
         <div className="row product">
           <div className="product-images col-7">
             <div className="row">
