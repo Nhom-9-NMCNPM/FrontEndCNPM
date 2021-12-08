@@ -154,7 +154,8 @@ const Add = ({isDisplay, add, status, setShowModalAdd}) => {
                                 {avatar.length>0 && (
                                     avatar.map((item, index) =>(
                                         <div key={index} className="col-6 img-product">
-                                            <img src={item.preview} alt="" />
+                                            <i class="fas fa-times img-cancel"></i>
+                                            <img src={item.preview} alt=""  />
                                         </div>
                                     ))
                                 )}

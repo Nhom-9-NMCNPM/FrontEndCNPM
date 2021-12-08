@@ -8,6 +8,7 @@ import format_curency from "../utils/displayPrice";
 import { Link } from "react-router-dom";
 import {addCart} from '../actions/cart';
 import "../style/Toast.css"
+import NavProduct from "./Product/NavProduct";
 
 
 const size = ['M','S','L', 'XL']
@@ -90,6 +91,7 @@ const DetailPro = ({product, match, dispatch}) => {
       <div id="toast">
       </div>
       <div className="product-container">
+        <NavProduct />
         <div className="row product">
           <div className="product-images col-7">
             <div className="row">

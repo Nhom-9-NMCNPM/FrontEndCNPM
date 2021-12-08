@@ -1,26 +1,21 @@
 import '../../style/HomePage/responsive.css'
 import '../../style/HomePage/Header.css'
 import { Link } from 'react-router-dom'
-import {useEffect} from 'react'
+import {useEffect,useState } from 'react'
 import {connect} from 'react-redux'
 import format_curency from '../../utils/displayPrice';
 import {logout, startLogin, stopLogin} from'../../actions/user';
 import {removeCart} from '../../actions/cart'
 import User from '../User'
-const NavHeader = ({user,cart, removeCart,logout}) => {
+const NavHeader = ({user,cart, removeCart,logout, product}) => {
+    const [inputSearch, setInputSearch] = useState('')
+    const [showResult, setShowResult] = useState(false)  
+    const resultArray = product.filter((item) => {
+        return item.name.toLowerCase().indexOf(inputSearch.toLowerCase()) !== -1
+    })
     useEffect(() => {
         const headerNav = document.querySelector('.header-nav')
         const headerSub = document.querySelector('.header__cart-list')
-        if(user.admin) {
-            const inputSearchAdmin = document.querySelector('.header-form-admin')
-            const adminSearch = document.querySelector('.admin-search')
-            adminSearch.addEventListener('click', () => {
-                inputSearchAdmin.classList.add('active-admin-search') 
-        })
-            inputSearchAdmin.addEventListener('focusout', () => {
-                inputSearchAdmin.classList.remove('active-admin-search')
-            })
-        }
         let sticky = headerNav.offsetTop
         window.addEventListener("scroll", () => {
             handleHeaderNav()
@@ -40,7 +35,18 @@ const NavHeader = ({user,cart, removeCart,logout}) => {
                 }
             }
         }
-    }, [])
+    }, [user.admin])
+    useEffect(() => {
+        if(inputSearch.length > 0) {
+            setShowResult(true)
+        } 
+        else (
+            setShowResult(false)
+        )
+    },[inputSearch.length])
+    const handleInputSearch = (e) => {
+        setInputSearch(e)
+    }
     return (
         <div>
             <div className="header">
@@ -141,7 +147,9 @@ const NavHeader = ({user,cart, removeCart,logout}) => {
                             <div className="admin-search">
                                 <i class="fas fa-search" />
                                 <form action="search" className="header-form-admin">
-                                        <input autoFocus={true} type="text" className="header-search-admin" placeholder="Tìm sản phẩm..."/>
+                                        <input autoFocus={true} type="text" className="header-search-admin" placeholder="Tìm sản phẩm..." 
+                                            value={inputSearch} onChange={(e) => {handleInputSearch(e)}}
+                                        />
                                         <button className="close-search"><i class="fas fa-search" /></button>
                                 </form>
                             </div>
@@ -149,10 +157,37 @@ const NavHeader = ({user,cart, removeCart,logout}) => {
                         </div>
                         
                     :<div className="header-nav-right">
-                        <form action="search" className="header-form">
-                            <input type="text" className="header-search" placeholder="Tìm sản phẩm..." />
-                            <input type="submit" className="header-search-btn" value="" />
-                        </form> 
+                        <div className="header-search-product">
+                            <div className="admin-search">
+                                <i class="fas fa-search" />
+                                <form action="search" className="header-form-admin">
+                                        <input autoFocus={true} type="text" className="header-search-admin" placeholder="Tìm sản phẩm..." value={inputSearch} 
+                                        onChange={(e) => {handleInputSearch(e.target.value)}}/>
+                                        <button className="close-search"><i class="fas fa-search" /></button>
+                                </form>
+                                {showResult && <div className="search-result" >
+                                    {showResult && <div>
+                                        {resultArray.map((item,index) => {
+                                        return (
+                                            <div className="result-item" key={index}>
+                                                    <div className="result-img">
+                                                        <Link to={`/detail/${item.codePro}`}><img src={item.img[0]} alt=""/></Link>
+                                                    </div>
+                                                    <div className="result-content">
+                                                        <Link to={`/detail/${item.codePro}`} className="result-name-product">{item.name}</Link>
+                                                        <p className="result-price">{format_curency(item.price)}đ</p>
+                                                        <Link to={`/detail/${item.codePro}`} className="result-detail-pro">Chi tiết</Link>
+                                                    </div>
+                                            </div>
+                                        )
+                                       
+                                    })}    
+                                    </div>}
+                                    
+                                 </div> }
+                                
+                            </div>  
+                        </div> 
                         <div className="header-user">
                            <Link to="/account" title="Tài khoản">
                                 <img alt="anh" src="https://theme.hstatic.net/200000000133/1000569834/14/accountIcon.png?v=5127"
@@ -226,6 +261,12 @@ const mapStateToProps = (state)  => {
     return {
         user: state.User,
         cart: state.Cart,
+        product: [
+            ...state.Shirt,
+            ...state.Skirt,
+            ...state.Dress,
+            ...state.Trousers
+          ]
     }
 }
 
