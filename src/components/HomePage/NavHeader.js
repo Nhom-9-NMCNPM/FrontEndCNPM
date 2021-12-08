@@ -166,7 +166,7 @@ const NavHeader = ({user,cart, removeCart,logout, product}) => {
                                         <button className="close-search"><i class="fas fa-search" /></button>
                                 </form>
                                 {showResult && <div className="search-result" >
-                                    {showResult && <div>
+                                    {resultArray.length !== 0 ? (showResult && <div>
                                         {resultArray.map((item,index) => {
                                         return (
                                             <div className="result-item" key={index}>
@@ -182,8 +182,9 @@ const NavHeader = ({user,cart, removeCart,logout, product}) => {
                                         )
                                        
                                     })}    
-                                    </div>}
+                                    </div>) : <div>Không tìm thấy sản phẩm nào</div>
                                     
+                                    }                                    
                                  </div> }
                                 
                             </div>  

@@ -21,6 +21,12 @@ const NavProduct = ({product}) => {
     if( newLink === "product") {
         newLink = "Sản phẩm"
     }
+    // const handleNavProduct = (item) => {
+    //     return `detail/${item.codePro}` === newLink
+    // }
+    // if(newLink === ) {
+    //     newLink = product.find((item) => handleNavProduct(item)).name
+    // }
     return (
         <div>
             <ul className="itemscope">
