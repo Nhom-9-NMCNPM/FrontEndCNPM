@@ -24,7 +24,7 @@ const DetailPro = ({product, match, dispatch}) => {
 
   
   const handleAddCart = ()=>{
-    showSuccessToast("Bạn đã thêm vào giỏ hàng")
+    showSuccessToast("Bạn đã thêm vào giỏ hàng", "Thành công!", "success")
     dispatch(addCart({
       id:detailPro.id,
       name: detailPro.name,
@@ -36,9 +36,7 @@ const DetailPro = ({product, match, dispatch}) => {
       price: detailPro.price,
     }))
     
-  }
-  const a = detailPro[sizeTest[0]]
-  console.log(a);  
+  } 
   return (
     <div>
       <NavHeader  />

@@ -18,14 +18,8 @@
     justify-content: flex-end;
 }
 .admin-search {
-    width: 32px;
     height: 32px;
-    background: #E29481;
-    border-radius: 50%;
-    text-align: center;
     line-height: 32px;
-    cursor: pointer;
-    margin-right: 20px;
     position: relative;
     display: block;
 }
@@ -43,9 +37,9 @@
     top: 0px;
     background: #fff;
     border-radius: 10px;
-    right: 50px;
+    right: 24px;
     top: -4px;
-    width: 310px;
+    width: 342px;
 }
 .header-form-admin input {
     color: #86898E;
@@ -301,6 +295,7 @@ header {
 /* ============= Result Search================= */
 .search-result {
     position: absolute;
+    top: 2.5rem;
     right: 0rem;
     width: 26rem;
     background: #fff;
@@ -318,7 +313,7 @@ header {
     position: absolute;
     content: '';
     background-color: transparent;
-    height: 8px;
+    height: 14px;
     right: 0;
     width: 100%;
     top: -9px;

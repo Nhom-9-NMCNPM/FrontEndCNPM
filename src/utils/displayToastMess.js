@@ -1,8 +1,8 @@
-export const showSuccessToast=(mess)=> {
+export const showSuccessToast=(mess, title, type)=> {
     toast({
-      title: "Thành công!",
+      title: title,
       message: mess,
-      type: "success",
+      type: type,
       duration: 1000
     })
   }
@@ -27,6 +27,7 @@ function toast({ title = "", message = "", type = "success", duration = 1000 }) 
   
       const icons = {
         success: "fas fa-check-circle",
+        error: "fas fa-exclamation-circle"
       };
       const icon = icons[type];
       const delay = (duration / 1000).toFixed(2);
