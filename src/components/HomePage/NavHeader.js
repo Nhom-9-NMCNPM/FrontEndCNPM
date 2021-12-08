@@ -145,7 +145,6 @@ const NavHeader = ({user,cart, removeCart,logout, product}) => {
                     {user.admin ?  
                         <div className="admin-login">
                             <div className="admin-search">
-                                <i class="fas fa-search" />
                                 <form action="search" className="header-form-admin">
                                         <input autoFocus={true} type="text" className="header-search-admin" placeholder="Tìm sản phẩm..." 
                                             value={inputSearch} onChange={(e) => {handleInputSearch(e.target.value)}}
@@ -180,7 +179,6 @@ const NavHeader = ({user,cart, removeCart,logout, product}) => {
                     :<div className="header-nav-right">
                         <div className="header-search-product">
                             <div className="admin-search">
-                                <i class="fas fa-search" />
                                 <form action="search" className="header-form-admin">
                                         <input autoFocus={true} type="text" className="header-search-admin" placeholder="Tìm sản phẩm..." value={inputSearch} 
                                         onChange={(e) => {handleInputSearch(e.target.value)}}/>
