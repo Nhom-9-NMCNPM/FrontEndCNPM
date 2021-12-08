@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { gql, useMutation } from '@apollo/client';
 import Modal from "react-modal";
 import LoadingPage from "../components/LoadingPage";
-
+import { showSuccessToast } from "../utils/displayToastMess";
 const UPLOAD = gql`
     mutation Mutation($file: [Upload!]!) {
         upLoadFile(file: $file) {
@@ -70,7 +70,6 @@ const Update = ({isDisplay, update, status, setShowModalUpdate, product}) => {
                 }
             })
             setShowModalUpdate(false);
-            alert("Sửa thành công!");
         }
     })
     const onhandleUpload = (e)=>{
@@ -121,6 +120,7 @@ const Update = ({isDisplay, update, status, setShowModalUpdate, product}) => {
         }
         setShowModalUpdate(false)
         setIsLoading(false)
+        showSuccessToast("Chỉnh sửa thành công")
     }
     if(isLoading){
         return <LoadingPage />
