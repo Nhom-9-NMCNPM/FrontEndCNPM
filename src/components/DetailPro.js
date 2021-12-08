@@ -12,6 +12,7 @@ import NavProduct from "./Product/NavProduct";
 
 
 const size = ['M','S','L', 'XL']
+const sizeTest = ['size_M', 'size_S', 'size_L', 'size_XL']
 const DetailPro = ({product, match, dispatch}) => { 
   window.scrollTo(0,0)
   const [keyActive, setkeyActive] = useState('M')
@@ -85,6 +86,8 @@ const DetailPro = ({product, match, dispatch}) => {
     }))
     
   }
+  const a = detailPro[sizeTest[0]]
+  console.log(a);  
   return (
     <div>
       <NavHeader  />
@@ -132,41 +135,22 @@ const DetailPro = ({product, match, dispatch}) => {
               <p>Chất liệu: {detailPro.material}</p>
             </div>
             <div className="size-area">
-
                   <p>Size</p>
-
                   <div className="option">
-
                     {size.map((item,index) => {
-
                         return (
-
-                            <div className={`option-content ${( keyActive === item) && "active-size"}`} key={index} onClick={() => {
-
+                            <div className={`option-content ${( keyActive === item) && "active-size"} ${(detailPro[sizeTest[index]] === 0) && "disable"}`} key={index} onClick={() => {
                                 setkeyActive(item)
-
                               }}>
-
                                 {item}
-
                             </div>
-
                         )
-
                     })}
-
                   </div>
-
-
-
                 <div className="quantity-area">
-
                   <div className="btn-minus-quantity" onClick={() => {if(quantity > 0) setQuantity(quantity -1)}} > - </div>
-
                   <div className="quantity-content">{quantity}</div>
-
                   <div className="btn-add-quantity" onClick={() => setQuantity(quantity +1)}> + </div>
-
                 </div>
               </div>
             <button type="button" className="btn btn-dark addCart" onClick={handleAddCart} >

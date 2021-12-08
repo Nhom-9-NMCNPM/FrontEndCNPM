@@ -87,6 +87,7 @@ const Skirt = ({skirt, addSkirt}) => {
             <div className="margin-bottom">
             <div className="table-product " >
                 <div className="table-product-title">
+                    <div className="title-table-product-content">VÁY</div>
                     <button className='btn-add btn btn-success' onClick={handleAddSkirt}><i className="fas fa-plus" />Thêm mới</button>
                 </div>
                 <table className="table">

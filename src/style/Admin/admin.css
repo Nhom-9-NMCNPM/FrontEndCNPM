@@ -46,6 +46,11 @@
     flex-direction: column;
     padding: 0.5rem 1rem;
 }
+.title-table-product-content {
+    font-family: 'Lora', serif;
+    font-size: 36px;
+    padding-left: 1%;
+}
 .table {
     width: 100%;
     display: block;
@@ -97,6 +102,7 @@
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
     margin-bottom: 20px;
+    margin-left: 1%;
 }
 .btn-margin-right {
     border-top-left-radius: 0px;
@@ -120,14 +126,19 @@
 }
 .table-title-revenue h1 {
     margin-bottom: 14px;
+    font-family: 'Lora', serif;
+    padding-left: 1%;
 }
 .revenue {
     display: flex;
-    padding-left: 40px;
+    padding-left: 1rem;
+}
+.title-revenue {
+    padding-left: 1%;
 }
 .table-product-title {
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
 }
 
 .select-option {
