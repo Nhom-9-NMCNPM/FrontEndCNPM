@@ -8,6 +8,7 @@ import {addDress, updateDress, removeDress} from '../../actions/dress';
 import NavHeader from "../../components/HomePage/NavHeader";
 import Modal from 'react-modal'
 import format_curency from "../../utils/displayPrice";
+import { showSuccessToast } from "../../utils/displayToastMess";
 const ADD_DRESS = gql`
     mutation Mutation($data: createDressInput!) {
         createDress(data: $data) {
@@ -75,10 +76,11 @@ const Dress = ({dress, addDress, updateDress, removeDress }) => {
             setShowModalUpdate(true);
         }
 
-        const handleRemoveDress = (item) => {
-            deleteDress(item);
+        const handleRemoveDress = async(item) => {
+            await deleteDress(item);
             removeDress(item.id);
-            setShowModalRemove(false)
+            setShowModalRemove(false);
+            showSuccessToast("Đã xóa")
         }
 
         const handleAddDress = () => {

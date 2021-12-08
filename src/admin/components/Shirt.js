@@ -9,6 +9,7 @@ import {addShirt, updateShirt, removeShirt} from '../../actions/shirt';
 import NavHeader from "../../components/HomePage/NavHeader";
 import Modal from 'react-modal'
 import format_curency from "../../utils/displayPrice";
+import { showSuccessToast } from "../../utils/displayToastMess";
 const ADD_SHIRT = gql`
     mutation Mutation($data: createShirtInput!) {
         createShirt(data: $data) {
@@ -77,10 +78,11 @@ const Shirt = ({shirt, addShirt, updateShirt, removeShirt}) => {
             
         }
 
-        const handleRemoveShirt = (item) => {
-            deleteShirt(item);
+        const handleRemoveShirt = async (item) => {
+            await deleteShirt(item);
             removeShirt(item.id);
-            setShowModalRemove(false)
+            setShowModalRemove(false);
+            showSuccessToast("Đã xóa");
         }
 
         const handleAddShirt = () => {

@@ -3,6 +3,7 @@ import React from 'react'
 import { gql, useMutation } from '@apollo/client';
 import { useState, useEffect } from "react";
 import Modal from "react-modal";
+import { showSuccessToast } from "../utils/displayToastMess";
 // import { ADD_SHIRT, UPDATE_SHIRT } from "./mutation/shirt";
 // import { ADD_SKIRT, UPDATE_SKIRT } from "./mutation/skirt";
 // import { ADD_TROUSERS, UPDATE_TROUSERS } from "./mutation/trousers";
@@ -90,7 +91,7 @@ const Add = ({isDisplay, add, status, setShowModalAdd}) => {
             setAvatar([]);
             setShowModalAdd(false);
             setIsLoading(false);
-       
+            showSuccessToast("Thêm sản phẩm thành công")
     }
     if(isLoading){
         return <LoadingPage />

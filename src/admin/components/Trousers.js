@@ -8,6 +8,7 @@ import { addTrousers, updateTrousers, removeTrousers } from "../../actions/trous
 import NavHeader from "../../components/HomePage/NavHeader";
 import Modal from 'react-modal'
 import format_curency from "../../utils/displayPrice";
+import { showSuccessToast } from "../../utils/displayToastMess";
 const ADD_TROUSERS = gql`
     mutation Mutation($data: createTrousersInput!) {
         createTrousers(data: $data) {
@@ -74,10 +75,11 @@ const Trousers = ({trousers, addTrousers, updateTrousers, removeTrousers}) => {
             setShowModalUpdate(true);
         }
 
-        const handleRemoveTrousers = (item) => {
-            deleteTrousers(item);
+        const handleRemoveTrousers = async (item) => {
+            await deleteTrousers(item);
             removeTrousers(item.id);
-            setShowModalRemove(false)
+            setShowModalRemove(false);
+            showSuccessToast("Đã xóa");
         }
         const handleAddTrousers = () => {
             setShowModalAdd(true);

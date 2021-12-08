@@ -8,6 +8,7 @@ import {addSkirt, updateSkirt, removeSkirt} from '../../actions/skirt';
 import NavHeader from "../../components/HomePage/NavHeader";
 import Modal from 'react-modal'
 import format_curency from "../../utils/displayPrice";
+import { showSuccessToast } from "../../utils/displayToastMess";
 const ADD_SKIRT = gql`
         mutation Mutation($data: createSkirtInput!) {
         createSkirt(data: $data) {
@@ -73,10 +74,11 @@ const Skirt = ({skirt, addSkirt}) => {
             setShowModalUpdate(true);
         }
 
-        const handleRemoveSkirt = (item) => {
-            deleteSkirt(item);
+        const handleRemoveSkirt = async (item) => {
+            await deleteSkirt(item);
             removeSkirt(item.id);
-            setShowModalRemove(false)
+            setShowModalRemove(false);
+            showSuccessToast("Đã xóa")
         }
         const handleAddSkirt = () => {
             setShowModalAdd(true);
