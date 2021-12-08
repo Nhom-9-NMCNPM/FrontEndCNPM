@@ -88,6 +88,7 @@ const Trousers = ({trousers, addTrousers, updateTrousers, removeTrousers}) => {
             <div className="margin-bottom">
             <div className="table-product" >
                 <div className="table-product-title">
+                    <div className="title-table-product-content">QUẦN</div>
                     <button className='btn-add  btn btn-success' onClick={handleAddTrousers}><i className="fas fa-plus" />Thêm mới</button>
                 </div>
             <table class="table">

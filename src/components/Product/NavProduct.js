@@ -2,8 +2,7 @@
 import { Link } from 'react-router-dom'
 import '../../style/Product/NavProduct.css'
 import {history} from '../../router/AppRouter'
-import { connect } from 'react-redux'
-const NavProduct = ({product, linkPro}) => {
+const NavProduct = ({linkPro}) => {
     const linkProduct = history.location.pathname
     var newLink = linkProduct.slice(1,linkProduct.length)
     if( newLink === "dress") {
@@ -21,6 +20,12 @@ const NavProduct = ({product, linkPro}) => {
     if( newLink === "product") {
         newLink = "Sản phẩm"
     }
+    // const handleNavProduct = (item) => {
+    //     return `detail/${item.codePro}` === newLink
+    // }
+    // if(newLink === ) {
+    //     newLink = product.find((item) => handleNavProduct(item)).name
+    // }
     return (
         <div>
             <ul className="itemscope">
@@ -121,14 +126,4 @@ const NavProduct = ({product, linkPro}) => {
         </div>
     )
 }
-const mapStateToProps = (state) =>{
-    return {
-      product: [
-        ...state.Shirt,
-        ...state.Skirt,
-        ...state.Dress,
-        ...state.Trousers
-      ]
-    }
-  }
-export default connect(mapStateToProps)(NavProduct)
+export default NavProduct

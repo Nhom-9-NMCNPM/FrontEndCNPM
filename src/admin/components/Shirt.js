@@ -94,6 +94,7 @@ const Shirt = ({shirt, addShirt, updateShirt, removeShirt}) => {
             
             <div className="table-product">
                 <div className="table-product-title">
+                    <div className="title-table-product-content">ÁO</div>
                     <button className='btn-add btn btn-success' onClick={handleAddShirt}><i className="fas fa-plus" />Thêm mới</button>
                 </div>
                 <table className="table">
