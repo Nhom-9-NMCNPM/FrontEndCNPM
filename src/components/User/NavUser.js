@@ -7,7 +7,7 @@ const NavUser = () => {
             <div className="user">
                 <ol className="user-nav">
                     <li>
-                        <a href ="/">Trang chủ</a>
+                        <Link to ="/">Trang chủ</Link>
                     </li>
                     <li className="user-account">
                         <Link to ="/account">Tài khoản</Link>

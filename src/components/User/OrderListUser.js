@@ -3,6 +3,9 @@ import NavHeader from "../HomePage/NavHeader";
 import {useState} from "react";
 import {connect} from "react-redux";
 import "../../style/User/OrderListUser.css";
+import LoadingPage from "../../components/LoadingPage";
+import { updateHistoryOrder } from "../../actions/order";
+import { Redirect } from "react-router";
 const UPDATE = gql`
         mutation Mutation($data: updateOrderInput!, $updateOrderId: Int!) {
             updateOrder(data: $data, id: $updateOrderId) {
@@ -69,6 +72,13 @@ const OrderListUser = ({user}) => {
             }
         })
     }
+    if(loading) {
+        return <LoadingPage />
+    }
+    if(error) {
+        alert("Có lỗi xảy ra, vui lòng thử lại");
+        <Redirect to="/admin-order" />
+      }
     return (
         <div>
             <NavHeader />
@@ -192,7 +202,7 @@ const OrderListUser = ({user}) => {
                         <th scope="col"style={{width: '5%'}}>GIÁ</th>
                         <th scope="col"style={{width: '10%'}}>NGÀY TẠO</th>
                         <th scope="col"style={{width: '10%'}}>NGÀY CẬP NHẬT</th>
-                        <th scope="col"style={{width: '10%'}}>TRẠNG THÁI</th>
+                        
                         </tr>
                     </thead>
                     {orderCurrent.length > 0 ? <tbody className="table-body">
@@ -207,8 +217,7 @@ const OrderListUser = ({user}) => {
                                     <td>{item.price}</td>
                                     <td>{createdAt.toLocaleString()}</td>
                                     <td>{updatedAt.toLocaleString()}</td>
-                                    <td>
-                                    </td>
+                                    
                                 </tr>
                             )
                         }) }  

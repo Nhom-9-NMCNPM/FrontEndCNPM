@@ -12,10 +12,21 @@
     padding-bottom: 15px;
 }
 
-.field-info>label {
-    width: 10%;
-}
 
+.field-info>label {
+    width: 20%;
+}
+.img-product {
+    margin-bottom: 8px;
+    position: relative;
+}
+.img-cancel {
+    display: block;
+    position: absolute;
+    right: 20px;
+    top: 6px;
+    color: #8b2727;
+}
 .ReactModalPortal>div {
     opacity: 0;
 }
