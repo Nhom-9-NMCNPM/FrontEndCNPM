@@ -80,6 +80,20 @@ const GET_DATA = gql`
     newPro
     publish
   }
+  getVoucher {
+    id
+    createdAt
+    updatedAt
+    disCount
+    condition
+  }
+  getVoucherPremium {
+    id
+    createdAt
+    updatedAt
+    disCount
+    condition
+  }
 }
 `;
 

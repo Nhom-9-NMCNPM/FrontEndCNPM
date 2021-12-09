@@ -17,6 +17,7 @@ const configureStore = () => {
                 Trousers: trousersReducer,
                 User: userReducer,
                 Cart: cartReducer
+                
             }
         ),
        composeEnhancers(applyMiddleware(thunk)),

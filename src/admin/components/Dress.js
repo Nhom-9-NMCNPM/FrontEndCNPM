@@ -109,7 +109,6 @@ const Dress = ({dress, addDress, updateDress, removeDress }) => {
                         <th scope="col">CHẤT LIỆU</th>
                         <th scope="col">MÀU</th>
                         <th scope="col">THAO TÁC</th>
-                        
                     </tr>
                 </thead>
                 <tbody>
