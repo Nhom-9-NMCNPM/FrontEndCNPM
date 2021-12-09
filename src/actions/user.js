@@ -1,4 +1,4 @@
-import { firebase, provider } from '../firebase/firebase';
+import { firebase, provider, providerFaceBook } from '../firebase/firebase';
 import {resetCart} from './cart';
 import loginUser from '../mutation/loginUser';
 export const login = (user) => {

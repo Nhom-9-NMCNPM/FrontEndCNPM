@@ -1,10 +1,10 @@
 import "../style/Admin/Update.css"
-import React, { useEffect } from 'react'
+import ReactDOM from 'react-dom';
+import React, { useEffect, useState } from 'react'
 import { gql, useMutation } from '@apollo/client';
-import { useState} from "react";
 import Modal from "react-modal";
 import LoadingPage from "../components/LoadingPage";
-
+import { showSuccessToast } from "../utils/displayToastMess";
 const UPLOAD = gql`
     mutation Mutation($file: [Upload!]!) {
         upLoadFile(file: $file) {
@@ -12,6 +12,11 @@ const UPLOAD = gql`
         }
     }
     `
+const DELETE_IMG = gql`
+    mutation Mutation($filesName: [String]) {
+        deleteFile(filesName: $filesName)
+    }
+`
 const Update = ({isDisplay, update, status, setShowModalUpdate, product}) => {
     const [name, setName] = useState(product.name);
     const [description, setDescription] = useState(product.description);
@@ -27,11 +32,16 @@ const Update = ({isDisplay, update, status, setShowModalUpdate, product}) => {
     const [newPro, setNewPro] = useState(true);
     const [file,setFile] = useState([]);
     const [avatar, setAvatar] = useState([])
+    const [isLoading, setIsLoading] = useState(false);
+    const [arrImage, setArrImage] = useState(product.img);
+    const [arrImageDelete, setArrImageDelete] = useState([]);
+
     useEffect(() => {   
         return() => {
             avatar && URL.revokeObjectURL(avatar.preview)
         }
     }, [avatar])
+    const [deleteImg] = useMutation(DELETE_IMG);
     const [uploadFile] = useMutation(UPLOAD, {
         onCompleted: (data)=>{
             const newPrice = parseInt(price, 10);
@@ -54,13 +64,12 @@ const Update = ({isDisplay, update, status, setShowModalUpdate, product}) => {
                         color,
                         publish,
                         newPro,
-                        img: data.upLoadFile.url,
+                        img: [...data.upLoadFile.url, ...arrImage],
                     },
                     proId: product.id
                 }
             })
             setShowModalUpdate(false);
-            alert("Sửa thành công!");
         }
     })
     const onhandleUpload = (e)=>{
@@ -70,15 +79,23 @@ const Update = ({isDisplay, update, status, setShowModalUpdate, product}) => {
             return file;
         }))
     };
-    const handleClickUpload = (e)=>{
+    const handleClickUpload =async (e)=>{
         e.preventDefault();
-        if(!!file){
+        setIsLoading(true);
+        if(arrImageDelete.length>0) {
+            deleteImg({
+                variables:{
+                    filesName:arrImageDelete
+                }
+            })
+        }
+        if(file.length===0){
             const newPrice = parseInt(price, 10);
             const numberSize_S = parseInt(size_S, 10);
             const numberSize_M = parseInt(size_M, 10);
             const numberSize_L = parseInt(size_L, 10);
             const numberSize_XL = parseInt(size_XL, 10);
-            update({
+            await update({
                 variables:{
                     data:{
                         name,
@@ -93,17 +110,25 @@ const Update = ({isDisplay, update, status, setShowModalUpdate, product}) => {
                         color,
                         publish,
                         newPro,
+                        img:[...arrImage]
                     },
                     proId: product.id
                 }
             })
-            setShowModalUpdate(false);
         }else{
-            uploadFile({variables: {file}});
+            await uploadFile({variables: {file}});
         }
-      
+        setShowModalUpdate(false)
+        setIsLoading(false)
+        showSuccessToast("Chỉnh sửa thành công")
     }
-   
+    if(isLoading){
+        return <LoadingPage />
+    }
+    const handleDeleteImg = (item) => {
+        setArrImage(arrImage.filter(img => img!==item));
+        setArrImageDelete([...arrImageDelete, item]);
+    }
     return (
 
         <Modal
@@ -119,7 +144,7 @@ const Update = ({isDisplay, update, status, setShowModalUpdate, product}) => {
                         <h1 className="title">THÔNG TIN SẢN PHẨM</h1>
                         <div className="info row">
                             <div className="info-left col-6 ">
-                                <form class="">
+                                <form class="" onSubmit={(e)=>handleClickUpload(e)}>
                                     <div class="field-info"><label htmlFor="id" class="">ID</label><input name="id" id="id" type="text" class="form-control" readOnly={true} /></div>
                                     <div class="field-info"><label htmlFor="name" class="">Tên Sản Phẩm</label><input value={name}
                                     onChange={(e)=>{setName(e.target.value)}}
@@ -156,16 +181,16 @@ const Update = ({isDisplay, update, status, setShowModalUpdate, product}) => {
                                     onChange={(e) => {
                                         onhandleUpload(e)
                                     }}
-                                    name="file" id="img" required type="file" class="form-control-file" multiple />
+                                    name="file" id="img"  type="file" class="form-control-file" multiple />
                                     </div>
-                                    <button class="mt-1 btn btn-primary" onClick={(e)=>handleClickUpload(e)}>Sửa</button>
+                                    <button type="submit" class="mt-1 btn btn-primary" >Sửa</button>
                                 </form>
                             </div>
                             <div className="col-6 row">
-                                {product.img.map((item, index) => {
+                                {arrImage.map((item, index) => {
                                     return (
                                         <div className="col-6 img-product" key={index}>
-                                             <i class="fas fa-times img-cancel"></i>
+                                             <i class="fas fa-times img-cancel" onClick={() =>handleDeleteImg(item)} ></i>
                                             <img src={item} alt="" width="50%" />
                                         </div>
                                     )

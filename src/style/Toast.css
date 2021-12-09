@@ -23,7 +23,7 @@
     }
   }
   
-  .toast--success {
+  .toast--success, .toast--error {
    
     display: flex;
     align-items: center;
@@ -40,6 +40,13 @@
   
   .toast--success .toast__icon {
     color: #47d864;
+  }
+  .toast--error {
+    border-color: #ff623d;
+  }
+  
+  .toast--error .toast__icon {
+    color: #ff623d;
   }
   .toast--success + .toast--success {
     margin-top: 24px;

@@ -25,7 +25,13 @@
     position: absolute;
     right: 20px;
     top: 6px;
-    color: #8b2727;
+    color: rgb(229 160 160);
+    font-size: 20px;
+    cursor: pointer;
+    transition: all .2s linear;
+}
+.img-cancel:hover {
+    font-size: 25px;
 }
 .ReactModalPortal>div {
     opacity: 0;

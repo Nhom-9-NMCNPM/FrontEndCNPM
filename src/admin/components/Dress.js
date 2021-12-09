@@ -8,6 +8,7 @@ import {addDress, updateDress, removeDress} from '../../actions/dress';
 import NavHeader from "../../components/HomePage/NavHeader";
 import Modal from 'react-modal'
 import format_curency from "../../utils/displayPrice";
+import { showSuccessToast } from "../../utils/displayToastMess";
 const ADD_DRESS = gql`
     mutation Mutation($data: createDressInput!) {
         createDress(data: $data) {
@@ -75,10 +76,11 @@ const Dress = ({dress, addDress, updateDress, removeDress }) => {
             setShowModalUpdate(true);
         }
 
-        const handleRemoveDress = (id) => {
-            deleteDress(id);
-            removeDress(id);
-            setShowModalRemove(false)
+        const handleRemoveDress = async(item) => {
+            await deleteDress(item);
+            removeDress(item.id);
+            setShowModalRemove(false);
+            showSuccessToast("Đã xóa")
         }
 
         const handleAddDress = () => {
@@ -92,7 +94,7 @@ const Dress = ({dress, addDress, updateDress, removeDress }) => {
             
             <div className="table-product">
                 <div className="table-product-title">
-                    <h1>ĐẦM</h1>
+                    <div className="title-table-product-content">ĐẦM</div>
                     <button className='btn-add btn btn-success' onClick={handleAddDress}><i className="fas fa-plus"/>Thêm mới</button>
                 </div>
                     <table className="table  ">
@@ -129,8 +131,12 @@ const Dress = ({dress, addDress, updateDress, removeDress }) => {
                                         <td className='content'>{createdAt.toLocaleString()}</td>
                                         <td className='content'>{updatedAt.toLocaleString()}</td>
                                         <td className='content'>{item.name}</td>
-                                        <td className='content '>{item.description}</td>
-                                        <td className='content '><img src={item.img[0]} alt=""/></td>
+                                        <td className='content '>
+                                            <div className='content-img'>
+                                                {item.description}
+                                            </div>
+                                        </td>
+                                        <td className='content img-pro '><img src={item.img[0]} alt="" /></td>
                                         <td className='content'>{format_curency(item.price)}đ</td>
                                         <td className='content'>{item.codePro}</td>
                                         <td className='content'>{item.size_M}</td>
@@ -139,19 +145,21 @@ const Dress = ({dress, addDress, updateDress, removeDress }) => {
                                         <td className='content'>{item.size_XL}</td>
                                         <td className='content'>{item.material}</td>
                                         <td className='content'>{item.color}</td>
-                                        <td className='content event-btn'>
-                                            <button 
-                                                onClick={()=>setShowModalRemove(true)}
-                                                className='btn-remove btn btn-danger btn-sm px-3'
-                                            >
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                            <button 
-                                                className='btn-update btn btn-warning'
-                                                onClick={()=>handleUpdateDress(item.id)}
-                                            >
-                                            <i class="fas fa-edit"></i>
-                                            </button>
+                                        <td className='content'>
+                                            <div>
+                                                <button 
+                                                    onClick={()=>setShowModalRemove(true)}
+                                                    className='btn-remove btn btn-danger btn-sm px-3'
+                                                >
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                                <button 
+                                                    className='btn-update btn btn-warning'
+                                                    onClick={()=>handleUpdateDress(item.id)}
+                                                >
+                                                <i class="fas fa-edit"></i>
+                                                </button>
+                                            </div>
                                             {showModalUpdate&&(flag===item.id)&&<Update isDisplay={showModalUpdate} update={update} status={statusUpdate}  setShowModalUpdate={setShowModalUpdate} product={item}/>}
                                             <Modal
                                                 isOpen={showModalRemove}
@@ -165,7 +173,7 @@ const Dress = ({dress, addDress, updateDress, removeDress }) => {
                                                     <div>
                                                         <div>Bạn có chắc chắn xóa không ?</div>
                                                         <div className="modal-btn">
-                                                            <button type="button" class="btn btn-danger btn-modal-remove" onClick={() => handleRemoveDress(item.id)}>Chắc chắn</button>
+                                                            <button type="button" class="btn btn-danger btn-modal-remove" onClick={() => handleRemoveDress(item)}>Chắc chắn</button>
                                                             <button type="button" class="btn btn-primary btn-modal-cancel" onClick={() => setShowModalRemove(false)}>Hủy</button>
                                                         </div>
                                                     </div>

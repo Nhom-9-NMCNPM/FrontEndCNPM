@@ -145,7 +145,7 @@ const Order = ({order}) => {
                                     <th scope="row" key={index}>{index + 1}</th>
                                     <td>{item.id}</td>
                                     <td>{item.namePro.join(' ; ')}</td>
-                                    <td>{item.price}</td>
+                                    <td>{format_curency(item.price)}đ</td>
                                     <td>{createdAt.toLocaleString()}</td>
                                     <td>{updatedAt.toLocaleString()}</td>
                                 </tr>
@@ -178,7 +178,7 @@ const Order = ({order}) => {
                                         <th scope="row" key={index}>{index + 1}</th>
                                         <td>{item.id}</td>
                                         <td>{item.namePro.join(' ; ')}</td>
-                                        <td>{item.price}</td>
+                                        <td>{format_curency(item.price)}đ</td>
                                         <td>{createdAt.toLocaleString()}</td>
                                         <td>{updatedAt.toLocaleString()}</td>
                                         <td><select className="form-select  mb-3 select-option-status" value={stateOrder[1]} onChange={(e) => handleChangeState(item,e.target.value)}>
@@ -216,7 +216,7 @@ const Order = ({order}) => {
                                     <th scope="row" key={index}>{index + 1}</th>
                                     <td>{item.id}</td>
                                     <td>{item.namePro.join(' ; ')}</td>
-                                    <td>{item.price}</td>
+                                    <td>{format_curency(item.price)}đ</td>
                                     <td>{createdAt.toLocaleString()}</td>
                                     <td>{updatedAt.toLocaleString()}</td>
                                     <td><select className="form-select  mb-3 select-option-status" value={stateOrder[2]} onChange={(e) => handleChangeState(item,e.target.value)}>
@@ -254,7 +254,7 @@ const Order = ({order}) => {
                                     <th scope="row" key={index}>{index + 1}</th>
                                     <td>{item.id}</td>
                                     <td>{item.namePro.join(' ; ')}</td>
-                                    <td>{item.price}</td>
+                                    <td>{format_curency(item.price)}đ</td>
                                     <td>{createdAt.toLocaleString()}</td>
                                     <td>{updatedAt.toLocaleString()}</td>
                                     <td><select className="form-select  mb-3 select-option-status" value={stateOrder[3]} onChange={(e) => handleChangeState(item,e.target.value)}>

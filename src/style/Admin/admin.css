@@ -27,16 +27,13 @@
 }
 
 .content-img {
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 10;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    height: 50px;
+    font-size: 16px;
 }
 
-.content {  
-    max-width: 200px;
-}
 
 .margin-bottom {
     background-color: #f9f5f0;
@@ -47,7 +44,12 @@
 .table-product {
     display: flex;
     flex-direction: column;
-    padding: 40px;
+    padding: 0.5rem 1rem;
+}
+.title-table-product-content {
+    font-family: 'Lora', serif;
+    font-size: 36px;
+    padding-left: 1%;
 }
 .table {
     width: 100%;
@@ -79,9 +81,6 @@
     border-bottom: none;
     margin-top: -1px;
 }
-.content img {
-    height: 242px;
-}
 .table-body:last-child {
    border-bottom-style:hidden;
 }
@@ -103,6 +102,7 @@
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
     margin-bottom: 20px;
+    margin-left: 1%;
 }
 .btn-margin-right {
     border-top-left-radius: 0px;
@@ -118,7 +118,7 @@
     padding-top: 20px;
 }
 .table-title-revenue {
-    padding-left: 40px;
+    padding-left: 1rem;
     padding-top: 20px;
 }
 .table-title-revenue button {
@@ -126,10 +126,15 @@
 }
 .table-title-revenue h1 {
     margin-bottom: 14px;
+    font-family: 'Lora', serif;
+    padding-left: 1%;
 }
 .revenue {
     display: flex;
-    padding-left: 40px;
+    padding-left: 1rem;
+}
+.title-revenue {
+    padding-left: 1%;
 }
 .table-product-title {
     display: flex;
@@ -152,3 +157,6 @@
     padding-left: 10px;
 }
 
+.img-pro>img{
+    width: 10rem;
+}

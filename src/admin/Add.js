@@ -3,6 +3,7 @@ import React from 'react'
 import { gql, useMutation } from '@apollo/client';
 import { useState, useEffect } from "react";
 import Modal from "react-modal";
+import { showSuccessToast } from "../utils/displayToastMess";
 // import { ADD_SHIRT, UPDATE_SHIRT } from "./mutation/shirt";
 // import { ADD_SKIRT, UPDATE_SKIRT } from "./mutation/skirt";
 // import { ADD_TROUSERS, UPDATE_TROUSERS } from "./mutation/trousers";
@@ -19,7 +20,7 @@ const Add = ({isDisplay, add, status, setShowModalAdd}) => {
     // const [addShirt, {loading: mutationLoading, error: mutationError}] = useMutation(ADD_SHIRT);
     // const [updateShirt, {loading: mutationLoading, error: mutationError}] = useMutation(UPDATE_SHIRT);
     // const [addSkirt, {loading: mutationLoading, error: mutationError}] = useMutation(ADD_SKIRT);
-
+    //const [isValidate, setIsValidate]=useState(0);
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState(0);
@@ -34,6 +35,7 @@ const Add = ({isDisplay, add, status, setShowModalAdd}) => {
     const [newPro, setNewPro] = useState(true);
     const [file,setFile] = useState([]); 
     const [avatar, setAvatar] = useState([])
+    const [isLoading, setIsLoading]=useState(false);
     const [uploadFile, {loading, error}] = useMutation(UPLOAD, {
         onCompleted: (data)=>{
             console.log(data.upLoadFile.url)
@@ -73,8 +75,6 @@ const Add = ({isDisplay, add, status, setShowModalAdd}) => {
             setMaterial('')
             setColor('')
             setFile([])
-            setShowModalAdd(false);
-            alert("Thêm thành công!");
         }
     })
     const onhandleUpload = (e)=>{
@@ -84,9 +84,17 @@ const Add = ({isDisplay, add, status, setShowModalAdd}) => {
             return file;
         }))
     };
-    const handleClickUpload = (e)=>{
+    const handleClickUpload =async (e)=>{
         e.preventDefault();
-        uploadFile({variables: {file}});
+            setIsLoading(true);
+            await uploadFile({variables: {file}});
+            setAvatar([]);
+            setShowModalAdd(false);
+            setIsLoading(false);
+            showSuccessToast("Thêm sản phẩm thành công")
+    }
+    if(isLoading){
+        return <LoadingPage />
     }
     return (
 
@@ -103,7 +111,7 @@ const Add = ({isDisplay, add, status, setShowModalAdd}) => {
                         <h1 className="title">THÔNG TIN SẢN PHẨM</h1>
                         <div className="info row">
                             <div className="info-left col-6 ">
-                                <form class="">
+                                <form class="" onSubmit={(e)=>handleClickUpload(e)}>
                                     <div class="field-info"><label htmlFor="id" class="">ID</label><input name="id" id="id" type="text" class="form-control" readOnly={true} /></div>
                                     <div class="field-info"><label htmlFor="name" class="">Tên Sản Phẩm</label><input value={name}
                                     onChange={(e)=>{setName(e.target.value)}}
@@ -140,14 +148,15 @@ const Add = ({isDisplay, add, status, setShowModalAdd}) => {
                                     onChange={(e)=>onhandleUpload(e)}
                                     name="file" id="img" required type="file" class="form-control-file" multiple />
                                     </div>
-                                    <button class="mt-1 btn btn-primary" onClick={(e)=>handleClickUpload(e)}>Thêm mới</button>
+                                    <button type="submit" class="mt-1 btn btn-primary">Thêm mới</button>
                                 </form>
                             </div>
                             <div className="col-6 row">
                                 {avatar.length>0 && (
                                     avatar.map((item, index) =>(
                                         <div key={index} className="col-6 img-product">
-                                            <img src={item.preview} alt="" width="50%" height="100%" />
+                                            <i class="fas fa-times img-cancel"></i>
+                                            <img src={item.preview} alt=""  />
                                         </div>
                                     ))
                                 )}

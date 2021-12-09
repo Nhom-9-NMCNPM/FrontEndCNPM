@@ -65,14 +65,14 @@ ReactDOM.render(jsx2, document.getElementById('root'));
 firebase.auth().onAuthStateChanged(function(user){
   if(user){console.log(user);
     store.dispatch(startSetLogin({name: user.displayName, email: user.email})).then((response) => {
-      // loadData();
+      //window.location.reload();
       renderApp();
-     history.push(history.location.pathname)
+     history.push('/')
     })
     
   }else{
     store.dispatch(logout());
-    setTimeout(renderApp, 2000)
+    setTimeout(renderApp, 3000)
     history.push('/')
   }
 }) 
