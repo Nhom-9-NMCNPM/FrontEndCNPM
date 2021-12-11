@@ -142,7 +142,13 @@ const NavHeader = ({user,cart, removeCart,logout, product}) => {
                         </ul>
                     </div>
 
-                    {!user.admin && <div className="header-nav-right">
+                    {user.admin ?  
+                        <div className="admin-login">
+                            
+                            <span onClick={logout} className="admin-log-out"><i class="fas fa-sign-out-alt"></i></span>
+                        </div>
+                        
+                    :<div className="header-nav-right">
                         <div className="header-search-product">
                             <div className="admin-search">
                                 <form action="search" className="header-form-admin">

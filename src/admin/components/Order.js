@@ -127,12 +127,12 @@ const Order = ({order}) => {
                 {showDelivered && <table className="table">
                     <thead>
                         <tr className="table-tr">
-                        <th scope="col" style={{width: '1%'}} >STT</th>
+                        <th scope="col" style={{width: '1%', borderRadius: '10px'}} >STT</th>
                         <th scope="col"style={{width: '4%'}}>ID</th>
                         <th scope="col"className="table-50">ĐƠN HÀNG</th>
                         <th scope="col"style={{width: '10%'}}>GIÁ</th>
                         <th scope="col"style={{width: '15%'}}>NGÀY TẠO</th>
-                        <th scope="col"style={{width: '15%'}}>NGÀY CẬP NHẬT</th>
+                        <th scope="col"style={{width: '15%', borderRadius: '10px'}}>NGÀY CẬP NHẬT</th>
                         </tr>
                     </thead>
                     {orderCurrent.length > 0  ?  
@@ -160,13 +160,13 @@ const Order = ({order}) => {
                 {showDelivering && <table className="table">
                     <thead>
                         <tr className="table-tr">
-                        <th scope="col" style={{width: '1%'}}>STT</th>
+                        <th scope="col" style={{width: '1%', borderRadius: '10px'}}>STT</th>
                         <th scope="col"style={{width: '5%'}}>ID</th>
                         <th scope="col" className="table-50">ĐƠN HÀNG</th>
                         <th scope="col"style={{width: '5%'}}>GIÁ</th>
                         <th scope="col"style={{width: '10%'}}>NGÀY TẠO</th>
                         <th scope="col"style={{width: '10%'}}>NGÀY CẬP NHẬT</th>
-                        <th scope="col"style={{width: '10%'}}>TRẠNG THÁI</th>
+                        <th scope="col"style={{width: '10%', borderRadius: '10px'}}>TRẠNG THÁI</th>
                         </tr>
                     </thead>
                     {orderCurrent.length > 0 ? <tbody className="table-body">  
@@ -198,13 +198,13 @@ const Order = ({order}) => {
                 {showPending && <table className="table">
                     <thead>
                         <tr className="table-tr">
-                        <th scope="col" style={{width: '1%'}}>STT</th>
+                        <th scope="col" style={{width: '1%', borderRadius: '10px'}}>STT</th>
                         <th scope="col"style={{width: '5%'}}>ID</th>
                         <th scope="col" className="table-50">ĐƠN HÀNG</th>
                         <th scope="col"style={{width: '5%'}}>GIÁ</th>
                         <th scope="col"style={{width: '10%'}}>NGÀY TẠO</th>
                         <th scope="col"style={{width: '10%'}}>NGÀY CẬP NHẬT</th>
-                        <th scope="col"style={{width: '10%'}}>TRẠNG THÁI</th>
+                        <th scope="col"style={{width: '10%', borderRadius: '10px'}}>TRẠNG THÁI</th>
                         </tr>
                     </thead>
                     {orderCurrent.length > 0 ?   <tbody className="table-body">  
@@ -236,13 +236,13 @@ const Order = ({order}) => {
                 {showCanceled && <table className="table">
                     <thead>
                         <tr className="table-tr">
-                        <th scope="col" style={{width: '1%'}}>STT</th>
+                        <th scope="col" style={{width: '1%', borderRadius: '10px'}}>STT</th>
                         <th scope="col"style={{width: '5%'}}>ID</th>
                         <th scope="col" className="table-50">ĐƠN HÀNG</th>
                         <th scope="col"style={{width: '5%'}}>GIÁ</th>
                         <th scope="col"style={{width: '10%'}}>NGÀY TẠO</th>
                         <th scope="col"style={{width: '10%'}}>NGÀY CẬP NHẬT</th>
-                        <th scope="col"style={{width: '10%'}}>TRẠNG THÁI</th>
+                        <th scope="col"style={{width: '10%', borderRadius: '10px'}}>TRẠNG THÁI</th>
                         </tr>
                     </thead>
                     {orderCurrent.length > 0 ? <tbody className="table-body">

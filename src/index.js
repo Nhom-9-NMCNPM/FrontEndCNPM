@@ -19,6 +19,7 @@ import getOrder from './query/getOrder';
 import getUser from './query/getUser';
 
 
+
 const store = configureStore();
 getUser(store.dispatch);
 // const loadData = () => {
@@ -27,7 +28,7 @@ getUser(store.dispatch);
 //   getShirt(store.dispatch);
 //   getDress(store.dispatch);
 //   getTrousers(store.dispatch);
-getOrder(store.dispatch)
+getOrder(store.dispatch);
 // }
 // const fetchData = new Promise((resolve, reject) => {
 //   loadData();
