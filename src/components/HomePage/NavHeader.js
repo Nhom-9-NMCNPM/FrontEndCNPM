@@ -142,41 +142,7 @@ const NavHeader = ({user,cart, removeCart,logout, product}) => {
                         </ul>
                     </div>
 
-                    {user.admin ?  
-                        <div className="admin-login">
-                            <div className="admin-search">
-                                <form action="search" className="header-form-admin">
-                                        <input autoFocus={true} type="text" className="header-search-admin" placeholder="Tìm sản phẩm..." 
-                                            value={inputSearch} onChange={(e) => {handleInputSearch(e.target.value)}}
-                                        />
-                                        <div className="close-search"><i class="fas fa-search" /></div>
-                                </form>
-                                {showResult && <div className="search-result" >
-                                    {resultArray.length !== 0 ? (showResult && <div>
-                                        {resultArray.map((item,index) => {
-                                        return (
-                                            <div className="result-item" key={index}>
-                                                    <div className="result-img">
-                                                        <Link to={`/detail/${item.codePro}`}><img src={item.img[0]} alt=""/></Link>
-                                                    </div>
-                                                    <div className="result-content">
-                                                        <Link to={`/detail/${item.codePro}`} className="result-name-product">{item.name}</Link>
-                                                        <p className="result-price">{format_curency(item.price)}đ</p>
-                                                        <Link to={`/detail/${item.codePro}`} className="result-detail-pro">Chi tiết</Link>
-                                                    </div>
-                                            </div>
-                                        )
-                                       
-                                    })}    
-                                    </div>) : <div>Không tìm thấy sản phẩm nào</div>
-                                    
-                                    }                                    
-                                 </div> }
-                            </div>
-                            <span onClick={logout} className="admin-log-out"><i class="fas fa-sign-out-alt"></i></span>
-                        </div>
-                        
-                    :<div className="header-nav-right">
+                    {!user.admin && <div className="header-nav-right">
                         <div className="header-search-product">
                             <div className="admin-search">
                                 <form action="search" className="header-form-admin">

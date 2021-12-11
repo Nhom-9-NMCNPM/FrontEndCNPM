@@ -19,8 +19,7 @@ import Skirt from '../admin/components/Skirt';
 import Trousers from '../admin/components/Trousers';
 import Order from '../admin/components/Order';
 import ManagerUser from '../admin/components/ManagerUser';
-import NavHeader from '../components/HomePage/NavHeader';
-import Footer from '../components/HomePage/Footer';
+import PageError from '../components/PageError';
 export const history = createBrowserHistory();
 const Approuter = () => {
     return (
@@ -28,7 +27,6 @@ const Approuter = () => {
             <div>
                 <Switch>
                     <Route path="/" component={Home} exact={true}/>
-                    <PrivateRouter path="/table" component={admin} />
                     <Route path="/product" component={Product} /> 
                     <Route path="/account" component={User}  />  
                     <Route path="/detail/:code" component={DetailPro}  /> 
@@ -36,6 +34,7 @@ const Approuter = () => {
                     <Route path="/shirt" component={ProShirt} />
                     <Route path="/skirt" component={ProSkirt} />
                     <Route path="/trousers" component={ProTrousers} />
+                    <Route path="/error" component={PageError} />
                     <PrivateRouter path="/admin-shirt" component={Shirt} />
                     <PrivateRouter path="/admin-skirt" component={Skirt} />
                     <PrivateRouter path="/admin-trousers" component={Trousers} />
