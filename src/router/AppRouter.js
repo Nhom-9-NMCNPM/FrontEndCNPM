@@ -8,7 +8,6 @@ import admin from '../admin/admin';
 import Product from '../components/Product'
 import User from '../components/User'
 import DetailPro from '../components/DetailPro';
-// import { from } from '@apollo/client';
 import ProDress from '../components/Product/ProDress';
 import ProShirt from '../components/Product/ProShirt';
 import ProSkirt from '../components/Product/ProSkirt';
@@ -19,9 +18,6 @@ import Skirt from '../admin/components/Skirt';
 import Trousers from '../admin/components/Trousers';
 import Order from '../admin/components/Order';
 import ManagerUser from '../admin/components/ManagerUser';
-import NavHeader from '../components/HomePage/NavHeader';
-import Footer from '../components/HomePage/Footer';
-import OrderListUser from '../components/User/OrderListUser';
 export const history = createBrowserHistory();
 const Approuter = () => {
     return (
@@ -37,7 +33,6 @@ const Approuter = () => {
                     <Route path="/shirt" component={ProShirt} />
                     <Route path="/skirt" component={ProSkirt} />
                     <Route path="/trousers" component={ProTrousers} />
-                    <Route path="/account-history" component={OrderListUser} />
                     <PrivateRouter path="/admin-shirt" component={Shirt} />
                     <PrivateRouter path="/admin-skirt" component={Skirt} />
                     <PrivateRouter path="/admin-trousers" component={Trousers} />
