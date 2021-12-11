@@ -4,6 +4,9 @@ import { connect } from "react-redux";
 import { useState } from "react";
 import { useMutation, gql } from "@apollo/client";
 import LoadingPage from "../../components/LoadingPage";
+import {showSuccessToast} from '../../utils/displayToastMess';
+import { updateUserList, deleteUserList, addUserList } from "../../actions/admin";
+import Modal from "react-modal"
 const DELETE_USER=gql`
     mutation DeleteUser($deleteUserId: Int!) {
         deleteUser(id: $deleteUserId) {
@@ -52,39 +55,52 @@ const ADD_USER = gql `
         }
     }
 `
-const ManagerUser = ({userList}) => {
+const ManagerUser = ({userList, addUserList, deleteUserList, updateUserList}) => {
     const [data, setData] = useState({name: '', email: '', phoneNumber: '', address:'', point: 0})
-    const [add, {data1, loading, error}] = useMutation(ADD_USER);
-    const [update]= useMutation(UPDATE_USER);
+    const [add] = useMutation(ADD_USER, {
+        onCompleted: (data)=>{
+            addUserList(data.createUser)
+        }
+    });
+    const [update]= useMutation(UPDATE_USER, {
+        onCompleted: (data)=>{
+            updateUserList(data.updateUser.id, data.updateUser)
+        }
+    });
     const [deleteUser]=useMutation(DELETE_USER);
     const [buttonUpdate, setButtonUpdate]=useState(false);
-    if(loading){
-        return <LoadingPage />
-    }
-    if(error){
-        console.error(error);
-    }
+    const [isLoading, setIsLoading] = useState(false);
+    const [showModalRemove, setShowModalRemove] = useState(-1);
     const onClickButton= (buttonUpdate,user)=>{
-        if(buttonUpdate){
-            handleUpdateUser(user);
-        } else handleAddUser(user);
-        setButtonUpdate(false);
+        if(!data.name||!data.email||!data.phoneNumber||!data.address){
+            showSuccessToast("Vui lòng điền đầy đủ các trường", 'Cảnh báo!', 'error')
+        }else{
+            if(buttonUpdate){
+                handleUpdateUser(user);
+            } else handleAddUser();
+            setButtonUpdate(false);
+        }
+        
     }
-    const handleAddUser = () => {
-        add({
+    const handleAddUser = async () => {
+        setIsLoading(true);
+        await add({
             variables:{
                 data: {
                     ...data,
+                    point: 0,
                     admin: false,
                     staff: false,
                 }
             }
         })
         setData({name: "",email:"",phoneNumber:"", address:"" });
-        window.location.reload();
+        setIsLoading(false);
+        showSuccessToast("Thêm thành công")
     }
-    const handleUpdateUser = (user) => {
-        update({
+    const handleUpdateUser =async (user) => {
+        setIsLoading(true);
+        await update({
             variables:{
                 data: {
                     name: user.name,
@@ -95,16 +111,21 @@ const ManagerUser = ({userList}) => {
             }
         })
         setData({name: "",email:"",phoneNumber:"", address:"" });
-        window.location.reload();
+        setIsLoading(false);
+        showSuccessToast("Chỉnh sủa thành công")
     }
-    const handleDeleteUser = (user) =>{
-        deleteUser({
+    const handleDeleteUser =async (user) => {
+        setIsLoading(true);
+        await deleteUser({
             variables:{
                 deleteUserId: user.id
             }
         })
-        window.location.reload();
+        deleteUserList(user.id);
+        setIsLoading(false);
+        showSuccessToast("Đã xóa")
     }
+    if(isLoading) return <LoadingPage />;
     return (
         <div>
             <NavHeader />
@@ -118,7 +139,7 @@ const ManagerUser = ({userList}) => {
                     <th scope="col">SĐT</th>
                     <th scope="col">Địa chỉ</th>
                     <th scope="col">Điểm tích lũy</th>
-
+                    <th scope="col">Tùy chọn</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -130,11 +151,12 @@ const ManagerUser = ({userList}) => {
                         <td><input type="text" value={data.phoneNumber} onChange = {(e)=> setData({...data, phoneNumber: e.target.value})} class="form-control"></input></td>
                         <td><input type="text" value={data.address} onChange = {(e)=> setData({...data, address: e.target.value})} class="form-control" /></td>
                         <td><input type="text" readOnly={true} class="form-control"></input></td>
-                        <td><button type="button" className='btn-add btn btn-success' onClick={()=>onClickButton(buttonUpdate, data)} >{buttonUpdate?"Sửa":"+Thêm"}</button></td>
+                        <td><button type="button" className='btn-add btn btn-success' onClick={()=>onClickButton(buttonUpdate, data)} >{buttonUpdate?"Sửa":(<><i className="fas fa-plus" />Thêm mới</>)}</button></td>
                     </tr>
                     {
                         userList.map((item,index)=>{
                             return (
+                                <>
                                 <tr>
                                     <th scope="row">{index+1}</th>
                                     <td>{item.id}</td>
@@ -143,9 +165,31 @@ const ManagerUser = ({userList}) => {
                                     <td>{item.phoneNumber}</td>
                                     <td>{item.address}</td>
                                     <td>{item.point}</td>
-                                    <td><button type="button" className='btn-update btn btn-warning' onClick={()=>{setData({id: item.id, name:item.name, email:item.email,phoneNumber:item.phoneNumber,address:item.address}); setButtonUpdate(true);}} ><i class="fas fa-edit"></i></button></td>
-                                    <td><button type="button" className='btn-remove btn btn-danger btn-sm px-3' onClick={()=>{handleDeleteUser(item)}}><i class="fas fa-trash-alt"></i></button></td>
+                                    <td style={{textAlign: 'center'}}>
+                                        <button type="button" className='btn-update btn btn-warning' style={{width:'50%'}} onClick={()=>{setData({id: item.id, name:item.name, email:item.email,phoneNumber:item.phoneNumber,address:item.address}); setButtonUpdate(true);}} ><i class="fas fa-edit"></i></button>
+                                        <br />
+                                        <button type="button" className='btn-remove btn btn-danger btn-sm px-3 mt-2' style={{width:'50%'}} onClick={()=>{setShowModalRemove(item.id)}}><i class="fas fa-trash-alt"></i></button>
+                                    </td>
                                 </tr>
+                                <Modal
+                                    isOpen={showModalRemove===item.id}
+                                    className="modal-react custom-modal-react"
+                                    ariaHideApp={false}
+                                >
+                                    <div className="modal-body-react" >
+                                        <div className="close-modal" onClick={()=>setShowModalRemove(false)}>
+                                            <i className="far fa-times-circle"></i>
+                                        </div>
+                                        <div>
+                                            <div>Bạn có chắc chắn xóa không ?</div>
+                                            <div className="modal-btn">
+                                                <button type="button" class="btn btn-danger btn-modal-remove" onClick={() => handleDeleteUser(item)}>Chắc chắn</button>
+                                                <button type="button" class="btn btn-primary btn-modal-cancel" onClick={() => setShowModalRemove(false)} >Hủy</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Modal>
+                                </>
                             )
                         })
                     }
@@ -159,4 +203,11 @@ const mapStateToProps = (state)  => {
         userList: state.UserList,
     }
 }
-export default connect(mapStateToProps)(ManagerUser);
+const mapDispatchToProps = (dispatch) =>{
+    return {
+        updateUserList: (id, data) => dispatch(updateUserList(id, data)),
+        addUserList:(data) => dispatch(addUserList(data)),
+        deleteUserList:(id) => dispatch(deleteUserList(id)),
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(ManagerUser);

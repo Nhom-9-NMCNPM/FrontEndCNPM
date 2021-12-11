@@ -54,7 +54,7 @@ const UPDATE_TROUSERS = gql`
     }
 `;
 const Trousers = ({trousers, addTrousers, updateTrousers, removeTrousers}) => {
-    const [showModalRemove, setShowModalRemove] = useState(false)
+    const [showModalRemove, setShowModalRemove] = useState(-1)
     const [showModalAdd, setShowModalAdd]= useState(false);
     const [flag, setFlag] = useState(0);
     const [showModalUpdate, setShowModalUpdate]= useState(false);
@@ -143,7 +143,7 @@ const Trousers = ({trousers, addTrousers, updateTrousers, removeTrousers}) => {
                                 <td className='content' >
                                     <div>
                                         <button 
-                                            onClick={()=>setShowModalRemove(true)}
+                                            onClick={()=>setShowModalRemove(item.id)}
                                             className='btn-remove btn btn-danger btn-sm px-3'
                                         >
                                             <i class="fas fa-trash-alt"></i>
@@ -157,7 +157,7 @@ const Trousers = ({trousers, addTrousers, updateTrousers, removeTrousers}) => {
                                     </div>
                                     {showModalUpdate&&(flag===item.id)&&<Update isDisplay={showModalUpdate} update={update} status={statusUpdate}  setShowModalUpdate={setShowModalUpdate} product={item}/>}
                                     <Modal
-                                        isOpen={showModalRemove}
+                                        isOpen={showModalRemove===item.id}
                                         className="modal-react custom-modal-react"
                                         ariaHideApp={false}
                                     >
