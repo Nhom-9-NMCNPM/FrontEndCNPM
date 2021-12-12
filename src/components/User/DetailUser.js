@@ -127,7 +127,7 @@ const DetailUser = ({user, login, logout, product, cancelOrder}) => {
                                     }
                                 })
                                 return (
-                                    <div style={{borderBottom:'solid 1px #ccc', paddingBottom:'1rem'}}>
+                                    <div style={{borderBottom:'solid 1px #ccc', padding:'1rem 0'}}>
                                         {
                                             waitConfirm===1&&
                                             <div className="d-flex justify-content-end">

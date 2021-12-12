@@ -7,6 +7,7 @@ import format_curency from '../../utils/displayPrice';
 import {logout, startLogin, stopLogin} from'../../actions/user';
 import {removeCart} from '../../actions/cart'
 import User from '../User'
+import { showSuccessToast } from '../../utils/displayToastMess'
 const NavHeader = ({user,cart, removeCart,logout, product}) => {
     const [inputSearch, setInputSearch] = useState('')
     const [showResult, setShowResult] = useState(false)  
@@ -126,11 +127,11 @@ const NavHeader = ({user,cart, removeCart,logout, product}) => {
                             </li>
                             {!user.admin && <>
                                 <li className="header-nav-content-item">
-                               {!user.admin && <Link to="/" className="header-nav-content-item-link" title="Phụ kiện">PHỤ KIỆN</Link>}
+                               {!user.admin && <Link to="/" className="header-nav-content-item-link" title="Phụ kiện" onClick={()=>showSuccessToast("Tính năng này hiện chưa được phát triển, vui lòng thử lại sau","Thông báo!", "error")} >PHỤ KIỆN</Link>}
                             </li>
                             
                             <li className="header-nav-content-item">
-                               {!user.admin && <Link to="/" className="header-nav-content-item-link" title="Ưu đãi">ƯU ĐÃI</Link>}
+                               {!user.admin && <Link to="/" className="header-nav-content-item-link" title="Ưu đãi" onClick={()=>showSuccessToast("Tính năng này hiện chưa được phát triển, vui lòng thử lại sau","Thông báo!", "error")}>ƯU ĐÃI</Link>}
                             </li>
                             </> }
                             <li className="header-nav-content-item">
