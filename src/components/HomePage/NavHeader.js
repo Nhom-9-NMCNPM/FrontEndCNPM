@@ -187,7 +187,7 @@ const NavHeader = ({user,cart, removeCart,logout, product}) => {
                             </Link>
                         </div>
                         <div className="header-cart">
-                           <Link to="#" title="Giỏ hàng">
+                           <Link to="/cart" title="Giỏ hàng">
                                
                                 <img alt="anh" src="https://theme.hstatic.net/200000000133/1000569834/14/bagIcon2.png?v=5127"
                                     title="Giỏ hàng" className="header-cart-img" />
@@ -234,7 +234,9 @@ const NavHeader = ({user,cart, removeCart,logout, product}) => {
                                             )
                                         })}
                                         <li className="cart-checkout">
-                                            <button>ĐẶT HÀNG</button>
+                                            <Link to="/cart">
+                                                <button>ĐẶT HÀNG</button>
+                                            </Link>
                                         </li>
                                     </ul></>
                                     )

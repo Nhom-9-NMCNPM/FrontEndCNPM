@@ -7,6 +7,8 @@ import {useMutation, gql} from "@apollo/client";
 import format_curency from "../../utils/displayPrice";
 import {useState} from 'react'
 import LoadingPage from "../LoadingPage";
+import { showSuccessToast } from "../../utils/displayToastMess";
+import { cancelOrder } from "../../actions/user";
 const DELETE_ORDER=gql`
 mutation Mutation($deleteOrderId: Int!) {
   deleteOrder(id: $deleteOrderId) {
@@ -14,11 +16,17 @@ mutation Mutation($deleteOrderId: Int!) {
   }
 }
 `
-const DetailUser = ({user, login, logout, product}) => {
+const DetailUser = ({user, login, logout, product, cancelOrder}) => {
     const [showFile, setShowFile] = useState(true);
     const [waitConfirm, setWaitConfirm] = useState(1);
     const [status, setStatus] = useState('Chờ xử lý')
-    const [deleteOrder, {loading, error}] = useMutation(DELETE_ORDER)
+    const [deleteOrder, {loading, error}] = useMutation(DELETE_ORDER, {
+        onCompleted: (data)=>{
+            showSuccessToast('Hủy thành công');
+            setWaitConfirm(4)
+            setStatus('Hủy đơn hàng')
+        }
+    })
     
     if(loading) return <LoadingPage />
     if(!user.email){
@@ -124,8 +132,7 @@ const DetailUser = ({user, login, logout, product}) => {
                                             <div className="d-flex justify-content-end">
                                                 <button type="button" class="btn btn-danger" onClick={()=>{
                                                     deleteOrder({variables:{deleteOrderId: item.id}})
-                                                    setWaitConfirm(4);
-                                                    setStatus('Hủy đơn hàng')
+                                                    cancelOrder(item.id);
                                                 }}>Hủy đơn hàng</button>
                                             </div>
                                         }
@@ -176,7 +183,8 @@ const mapStateToProps = (state)  => {
 const mapDispatchToProps = (dispatch)=>{
     return {
         login:()=> dispatch(startLogin()),
-        logout:()=> dispatch(stopLogin())
+        logout:()=> dispatch(stopLogin()),
+        cancelOrder:(id)=> dispatch(cancelOrder(id))
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(DetailUser)

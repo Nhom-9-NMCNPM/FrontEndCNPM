@@ -15,23 +15,28 @@ const size = ['M','S','L', 'XL']
 const sizeTest = ['size_M', 'size_S', 'size_L', 'size_XL']
 const DetailPro = ({product, match, dispatch}) => { 
   window.scrollTo(0,0)
-  const [keyActive, setkeyActive] = useState('M')
+  const [keyActive, setkeyActive] = useState('')
   const [quantity, setQuantity] = useState(1)
   const detailPro = product.filter((item) => item.codePro === match.params.code)[0];
   const [activeImg, setActiveImg ] = useState(0)
 
   const handleAddCart = ()=>{
-    showSuccessToast("Bạn đã thêm vào giỏ hàng", "Thành công!", "success")
-    dispatch(addCart({
-      id:detailPro.id,
-      name: detailPro.name,
-      img: detailPro.img,
-      color: detailPro.color,
-      codePro: detailPro.codePro,
-      count: quantity,
-      size: keyActive,
-      price: detailPro.price,
-    }))
+    if(!keyActive){
+      showSuccessToast("Vui lòng chọn size của sản phẩm", "Cảnh báo!", 'error');
+    }else{
+      showSuccessToast("Bạn đã thêm vào giỏ hàng", "Thành công!", "success")
+      dispatch(addCart({
+        id:detailPro.id,
+        name: detailPro.name,
+        img: detailPro.img,
+        color: detailPro.color,
+        codePro: detailPro.codePro,
+        count: quantity,
+        size: keyActive,
+        price: detailPro.price,
+      }))
+    }
+    
     
   } 
   return (

@@ -24,4 +24,12 @@ export const removeCart = (id, size) => {
         id,
         size
     }
-}
+};
+export const changeQuantity = (id, size, quantity) => {
+    return {
+        type: "CHANGE-QUANTITY",
+        id,
+        size,
+        quantity,
+    };
+};
