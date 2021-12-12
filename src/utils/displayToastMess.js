@@ -1,4 +1,4 @@
-export const showSuccessToast=(mess, title, type)=> {
+export const showSuccessToast=(mess, title = 'Thành công', type = 'success')=> {
     toast({
       title: title,
       message: mess,

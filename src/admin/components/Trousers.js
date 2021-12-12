@@ -54,7 +54,7 @@ const UPDATE_TROUSERS = gql`
     }
 `;
 const Trousers = ({trousers, addTrousers, updateTrousers, removeTrousers}) => {
-    const [showModalRemove, setShowModalRemove] = useState(false)
+    const [showModalRemove, setShowModalRemove] = useState(-1)
     const [showModalAdd, setShowModalAdd]= useState(false);
     const [flag, setFlag] = useState(0);
     const [showModalUpdate, setShowModalUpdate]= useState(false);
@@ -171,7 +171,7 @@ const Trousers = ({trousers, addTrousers, updateTrousers, removeTrousers}) => {
                                 <td className='content' style={{paddingLeft: '20px',paddingRight: '20px'}}>
                                     <div>
                                         <button 
-                                            onClick={()=>setShowModalRemove(true)}
+                                            onClick={()=>setShowModalRemove(item.id)}
                                             className='btn-remove btn btn-danger btn-sm px-3'
                                         >
                                             <i class="fas fa-trash-alt"></i>
@@ -185,7 +185,7 @@ const Trousers = ({trousers, addTrousers, updateTrousers, removeTrousers}) => {
                                     </div>
                                     {showModalUpdate&&(flag===item.id)&&<Update isDisplay={showModalUpdate} update={update} status={statusUpdate}  setShowModalUpdate={setShowModalUpdate} product={item}/>}
                                     <Modal
-                                        isOpen={showModalRemove}
+                                        isOpen={showModalRemove===item.id}
                                         className="modal-react custom-modal-react"
                                         ariaHideApp={false}
                                     >
@@ -240,39 +240,39 @@ const Trousers = ({trousers, addTrousers, updateTrousers, removeTrousers}) => {
                                     <td className='content'>{item.material}</td>
                                     <td className='content'>{item.color}</td>
                                     <td className='content' style={{paddingLeft: '20px',paddingRight: '20px'}}>
-                                        <div>
-                                            <button 
-                                                onClick={()=>setShowModalRemove(true)}
-                                                className='btn-remove btn btn-danger btn-sm px-3'
-                                            >
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                            <button 
-                                                className='btn-update btn btn-warning'
-                                                onClick={()=>handleUpdateTrousers(item.id)}
-                                            >
-                                            <i class="fas fa-edit"></i>
-                                            </button>
-                                        </div>
-                                        {showModalUpdate&&(flag===item.id)&&<Update isDisplay={showModalUpdate} update={update} status={statusUpdate}  setShowModalUpdate={setShowModalUpdate} product={item}/>}
-                                        <Modal
-                                            isOpen={showModalRemove}
-                                            className="modal-react custom-modal-react"
-                                            ariaHideApp={false}
+                                    <div>
+                                        <button 
+                                            onClick={()=>setShowModalRemove(item.id)}
+                                            className='btn-remove btn btn-danger btn-sm px-3'
                                         >
-                                            <div className="modal-body-react" >
-                                                <div className="close-modal" onClick={()=>setShowModalRemove(false)}>
-                                                    <i className="far fa-times-circle"></i>
-                                                </div>
-                                                <div>
-                                                    <div>Bạn có chắc chắn xóa không ?</div>
-                                                    <div className="modal-btn">
-                                                        <button type="button" class="btn btn-danger btn-modal-remove" onClick={() => handleRemoveTrousers(item)}>Chắc chắn</button>
-                                                        <button type="button" class="btn btn-primary btn-modal-cancel"onClick={() => setShowModalRemove(false)}>Hủy</button>
-                                                    </div>
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <button 
+                                            className='btn-update btn btn-warning'
+                                            onClick={()=>handleUpdateTrousers(item.id)}
+                                        >
+                                        <i class="fas fa-edit"></i>
+                                        </button>
+                                    </div>
+                                    {showModalUpdate&&(flag===item.id)&&<Update isDisplay={showModalUpdate} update={update} status={statusUpdate}  setShowModalUpdate={setShowModalUpdate} product={item}/>}
+                                    <Modal
+                                        isOpen={showModalRemove===item.id}
+                                        className="modal-react custom-modal-react"
+                                        ariaHideApp={false}
+                                    >
+                                        <div className="modal-body-react" >
+                                            <div className="close-modal" onClick={()=>setShowModalRemove(false)}>
+                                                <i className="far fa-times-circle"></i>
+                                            </div>
+                                            <div>
+                                                <div>Bạn có chắc chắn xóa không ?</div>
+                                                <div className="modal-btn">
+                                                    <button type="button" class="btn btn-danger btn-modal-remove" onClick={() => handleRemoveTrousers(item)}>Chắc chắn</button>
+                                                    <button type="button" class="btn btn-primary btn-modal-cancel"onClick={() => setShowModalRemove(false)}>Hủy</button>
                                                 </div>
                                             </div>
-                                        </Modal>
+                                        </div>
+                                     </Modal>
                                     </td>
                                 </tr>
                             )

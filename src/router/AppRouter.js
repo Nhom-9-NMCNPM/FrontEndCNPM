@@ -8,7 +8,6 @@ import admin from '../admin/admin';
 import Product from '../components/Product'
 import User from '../components/User'
 import DetailPro from '../components/DetailPro';
-// import { from } from '@apollo/client';
 import ProDress from '../components/Product/ProDress';
 import ProShirt from '../components/Product/ProShirt';
 import ProSkirt from '../components/Product/ProSkirt';

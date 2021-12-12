@@ -20,9 +20,6 @@ const DetailPro = ({product, match, dispatch}) => {
   const detailPro = product.filter((item) => item.codePro === match.params.code)[0];
   const [activeImg, setActiveImg ] = useState(0)
 
-
-
-  
   const handleAddCart = ()=>{
     showSuccessToast("Bạn đã thêm vào giỏ hàng", "Thành công!", "success")
     dispatch(addCart({
@@ -86,7 +83,8 @@ const DetailPro = ({product, match, dispatch}) => {
                   <div className="option">
                     {size.map((item,index) => {
                         return (
-                            <div className={`option-content ${( keyActive === item) && "active-size"} ${(detailPro[sizeTest[index]] === 0) && "disable"}`} key={index} onClick={() => {
+                            <div className={`option-content ${( keyActive === item) && "active-size"} ${(detailPro[sizeTest[index]] === 0) && "disable"}`} key={index}  onClick={() => {
+                                
                                 setkeyActive(item)
                               }}>
                                 {item}

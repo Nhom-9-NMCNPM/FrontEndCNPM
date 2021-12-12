@@ -56,7 +56,7 @@ const UPDATE_SHIRT = gql`
 `;
 
 const Shirt = ({shirt, addShirt, updateShirt, removeShirt}) => {
-    const [showModalRemove, setShowModalRemove] = useState(false)
+    const [showModalRemove, setShowModalRemove] = useState(-1)
     const [showModalAdd, setShowModalAdd]= useState(false);
     const [flag, setFlag] = useState(0);
     const [showModalUpdate, setShowModalUpdate]= useState(false);
@@ -118,7 +118,7 @@ const Shirt = ({shirt, addShirt, updateShirt, removeShirt}) => {
                                             <input autoFocus={true} type="text" className="header-search-admin-product" placeholder="Tìm sản phẩm..." 
                                                 value={inputSearch} onChange={(e) => {handleInputSearch(e.target.value)}}
                                             />
-                                            <div className="close-search-product"><i class="fas fa-search" /></div>
+                                            <div className="close-search-product"><i className="fas fa-search" /></div>
                                     </form>
                     </div>
                     
@@ -128,22 +128,22 @@ const Shirt = ({shirt, addShirt, updateShirt, removeShirt}) => {
                 <table className="table">
                     <thead>
                         <tr className="table-tr">
-                            <th scope="col" class="table-title-pro" style={{width:" 1%"}}>STT</th>
-                            <th scope="col" class="table-title-pro" style={{width:" 1%"}}>ID</th>
-                            <th scope="col" class="table-title-pro" style={{width:" 9%"}}>NGÀY TẠO</th>
-                            <th scope="col" class="table-title-pro" style={{width:" 10%"}}>NGÀY CẬP NHẬT</th>
-                            <th scope="col" class="table-title-pro" style={{width:" 13%"}}>TÊN</th>
-                            <th scope="col" class="table-title-pro pro-des">MÔ TẢ</th>
-                            <th scope="col" class="table-title-pro" style={{width:" 5%"}}>ẢNH</th>
-                            <th scope="col" class="table-title-pro" style={{width:" 5%"}}>GIÁ</th>
-                            <th scope="col" class="table-title-pro" style={{width:" 10%"}}>MÃ SẢN PHẨM</th>
-                            <th scope="col" class="table-title-pro" style={{width:" 1%"}}> Size_M</th>
-                            <th scope="col" class="table-title-pro" style={{width:" 1%"}}>Size_S</th>
-                            <th scope="col" class="table-title-pro" style={{width:" 1%"}}>Size_L</th>
-                            <th scope="col" class="table-title-pro" style={{width:" 1%"}}>Size_XL</th>
-                            <th scope="col" class="table-title-pro" style={{width:" 7%"}}>CHẤT LIỆU</th>
-                            <th scope="col" class="table-title-pro" style={{width:" 6%"}}>MÀU</th>
-                            <th scope="col" class="table-title-pro" style={{width:" 7%"}}>THAO TÁC</th>
+                            <th scope="col" className="table-title-pro" style={{width:" 1%"}}>STT</th>
+                            <th scope="col" className="table-title-pro" style={{width:" 1%"}}>ID</th>
+                            <th scope="col" className="table-title-pro" style={{width:" 9%"}}>NGÀY TẠO</th>
+                            <th scope="col" className="table-title-pro" style={{width:" 10%"}}>NGÀY CẬP NHẬT</th>
+                            <th scope="col" className="table-title-pro" style={{width:" 13%"}}>TÊN</th>
+                            <th scope="col" className="table-title-pro pro-des">MÔ TẢ</th>
+                            <th scope="col" className="table-title-pro" style={{width:" 5%"}}>ẢNH</th>
+                            <th scope="col" className="table-title-pro" style={{width:" 5%"}}>GIÁ</th>
+                            <th scope="col" className="table-title-pro" style={{width:" 10%"}}>MÃ SẢN PHẨM</th>
+                            <th scope="col" className="table-title-pro" style={{width:" 1%"}}> Size_M</th>
+                            <th scope="col" className="table-title-pro" style={{width:" 1%"}}>Size_S</th>
+                            <th scope="col" className="table-title-pro" style={{width:" 1%"}}>Size_L</th>
+                            <th scope="col" className="table-title-pro" style={{width:" 1%"}}>Size_XL</th>
+                            <th scope="col" className="table-title-pro" style={{width:" 7%"}}>CHẤT LIỆU</th>
+                            <th scope="col" className="table-title-pro" style={{width:" 6%"}}>MÀU</th>
+                            <th scope="col" className="table-title-pro" style={{width:" 7%"}}>THAO TÁC</th>
                         </tr>
                     </thead>
                     { showResult ? 
@@ -177,21 +177,21 @@ const Shirt = ({shirt, addShirt, updateShirt, removeShirt}) => {
                                     <td className='content 'style={{paddingLeft: '20px',paddingRight: '20px'}}>
                                         <div>
                                             <button 
-                                                onClick={()=>setShowModalRemove(true)}
+                                                onClick={()=>setShowModalRemove(item.id)}
                                                 className='btn-remove btn btn-danger btn-sm px-3'
                                             >
-                                                <i class="fas fa-trash-alt"></i>
+                                                <i className="fas fa-trash-alt"></i>
                                             </button>
                                             <button 
                                                 className='btn-update btn btn-warning'
                                                 onClick={()=>handleUpdateShirt(item.id)}
                                             >
-                                            <i class="fas fa-edit"></i>
+                                            <i className="fas fa-edit"></i>
                                             </button>
                                         </div>
                                         {showModalUpdate&&(flag===item.id)&&<Update isDisplay={showModalUpdate} update={update} status={statusUpdate}  setShowModalUpdate={setShowModalUpdate} product={item}/>}
                                         <Modal
-                                            isOpen={showModalRemove}
+                                            isOpen={showModalRemove===item.id}
                                             className="modal-react custom-modal-react"
                                             ariaHideApp={false}
                                         >
@@ -202,8 +202,8 @@ const Shirt = ({shirt, addShirt, updateShirt, removeShirt}) => {
                                                 <div>
                                                     <div>Bạn có chắc chắn xóa không ?</div>
                                                     <div className="modal-btn">
-                                                        <button type="button" class="btn btn-danger btn-modal-remove" onClick={() => handleRemoveShirt(item)}>Chắc chắn</button>
-                                                        <button type="button" class="btn btn-primary btn-modal-cancel" onClick={() => setShowModalRemove(false)} >Hủy</button>
+                                                        <button type="button" className="btn btn-danger btn-modal-remove" onClick={() => handleRemoveShirt(item)}>Chắc chắn</button>
+                                                        <button type="button" className="btn btn-primary btn-modal-cancel" onClick={() => setShowModalRemove(false)} >Hủy</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -244,39 +244,39 @@ const Shirt = ({shirt, addShirt, updateShirt, removeShirt}) => {
                                         <td className='content'>{item.material}</td>
                                         <td className='content'>{item.color}</td>
                                         <td className='content 'style={{paddingLeft: '20px',paddingRight: '20px'}}>
-                                            <div>
-                                                <button 
-                                                    onClick={()=>setShowModalRemove(true)}
-                                                    className='btn-remove btn btn-danger btn-sm px-3'
-                                                >
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
-                                                <button 
-                                                    className='btn-update btn btn-warning'
-                                                    onClick={()=>handleUpdateShirt(item.id)}
-                                                >
-                                                <i class="fas fa-edit"></i>
-                                                </button>
-                                            </div>
-                                            {showModalUpdate&&(flag===item.id)&&<Update isDisplay={showModalUpdate} update={update} status={statusUpdate}  setShowModalUpdate={setShowModalUpdate} product={item}/>}
-                                            <Modal
-                                                isOpen={showModalRemove}
-                                                className="modal-react custom-modal-react"
-                                                ariaHideApp={false}
+                                        <div>
+                                            <button 
+                                                onClick={()=>setShowModalRemove(item.id)}
+                                                className='btn-remove btn btn-danger btn-sm px-3'
                                             >
-                                                <div className="modal-body-react" >
-                                                    <div className="close-modal" onClick={()=>setShowModalRemove(false)}>
-                                                        <i className="far fa-times-circle"></i>
-                                                    </div>
-                                                    <div>
-                                                        <div>Bạn có chắc chắn xóa không ?</div>
-                                                        <div className="modal-btn">
-                                                            <button type="button" class="btn btn-danger btn-modal-remove" onClick={() => handleRemoveShirt(item)}>Chắc chắn</button>
-                                                            <button type="button" class="btn btn-primary btn-modal-cancel" onClick={() => setShowModalRemove(false)} >Hủy</button>
-                                                        </div>
+                                                <i className="fas fa-trash-alt"></i>
+                                            </button>
+                                            <button 
+                                                className='btn-update btn btn-warning'
+                                                onClick={()=>handleUpdateShirt(item.id)}
+                                            >
+                                            <i className="fas fa-edit"></i>
+                                            </button>
+                                        </div>
+                                        {showModalUpdate&&(flag===item.id)&&<Update isDisplay={showModalUpdate} update={update} status={statusUpdate}  setShowModalUpdate={setShowModalUpdate} product={item}/>}
+                                        <Modal
+                                            isOpen={showModalRemove===item.id}
+                                            className="modal-react custom-modal-react"
+                                            ariaHideApp={false}
+                                        >
+                                            <div className="modal-body-react" >
+                                                <div className="close-modal" onClick={()=>setShowModalRemove(false)}>
+                                                    <i className="far fa-times-circle"></i>
+                                                </div>
+                                                <div>
+                                                    <div>Bạn có chắc chắn xóa không ?</div>
+                                                    <div className="modal-btn">
+                                                        <button type="button" className="btn btn-danger btn-modal-remove" onClick={() => handleRemoveShirt(item)}>Chắc chắn</button>
+                                                        <button type="button" className="btn btn-primary btn-modal-cancel" onClick={() => setShowModalRemove(false)} >Hủy</button>
                                                     </div>
                                                 </div>
-                                            </Modal>
+                                            </div>
+                                        </Modal>
                                         </td>
                                     </tr>
                                 )

@@ -9,6 +9,19 @@ const adminReducer = (state=[], action) =>{
                 ...state,
                 action.data,
             ]
+        case 'UPDATE-USER-LIST':
+            return state.map(item => {
+                if(item.id===action.id){
+                    return {
+                        ...item,
+                        ...action.data
+                    }
+                }else{
+                    return item
+                }
+            })
+        case 'DELETE-USER-LIST':
+            return state.filter(item => item.id!==action.id)
             
         default: return state;
     }
