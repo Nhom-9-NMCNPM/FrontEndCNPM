@@ -26,11 +26,10 @@ const Approuter = () => {
         <Router history={history}>
             <div>
                 <Switch>
-                    <Route path="/" component={Home} exact={true} />
-                    <PrivateRouter path="/table" component={admin} />
-                    <Route path="/product" component={Product} />
-                    <Route path="/account" component={User} />
-                    <Route path="/detail/:code" component={DetailPro} />
+                    <Route path="/" component={Home} exact={true}/>
+                    <Route path="/product" component={Product} /> 
+                    <Route path="/account" component={User}  />  
+                    <Route path="/detail/:code" component={DetailPro}  /> 
                     <Route path="/dress" component={ProDress} />
                     <Route path="/shirt" component={ProShirt} />
                     <Route path="/skirt" component={ProSkirt} />
