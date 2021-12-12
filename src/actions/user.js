@@ -27,5 +27,15 @@ export const stopLogin = () => {
         return firebase.auth().signOut()
     }
 }
-
-
+export const cancelOrder = (id) => {
+    return {
+        type: 'CANCEL',
+        id
+    }
+}
+export const order = (data) => {
+    return {
+        type: 'ORDER',
+        data
+    }
+}
