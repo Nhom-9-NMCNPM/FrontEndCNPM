@@ -36,7 +36,7 @@ const DetailUser = ({user, login, logout, product, cancelOrder}) => {
                 <div className="d-inline-block mt-2">
                     <span>Quý khách vui lòng đăng nhập để tiếp tục</span>
                     <button type="button" 
-                    className="btn btn-dark addCart mt-2"
+                    className="btn btn-dark addCart mt-2 "
                     onClick={login}
                     >
                         Đăng nhập
@@ -62,9 +62,9 @@ const DetailUser = ({user, login, logout, product, cancelOrder}) => {
                 </div>
                 <div className="user-option">
                     <ul>
-                        <li onClick={() => setShowFile(true)} >Tài khoản của tôi</li>
-                        <li onClick={() => setShowFile(false)} >Đơn hàng</li>
-                        <li onClick={logout} >Đăng xuất</li>
+                        <li onClick={() => setShowFile(true)} className="cursor" >Tài khoản của tôi</li>
+                        <li onClick={() => setShowFile(false)} className="cursor">Đơn hàng</li>
+                        <li onClick={logout} className="cursor">Đăng xuất</li>
                     </ul>
                 </div>
             </div>
@@ -78,25 +78,25 @@ const DetailUser = ({user, login, logout, product, cancelOrder}) => {
                         </div>
                     ):(
                         <ul className="nav nav-tabs">
-                            <li className="nav-item" onClick={()=>{
+                            <li className="nav-item cursor" onClick={()=>{
                                 setWaitConfirm(1)
                                 setStatus('Chờ xử lý')    
                             }}>
                                 <h5 className={waitConfirm==1?'nav-link active':'nav-link'} aria-current="page" href="#">Chờ xử lý</h5>
                             </li>
-                            <li className="nav-item" onClick={()=>{
+                            <li className="nav-item cursor" onClick={()=>{
                                 setWaitConfirm(2)
                                 setStatus('Đang giao hàng')    
                             }}>
                                 <h5 className={waitConfirm==2?'nav-link active':'nav-link'} href="#">Đang giao</h5>
                             </li>
-                            <li className="nav-item" onClick={()=>{
+                            <li className="nav-item cursor" onClick={()=>{
                                 setWaitConfirm(3)
                                 setStatus('Đã giao hàng')    
                             }}>
                                 <h5 className={waitConfirm==3?'nav-link active':'nav-link'} href="#">Đã giao</h5>
                             </li>
-                            <li className="nav-item" onClick={()=>{
+                            <li className="nav-item cursor" onClick={()=>{
                                 setWaitConfirm(4)
                                 setStatus('Hủy đơn hàng')    
                             }}>
@@ -118,6 +118,7 @@ const DetailUser = ({user, login, logout, product, cancelOrder}) => {
                             </>
                                
                         ):(
+                            arrOrder.length===0?<h6>Bạn không có đơn hàng nào</h6>:
                             arrOrder.map(item => {
                                 const arrProduct = item.namePro.map((pro) => {
                                     return {
@@ -126,7 +127,7 @@ const DetailUser = ({user, login, logout, product, cancelOrder}) => {
                                     }
                                 })
                                 return (
-                                    <div style={{borderBottom:'solid 1px #ccc', paddingBottom:'1rem'}}>
+                                    <div style={{borderBottom:'solid 1px #ccc', padding:'1rem 0'}}>
                                         {
                                             waitConfirm===1&&
                                             <div className="d-flex justify-content-end">

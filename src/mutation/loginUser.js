@@ -1,6 +1,7 @@
 import {gql} from '@apollo/client';
 import client from '../client/client';
 import {login, logout} from '../actions/user';
+import {history} from '../router/AppRouter'
 const loginUser = async ({ name, email}, dispatch) =>{
     const dataUser={
         name,
@@ -42,6 +43,7 @@ const loginUser = async ({ name, email}, dispatch) =>{
             .then((response) => {
                 const user = response.data.createUser;
                 dispatch(login(user));
+                history.push('/');
                 return response;
             })
             .catch((response) => {

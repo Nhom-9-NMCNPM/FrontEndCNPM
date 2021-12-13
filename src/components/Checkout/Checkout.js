@@ -319,7 +319,7 @@ const Checkout = ({resetCart, orderRedux}) => {
                                             <span class="product-price">
                                                 {format_curency(
                                                     item.price * item.count
-                                                )}
+                                                )} đ
                                             </span>
                                         </td>
                                     </tr>
@@ -502,7 +502,7 @@ const Checkout = ({resetCart, orderRedux}) => {
                         <div className="payment-detail">
                             <p className="payment-text">Khuyến mãi</p>
                             <p className="payment-price">
-                                {format_curency(parseInt((total * couponRate) / 100),10)}
+                                {format_curency(parseInt((total * couponRate) / 100),10)}đ
                             </p>
                         </div>
 
@@ -520,7 +520,7 @@ const Checkout = ({resetCart, orderRedux}) => {
                     <div className="total-price-final">
                         <p className="total-price-title">Tổng cộng</p>
                         <p className="total-price-content">
-                            {format_curency(parseInt(total - (total * couponRate) / 100,10))}
+                            {format_curency(parseInt(total - (total * couponRate) / 100,10))}đ
                         </p>
                     </div>
 

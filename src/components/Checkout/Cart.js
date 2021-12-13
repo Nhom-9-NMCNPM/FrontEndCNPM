@@ -116,7 +116,7 @@ const Cart = ({ user, cart, dispatch }) => {
                                     <td class="total">
                                         {format_curency(
                                             product.price * product.count
-                                        )}
+                                        )}đ
                                     </td>
 
                                     {/* Xac nhan xoa san pham */}
@@ -216,7 +216,7 @@ const Cart = ({ user, cart, dispatch }) => {
                                     fontSize: "1.2em",
                                 }}
                             >
-                                {format_curency(totalCost)}
+                                {format_curency(totalCost)}đ
                             </span>
                         </p>
 
