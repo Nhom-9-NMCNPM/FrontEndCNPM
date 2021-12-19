@@ -1,9 +1,10 @@
 import client from "../client/client";
 import {gql} from '@apollo/client';
-const deleteDress = (id)=>{
+const deleteDress = (item)=>{
     client.mutate({
         mutation: gql `
-            mutation Mutation($deleteDressId: Int!) {
+            mutation Mutation($filesName: [String], $deleteDressId: Int!) {
+                deleteFile(filesName: $filesName)
                 deleteDress(id: $deleteDressId) {
                     id
                     name
@@ -11,7 +12,10 @@ const deleteDress = (id)=>{
             }
         `,
         variables: {
-            deleteDressId: id
+            deleteDressId: item.id,
+            filesName: item.img.map((item, index)=>{
+                return item.slice(item.length-16, item.length)
+            })
         }
     })
     .catch(err =>  {

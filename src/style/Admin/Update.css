@@ -12,10 +12,27 @@
     padding-bottom: 15px;
 }
 
-.field-info>label {
-    width: 10%;
-}
 
+.field-info>label {
+    width: 20%;
+}
+.img-product {
+    margin-bottom: 8px;
+    position: relative;
+}
+.img-cancel {
+    display: block;
+    position: absolute;
+    right: 20px;
+    top: 6px;
+    color: rgb(229 160 160);
+    font-size: 20px;
+    cursor: pointer;
+    transition: all .2s linear;
+}
+.img-cancel:hover {
+    font-size: 25px;
+}
 .ReactModalPortal>div {
     opacity: 0;
 }

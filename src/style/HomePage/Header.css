@@ -8,29 +8,86 @@
 
 
 /* -----------Header---------------- */
-
+/* --------Header-Admin--------------------- */
 .admin-login {
-    padding-left: 222px;
+    display: flex;
     padding-top: 13px;
     background: #fff;
-    float: right;
     font-size: 30px;
+    width: 30%;
+    justify-content: flex-end;
 }
-
-.admin-login button {
-    height: 40px;
-    padding: 2px;
-    background: #fff;
-    border-color: #ccc;
-    border-radius: 4px;
-    font-weight: 400;
-    transition: all .2s linear;
+.admin-search {
+    height: 32px;
+    line-height: 32px;
+    position: relative;
+    display: block;
 }
-.admin-login button:hover {
-    background: #E29481;
+.admin-search:hover {
+    background-color: #e8866e;
+}
+.admin-search >i {
     color: #fff;
 }
+.header-form-admin {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0px;
+    top: 0px;
+    background: #fff;
+    border-radius: 10px;
+    right: 24px;
+    top: -4px;
+    width: 342px;
+}
+.header-form-admin input {
+    color: #86898E;
+    font-size: 14px;
+    height: 40px;
+    width: 100%;
+    padding-left: 50px;
+    border: 0;
+    padding-right: 15px;
+    background: transparent;
+    border-radius: 30px;
+    border: 0;
+    border: 1px solid #dca395;
+    font-weight: 400;
+}
 
+.header-form-admin input:focus {
+    outline: none;
+}
+.close-search {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background: transparent;
+    font-size: 12px;
+    border: 0;
+    padding-left: 20px;
+    padding-right: 13px;
+    padding-top: 5px;
+    color: #E29481;
+}
+.admin-log-out {
+    display: block;
+    padding-right: 22px;
+    cursor: pointer;
+}
+.admin-log-out i {
+    font-size: 30px;
+    color: #E29481;
+}
+.admin-log-out i:hover {
+    color: #e8866e;
+}
+.is-active{
+    color: #E29481;
+}
+/* =================================================================== */
 header {
     width: 100%;
 }
@@ -235,11 +292,76 @@ header {
     cursor: pointer;
 }
 
-.header-user {
-    padding: 0 20px;
+/* ============= Result Search================= */
+.search-result {
+    position: absolute;
+    top: 2.5rem;
+    right: 0rem;
+    width: 26rem;
+    background: #fff;
+    padding: 8px;
+    box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
+    border: 1px solid #f7f7f7;
+    border-radius: 2px;
+    margin-top: 8px;
+    z-index: 200;
+    display: block;
+    max-height: 500px;
+    overflow-y: scroll;
 }
-
-
+.search-result::before {
+    position: absolute;
+    content: '';
+    background-color: transparent;
+    height: 14px;
+    right: 0;
+    width: 100%;
+    top: -9px;
+}
+.result-item {
+    float: left;
+    width: 100%;
+    padding-bottom: 8px;
+}
+.result-name-product {
+    float: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    display: block;
+    color: var(--color-text);
+    font-weight: 600;
+}
+.result-name-product:hover {
+    text-decoration: none;
+    color: var(--color-hover);
+}
+.result-img {
+    width: 20%;
+    float: left;
+}
+.result-content {
+    float: left;
+    width: 80%;
+    padding-left: 8px;
+    color: var(--color-text);
+    text-align: left;
+}
+.result-content p {
+    text-align: left;
+    margin: 0;
+}
+.result-detail-pro {
+    text-align: left;
+    display: block;
+    font-size: 11px;
+    color: var(--color-text);
+}
+.result-detail-pro:hover {
+    text-decoration: none;
+    color: var(--color-hover);
+}
 /* Cart */
 
 .header__cart-list::after {
@@ -444,4 +566,5 @@ header {
 
 .header-cart {
     position: relative;
+    padding-left: 20px;
 }

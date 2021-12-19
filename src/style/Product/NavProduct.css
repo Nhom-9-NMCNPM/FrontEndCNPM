@@ -20,6 +20,7 @@
 }
 .itemscope li+li::before{
     content: "/\00a0";
+    padding: 0 4px;
 }
 .itemscope li a{
     color: #111111;

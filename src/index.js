@@ -13,20 +13,27 @@ import {firebase} from './firebase/firebase';
 import {startSetLogin, logout, stopLogin} from './actions/user';
 import getSkirt from './query/getSkirt'
 import getTrousers from './query/getTrousers';
+import getVoucher from './query/getVoucher';
 import 'slick-slider';
 import GetData from './query/GetData';
+import getOrder from './query/getOrder';
+import getUser from './query/getUser';
+
 
 
 const store = configureStore();
-const loadData = () => {
-  getSkirt(store.dispatch)
-  getShirt(store.dispatch);
-  getDress(store.dispatch);
-  getTrousers(store.dispatch);
-}
-const fetchData = new Promise((resolve, reject) => {
-  loadData();
-})
+getUser(store.dispatch);
+// const loadData = () => {
+ 
+//   getSkirt(store.dispatch)
+//   getShirt(store.dispatch);
+//   getDress(store.dispatch);
+//   getTrousers(store.dispatch);
+getOrder(store.dispatch)
+// }
+// const fetchData = new Promise((resolve, reject) => {
+//   loadData();
+// })
 
 const jsx =( 
   <React.StrictMode>
@@ -59,14 +66,15 @@ ReactDOM.render(jsx2, document.getElementById('root'));
 firebase.auth().onAuthStateChanged(function(user){
   if(user){console.log(user);
     store.dispatch(startSetLogin({name: user.displayName, email: user.email})).then((response) => {
-      // loadData();
+      //window.location.reload();
       renderApp();
      history.push('/')
     })
     
   }else{
     store.dispatch(logout());
-    setTimeout(renderApp, 2000)
+    setTimeout(renderApp, 3000)
+    history.push('/')
   }
 }) 
 

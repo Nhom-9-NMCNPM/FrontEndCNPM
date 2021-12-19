@@ -7,7 +7,7 @@ const Product2Left = ({shirt}) => {
         <div>
             <div className="product-list row">
                     {shirt.map((item, index) => {
-                        return (index === 1) && (
+                        return (index === 0) && (
                             <div className="product col-6" key={item}> 
                                 <Link to={`/detail/${item.codePro}`}>
                                     <div className="product-img">

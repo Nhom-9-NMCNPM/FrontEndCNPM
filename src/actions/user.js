@@ -1,4 +1,4 @@
-import { firebase, provider } from '../firebase/firebase';
+import { firebase, provider, providerFaceBook } from '../firebase/firebase';
 import {resetCart} from './cart';
 import loginUser from '../mutation/loginUser';
 export const login = (user) => {
@@ -25,9 +25,6 @@ export const logout = () => {
 export const stopLogin = () => {
     return (dispatch) => {
         return firebase.auth().signOut()
-        .then(() => {
-            dispatch(resetCart());
-        });
     }
 }
 

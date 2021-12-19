@@ -69,14 +69,14 @@
 }
 
 .slick-prev {
-    left:4px;
+    left: 4px;
     top: 40%;
     z-index: 1;
 }
 
 .slick-next {
     right: 52px;
-    top:40%;
+    top: 40%;
 }
 
 .slick-prev::before {
@@ -113,8 +113,9 @@
 }
 
 .slick-dots li.slick-active button::before {
-    color: transparent;  
+    color: transparent;
 }
+
 .slick-dots li.slick-active button {
     background: var(--color-hover);
 }
@@ -137,4 +138,26 @@
 .active1 .input-placeholder {
     top: -8px;
     font-size: 11px;
+}
+
+
+/* custom scrollbar */
+
+::-webkit-scrollbar {
+    width: 20px;
+}
+
+ ::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+ ::-webkit-scrollbar-thumb {
+    background-color: #e8aea0;
+    border-radius: 20px;
+    border: 6px solid transparent;
+    background-clip: content-box;
+}
+
+ ::-webkit-scrollbar-thumb:hover {
+    background-color: #e29481;
 }
