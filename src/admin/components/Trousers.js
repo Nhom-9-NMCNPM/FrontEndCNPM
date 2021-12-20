@@ -101,7 +101,7 @@ const Trousers = ({trousers, addTrousers, updateTrousers, removeTrousers}) => {
         }
     return (
         <div>
-            <NavHeader />
+            <NavHeader showPro={true} />
             <div className="margin-bottom">
             <div className="table-product" >
                 <div className="table-product-title">

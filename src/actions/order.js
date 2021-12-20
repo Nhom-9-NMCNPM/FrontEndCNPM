@@ -5,9 +5,10 @@ export const startSetOrder = (order) => {
     }
 }
 
-export const updateHistoryOrder = (order) => {
+export const updateHistoryOrder = (id,order) => {
     return {
         type : 'UPDATE-HISTORY-ORDER',
+        id,
         data: {
              ...order,
             },

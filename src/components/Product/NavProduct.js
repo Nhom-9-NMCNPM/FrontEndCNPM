@@ -15,7 +15,7 @@ const NavProduct = ({linkPro}) => {
         newLink = "Quần"
     }
     if( newLink === "skirt") {
-        newLink = "Váy"
+        newLink = "Chân Váy"
     }
     if( newLink === "product") {
         newLink = "Sản phẩm"
@@ -45,16 +45,16 @@ const NavProduct = ({linkPro}) => {
                     <span className="Mot">Sản phẩm</span>
                     <ul className="menuCollection">
                         <li>
-                            <Link to="/dress">Đầm</Link>
+                            <Link to="/dress" className={`header-nav-content-item-link ${newLink === "Đầm" && "is-active"}`} >Đầm</Link>
                         </li>
                         <li>
-                            <Link to="/shirt">Áo</Link>
+                            <Link to="/shirt" className={`header-nav-content-item-link ${newLink === "Áo" && "is-active"}`}>Áo</Link>
                         </li>
                         <li>
-                            <Link to="/skirt">Chân váy</Link>
+                            <Link to="/skirt" className={`header-nav-content-item-link ${newLink === "Chân Váy" && "is-active"}`}>Chân váy</Link>
                         </li>
                         <li>
-                            <Link to="/trousers">Quần</Link>
+                            <Link to="/trousers" className={`header-nav-content-item-link ${newLink === "Quần" && "is-active"}`}>Quần</Link>
                         </li>
                         <li>
                             <Link to="">Phụ kiện</Link>
