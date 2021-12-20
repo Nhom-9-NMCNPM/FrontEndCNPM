@@ -9,7 +9,7 @@ const orderReducer = (state=[], action) => {
                 if(item.id===action.id){
                     return {
                         ...item,
-                        ...action.order,
+                        ...action.data,
                     }
                 }else{
                     return item;

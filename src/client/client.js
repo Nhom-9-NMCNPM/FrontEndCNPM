@@ -5,7 +5,7 @@ import {
 import {createUploadLink} from "apollo-upload-client";
 const client = new ApolloClient({
   link: createUploadLink({
-    uri: 'https://database-project1-demo.herokuapp.com/graphql',
+    uri: 'http://localhost:4000/graphql',
   }), 
   cache: new InMemoryCache(),
 });

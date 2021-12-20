@@ -7,25 +7,26 @@ import { useMutation, gql } from "@apollo/client";
 import LoadingPage from "../../components/LoadingPage";
 import { Redirect } from "react-router";
 import { updateHistoryOrder } from "../../actions/order";
+import {showSuccessToast} from "../../utils/displayToastMess";
 const UPDATE = gql`
         mutation Mutation($data: updateOrderInput!, $updateOrderId: Int!) {
             updateOrder(data: $data, id: $updateOrderId) {
             id
+            status
             }
         }
 `
 
-const Order = ({order}) => {
+const Order = ({order, updateHistoryOrder}) => {
     const [showDelivered, setShowDelivered] = useState(true)
     const [showDelivering, setShowDelivering] = useState(false)
     const [showPending, setShowPending] = useState(false)
     const [showCanceled, setShowCanceled] = useState(false)
     const [updateOrder, {loading, error, data}] = useMutation(UPDATE, {
         onCompleted: (data) => {
-            alert("Cập nhật thành công")
             updateHistoryOrder(data.updateOrder.id, {status: data.updateOrder.status}) 
-            window.location.reload()
-            
+            showSuccessToast("Cập nhật thành công")
+            //window.location.reload();
         }
     })
     const months = [1,2,3,4,5,6,7,8,9,10,11,12]
@@ -36,14 +37,14 @@ const Order = ({order}) => {
     const orderCurrent = order.filter((item) => {
         return item.status === stateCurrent
     })
-    useLayoutEffect(() => {
-        const revenueShop = document.querySelector('.revenue-money')
-        revenueShop.innerHTML =  format_curency(order.reduce((total,num) => {
-            let time = new Date(parseFloat(num.createdAt))
-            console.log(typeof(num.price), typeof(total));
-            return  (time.getMonth() + 1) === Number(valueState.month) &&  (num.status === "Đã giao hàng") ?  ((parseInt(parseInt(num.price)  + total))) : (total)
-        }, 0)) + "đ"
-    }, [valueState.month, order])
+    // useLayoutEffect(() => {
+    //     const revenueShop = document.querySelector('.revenue-money')
+    //     revenueShop.innerHTML =  format_curency(order.reduce((total,num) => {
+    //         let time = new Date(parseFloat(num.createdAt))
+    //         console.log(typeof(num.price), typeof(total));
+    //         return  (time.getMonth() + 1) === Number(valueState.month) &&  (num.status === "Đã giao hàng") ?  ((parseInt(parseInt(num.price)  + total))) : (total)
+    //     }, 0)) + "đ"
+    // }, [valueState.month, order])
     const handleShowDelivered = () => {
         setShowDelivered(true)
         setShowDelivering(false)
@@ -281,4 +282,9 @@ const mapStateToProps = (state) => {
         order: state.Order,
     }
 }
-export default connect(mapStateToProps)(Order)
+const mapDispatchToProps = (dispatch) =>{
+    return {
+        updateHistoryOrder:(id, order) => dispatch(updateHistoryOrder(id, order))
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Order)
