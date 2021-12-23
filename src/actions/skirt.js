@@ -6,7 +6,7 @@ export const startSetSkirt = (skirt) => {
 }
 export const addSkirt = (skirt) => {
     return {
-        type: 'ADD-SkIRT',
+        type: 'ADD-SKIRT',
         data:skirt,
     }
 }

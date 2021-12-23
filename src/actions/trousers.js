@@ -6,7 +6,7 @@ export const startSetTrousers = (trousers) => {
 }
 export const addTrousers = (trousers) => {
     return {
-        type: 'ADD-SHIRT',
+        type: 'ADD-TROUSERS',
         data:trousers,
     }
 }

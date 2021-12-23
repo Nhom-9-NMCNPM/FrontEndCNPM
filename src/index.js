@@ -29,7 +29,7 @@ getUser(store.dispatch);
 //   getShirt(store.dispatch);
 //   getDress(store.dispatch);
 //   getTrousers(store.dispatch);
-getOrder(store.dispatch)
+getOrder(store.dispatch);
 // }
 // const fetchData = new Promise((resolve, reject) => {
 //   loadData();
@@ -68,7 +68,7 @@ firebase.auth().onAuthStateChanged(function(user){
     store.dispatch(startSetLogin({name: user.displayName, email: user.email})).then((response) => {
       //window.location.reload();
       renderApp();
-     history.push('/')
+     history.push(history.location.pathname)
     })
     
   }else{

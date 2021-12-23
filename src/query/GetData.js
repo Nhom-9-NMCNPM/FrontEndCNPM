@@ -7,6 +7,7 @@ import { startSetVoucher } from '../actions/voucher';
 import LoadingPage from '../components/LoadingPage';
 import { Redirect } from 'react-router-dom';
 import {connect} from 'react-redux';
+import { startSetVoucherPremium } from '../actions/voucherPremium';
 const GET_DATA = gql`
   query GetDress {
   getDress {
@@ -98,7 +99,7 @@ const GET_DATA = gql`
 }
 `;
 
-const GetData =({startSetTrousers, startSetDress, startSetSkirt, startSetShirt, startSetVoucher}) =>{
+const GetData =({startSetTrousers, startSetDress, startSetSkirt, startSetShirt, startSetVoucher, startSetVoucherPremium}) =>{
     const { loading, error, data } = useQuery(GET_DATA);
 
     if (loading) return <LoadingPage />;
@@ -110,6 +111,7 @@ const GetData =({startSetTrousers, startSetDress, startSetSkirt, startSetShirt, 
         startSetSkirt(data.getSkirt)
         startSetTrousers(data.getTrousers)
         startSetVoucher(data.getVoucher)
+        startSetVoucherPremium(data.getVoucherPremium)
     }
     return (
         <LoadingPage />
@@ -122,6 +124,8 @@ const mapDispatchToProps = (dispatch) => {
         startSetSkirt:(skirt)=> dispatch(startSetSkirt(skirt)),
         startSetShirt:(shirt)=> dispatch(startSetShirt(shirt)),
         startSetVoucher:(voucher)=> dispatch(startSetVoucher(voucher)),
+        startSetVoucherPremium:(voucher)=> dispatch(startSetVoucherPremium(voucher)),
+      
     }
 }
 export default connect(null, mapDispatchToProps)(GetData);

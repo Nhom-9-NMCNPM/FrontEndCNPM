@@ -39,7 +39,9 @@
     background-color: #f9f5f0;
     min-height: 1000px;
 }
-
+.admin-right-product {
+    display: flex;
+}
 
 .table-product {
     display: flex;
@@ -64,12 +66,13 @@
     text-align: center;
     width: -1%;
     border: none;
+    border-radius: 10px;
 }
 .table thead th {
     border-top: none;
 }
 .table-title-pro.pro-des {
-    width: 20%;
+    width: 22%;
 }
 
 .event-btn {
@@ -161,7 +164,43 @@
     width: 10rem;
 }
 
-/* =================Voucher========================= */
-.voucher-btn {
-    
+.header-form-admin-product {
+    display: block;
+    position: absolute;
+    right: 0;
+    background: #fff;
+    border-radius: 30px;
+    right: 24px;
+    width: 342px;
+}
+.header-form-admin-product input {
+    color: #86898E;
+    font-size: 14px;
+    height: 40px;
+    width: 100%;
+    padding-left: 50px;
+    border: 0;
+    padding-right: 15px;
+    background: transparent;
+    border-radius: 30px;
+    border: 0;
+    border: 1px solid #dca395;
+    font-weight: 400;
+}
+
+.header-form-admin-product input:focus {
+    outline: none;
+}
+.close-search-product {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background: transparent;
+    font-size: 12px;
+    border: 0;
+    padding-left: 20px;
+    padding-right: 13px;
+    padding-top: 5px;
+    color: #E29481;
 }

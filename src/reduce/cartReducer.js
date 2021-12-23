@@ -1,7 +1,8 @@
 const stateDefault = JSON.parse(window.localStorage.getItem('cartItems')) || [];
 const cartReducer = (state = stateDefault, action) =>{
     switch(action.type){
-        case 'REST-CART':
+        case 'RESET-CART':
+            window.localStorage.setItem('cartItems', JSON.stringify([]));
             return [];
         case 'ADD-CART':
             const isProExist = state.findIndex((item)=>item.id === action.data.id);
@@ -40,7 +41,14 @@ const cartReducer = (state = stateDefault, action) =>{
                     action.data
                 ];
             }
-            
+        case "CHANGE-QUANTITY":
+            const index = state.findIndex(
+                (item) => item.id === action.id && item.size === action.size
+            );
+
+            state[index].count = action.quantity;
+
+            return [...state];
         case 'REMOVE-CART':
             const newState = state.filter(pro => pro.id!==action.id||pro.size!==action.size);
             window.localStorage.setItem('cartItems', JSON.stringify(newState))

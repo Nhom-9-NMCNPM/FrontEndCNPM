@@ -10,3 +10,16 @@ export const addUserList = (data) =>{
         data
     }
 }
+export const updateUserList = (id, data) =>{
+    return {
+        type: 'UPDATE-USER-LIST',
+        id,
+        data
+    }
+}
+export const deleteUserList = (id) =>{
+    return {
+        type: 'DELETE-USER-LIST',
+        id
+    }
+}

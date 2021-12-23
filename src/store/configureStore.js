@@ -9,6 +9,7 @@ import cartReducer from '../reduce/cartReducer';
 import orderReducer from '../reduce/orderReducer';
 import adminReducer from '../reduce/adminReducer';
 import voucherReducer from '../reduce/voucherReducer';
+import voucherPremiumReducer from '../reduce/voucherPremiumReducer';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 const configureStore = () => {
     return createStore(
@@ -23,6 +24,7 @@ const configureStore = () => {
                 Order: orderReducer,
                 UserList: adminReducer,
                 Voucher: voucherReducer,
+                VoucherPremium: voucherPremiumReducer
             }
         ),
        composeEnhancers(applyMiddleware(thunk)),
