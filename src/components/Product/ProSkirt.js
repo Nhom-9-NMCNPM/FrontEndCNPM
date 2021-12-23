@@ -9,7 +9,7 @@ import Footer from '../HomePage/Footer'
 const ProSkirt = ({skirt} ) => {
     return (
             <div>
-                <NavHeader />
+                <NavHeader showPro={true} />
                 <div className="main-body">
                     <NavProduct />  
                     <div className="collection-body container"> 

@@ -4,6 +4,7 @@ import Trousers from "./components/Trousers"
 import Skirt from "./components/Skirt"
 import NavHeader from '../components/HomePage/NavHeader'
 import '../style/Admin/admin.css'
+import ManagerUser from "./components/ManagerUser"
 const admin = () => {
     return (
         <div>
@@ -12,6 +13,7 @@ const admin = () => {
             <Dress />
             <Trousers />
             <Skirt />
+            <ManagerUser />
         </div>
     )
 }

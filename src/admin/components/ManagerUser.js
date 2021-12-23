@@ -130,7 +130,7 @@ const ManagerUser = ({userList, addUserList, deleteUserList, updateUserList}) =>
     if(isLoading) return <LoadingPage />;
     return (
         <div>
-            <NavHeader />
+            <NavHeader showUser={true} />
             <div className="margin-bottom">
                 <div className="table-product">
                     <div className="table-product-title">
@@ -149,7 +149,7 @@ const ManagerUser = ({userList, addUserList, deleteUserList, updateUserList}) =>
                             <th scope="col"className="table-title-pro" style={{width: '7%'}}>Tùy chọn</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody className="table-body"> 
                             <tr>
                                 <td><input type="text" readOnly={true}  className="form-control"/></td>
                                 <td><input type="text" readOnly={true}  className="form-control"/></td>

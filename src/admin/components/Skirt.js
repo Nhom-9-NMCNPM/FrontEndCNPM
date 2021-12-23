@@ -101,7 +101,7 @@ const Skirt = ({skirt, addSkirt}) => {
         }
     return (
         <div>
-            <NavHeader />
+            <NavHeader showPro={true} />
             <div className="margin-bottom">
             <div className="table-product " >
                 <div className="table-product-title">

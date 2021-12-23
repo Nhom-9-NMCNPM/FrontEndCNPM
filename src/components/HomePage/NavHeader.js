@@ -8,7 +8,7 @@ import {logout, startLogin, stopLogin} from'../../actions/user';
 import {removeCart} from '../../actions/cart'
 import User from '../User'
 import { showSuccessToast } from '../../utils/displayToastMess'
-const NavHeader = ({user,cart, removeCart,logout, product}) => {
+const NavHeader = ({user,cart, removeCart,logout, product, search = true, showPro, showUser, showOrder}) => {
     const [inputSearch, setInputSearch] = useState('')
     const [showResult, setShowResult] = useState(false)  
     const resultArray = product.filter((item) => {
@@ -71,7 +71,7 @@ const NavHeader = ({user,cart, removeCart,logout, product}) => {
                                {!user.admin && <Link to="/" className="header-nav-content-item-link" title="Hàng mới về">HÀNG MỚI VỀ</Link>}
                             </li>
                             <li className="header-nav-content-item hasItemMenu">
-                                {user.admin ? <Link to="/admin-skirt" className="header-nav-content-item-link" title="Sản phẩm">SẢN PHẨM</Link> : <Link to="/product" className="header-nav-content-item-link" title="Sản phẩm">SẢN PHẨM</Link>}
+                                {user.admin ? <Link to="/admin-skirt" className={`header-nav-content-item-link ${showPro && "is-active"}`} title="Sản phẩm">SẢN PHẨM</Link> : <Link to="/product" className={`header-nav-content-item-link ${showPro && "is-active"}`} title="Sản phẩm">SẢN PHẨM</Link>}
                                 <div className="header-sub-nav">
                                     <div className="sub-nav-list">
                                         <ul>
@@ -135,10 +135,10 @@ const NavHeader = ({user,cart, removeCart,logout, product}) => {
                             </li>
                             </> }
                             <li className="header-nav-content-item">
-                               {user.admin && <Link to="/admin-user" className="header-nav-content-item-link" title="ĐẦM">NGƯỜI DÙNG</Link>}
+                               {user.admin && <Link to="/admin-user" className={`header-nav-content-item-link ${showUser && "is-active"}`} title="ĐẦM">NGƯỜI DÙNG</Link>}
                             </li>
                             <li className="header-nav-content-item">
-                               {user.admin && <Link to="/admin-order" className="header-nav-content-item-link" title="ORDER">ĐƠN HÀNG</Link>}
+                               {user.admin && <Link to="/admin-order" className={`header-nav-content-item-link ${showOrder && "is-active"}`} title="ORDER">ĐƠN HÀNG</Link>}
                             </li>
                             <li className="header-nav-content-item">
                                {user.admin && <Link to="/admin-voucher" className="header-nav-content-item-link" title="VOUCHER">VOUCHER</Link>}
@@ -152,8 +152,9 @@ const NavHeader = ({user,cart, removeCart,logout, product}) => {
                             <span onClick={logout} className="admin-log-out"><i class="fas fa-sign-out-alt"></i></span>
                         </div>
                         
-                    :<div className="header-nav-right">
-                        <div className="header-search-product">
+                    :
+                    <div className="header-nav-right">
+                        {search && <div className="header-search-product">
                             <div className="admin-search">
                                 <form action="search" className="header-form-admin">
                                         <input autoFocus={true} type="text" className="header-search-admin" placeholder="Tìm sản phẩm..." value={inputSearch} 
@@ -183,7 +184,7 @@ const NavHeader = ({user,cart, removeCart,logout, product}) => {
                                  </div> }
                                 
                             </div>  
-                        </div> 
+                        </div> }
                         <div className="header-user">
                            <Link to="/account" title="Tài khoản">
                                 <img alt="anh" src="https://theme.hstatic.net/200000000133/1000569834/14/accountIcon.png?v=5127"

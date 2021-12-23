@@ -41,7 +41,7 @@ const DetailPro = ({product, match, dispatch}) => {
   } 
   return (
     <div>
-      <NavHeader  />
+      <NavHeader search={false} showPro={true} />
       <div className="product-container">
         <NavProduct linkPro={detailPro.name}/>
         <div className="row product">

@@ -148,7 +148,7 @@ const Add = ({isDisplay, add, status, setShowModalAdd}) => {
                                     onChange={(e)=>onhandleUpload(e)}
                                     name="file" id="img" required type="file" class="form-control-file" multiple />
                                     </div>
-                                    <button type="submit" class="mt-1 btn btn-primary">Thêm mới</button>
+                                    <button type="submit" class="mt-1 btn btn-success">Thêm mới</button>
                                 </form>
                             </div>
                             <div className="col-6 row">

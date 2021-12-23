@@ -82,25 +82,25 @@ const DetailUser = ({user, login, logout, product, cancelOrder}) => {
                                 setWaitConfirm(1)
                                 setStatus('Chờ xử lý')    
                             }}>
-                                <h5 className={waitConfirm==1?'nav-link active':'nav-link'} aria-current="page" href="#">Chờ xử lý</h5>
+                                <h5 className={waitConfirm===1?'nav-link active':'nav-link'} aria-current="page" href="#">Chờ xử lý</h5>
                             </li>
                             <li className="nav-item cursor" onClick={()=>{
                                 setWaitConfirm(2)
                                 setStatus('Đang giao hàng')    
                             }}>
-                                <h5 className={waitConfirm==2?'nav-link active':'nav-link'} href="#">Đang giao</h5>
+                                <h5 className={waitConfirm===2?'nav-link active':'nav-link'} href="#">Đang giao</h5>
                             </li>
                             <li className="nav-item cursor" onClick={()=>{
                                 setWaitConfirm(3)
                                 setStatus('Đã giao hàng')    
                             }}>
-                                <h5 className={waitConfirm==3?'nav-link active':'nav-link'} href="#">Đã giao</h5>
+                                <h5 className={waitConfirm===3?'nav-link active':'nav-link'} href="#">Đã giao</h5>
                             </li>
                             <li className="nav-item cursor" onClick={()=>{
                                 setWaitConfirm(4)
                                 setStatus('Hủy đơn hàng')    
                             }}>
-                                <h5 className={waitConfirm==4?'nav-link active':'nav-link'} href="#">Đã hủy</h5>
+                                <h5 className={waitConfirm===4?'nav-link active':'nav-link'} href="#">Đã hủy</h5>
                             </li>
                         </ul>
                     )
