@@ -38,11 +38,15 @@ const UPDATE_USER = gql`
 const Checkout = ({resetCart, orderRedux}) => {
     const [show, setShow] = useState(false);
     const [coupon, setCoupon] = useState(-1);
+    const [couponPre, setCouponPre] = useState(-1);
     const [isLoading, setIsLoading] = useState(false);
-    const { user, cart, sale } = useSelector((state) => ({
+    const { user, cart, sale, vouchers, vouchersPremium, point } = useSelector((state) => ({
         user: state.User,
         cart: state.Cart,
-        sale: state.Event
+        sale: state.Event,
+        vouchers: state.Voucher,
+        vouchersPremium: state.VoucherPremium,
+        point: state.User.point
     }));
     // Tỏng giá trị đơn hàng (Không bao gồm mã giảm giá và phí vận chuyển)
     const total = cart.reduce(
@@ -50,6 +54,7 @@ const Checkout = ({resetCart, orderRedux}) => {
         0
     );
     const [couponRate, setCouponRate] = useState(0);
+    const [couponRatePre, setCouponRatePre] = useState(0);
     const [order, { loading, error }] = useMutation(ORDER, {
         onCompleted: (data)=>{
             orderRedux(data.createOrder);
@@ -80,7 +85,7 @@ const Checkout = ({resetCart, orderRedux}) => {
         order({
             variables: {
                 data: {
-                    price: parseInt(total - (total * couponRate) / 100,10),
+                    price: parseInt(total - (total * couponRate) / 100 - couponRatePre,10),
                     namePro,
                     status: "Chờ xử lý",
                     userId: user.id,
@@ -129,38 +134,6 @@ const Checkout = ({resetCart, orderRedux}) => {
     });
     if (loading) return <LoadingPage />;
 
-    const vouchers = [
-        {
-            rate: 20,
-            condition: 1000000,
-        },
-        {
-            rate: 25,
-            condition: 0,
-        },
-        {
-            rate: 10,
-            condition: 200000,
-        },
-        {
-            rate: 15,
-            condition: 3000000,
-        },
-        {
-            rate: 25,
-            condition: 0,
-        },
-    ];
-    const vouchersPremium = [
-        {
-            rate: 20,
-            condition: 1000000,
-        },
-        {
-            rate: 25,
-            condition: 0,
-        },
-    ];
     if(isLoading) return <LoadingPage />;
     return (
         <div>
@@ -356,8 +329,9 @@ const Checkout = ({resetCart, orderRedux}) => {
                         <div className="discount-popup">
                             <div className="discount-popup__overlay"></div>
                             <div className="discount-popup-containter">
-                                <div className="discount-popup-header">
-                                    Chọn Eva DeEva Voucher
+                                <div className="discount-popup-header d-flex justify-content-between" style={{alignItems: "flex-end"}}>
+                                    <div className="fs-4">Chọn Eva DeEva Voucher</div>
+                                    <i className="fas fa-award fs-5">{point}</i>
                                 </div>
                                 <div className="discount-popup-main">
                                     <div class="title">
@@ -401,7 +375,7 @@ const Checkout = ({resetCart, orderRedux}) => {
                                                         <div className="discount-item__text">
                                                             <div className="discount-item__name">
                                                                 Giảm{" "}
-                                                                {voucher.rate}%
+                                                                {voucher.disCount}%
                                                                 giá trị đơn hàng
                                                             </div>
                                                             <div className="discount-item__condition">
@@ -442,9 +416,85 @@ const Checkout = ({resetCart, orderRedux}) => {
                                                     )}
                                             </div>
                                         ))}
-                                        {
-
-                                        }
+                                        <div class="title">
+                                            Voucher của bạn:
+                                            <span>Có thể chọn 1</span>
+                                        </div>
+                                        {vouchersPremium.map((voucher, indexPre) => (
+                                            <div
+                                                className="discount-item"
+                                                key={indexPre}
+                                            >
+                                                <div
+                                                    className="discount-item__main"
+                                                    style={
+                                                        indexPre === couponPre
+                                                            ? point <
+                                                              voucher.condition
+                                                                ? {
+                                                                      background:
+                                                                          "#a3423c",
+                                                                      color: "white",
+                                                                  }
+                                                                : {
+                                                                      background:
+                                                                          "#B4FE98",
+                                                                      color: "black",
+                                                                      fontWeight: 500,
+                                                                  }
+                                                            : {}
+                                                    }
+                                                >
+                                                    <div className="discount-item__thumbnail">
+                                                        <div className="discount-item-thumbnail"></div>
+                                                        <div className="discount-item-thumbnail-text">
+                                                            Tất cả sản phẩm
+                                                        </div>
+                                                    </div>
+                                                    <div className="discoun-item__content">
+                                                        <div className="discount-item__text">
+                                                            <div className="discount-item__name">
+                                                                Giảm{" "}
+                                                                {voucher.disCount}đ
+                                                            </div>
+                                                            <div className="discount-item__condition">
+                                                                Số điểm tích lũy tối thiểu: 
+                                                                {format_curency(
+                                                                    voucher.condition
+                                                                )}
+                                                            </div>
+                                                        </div>
+                                                        <div className="discount-item-select">
+                                                            <input
+                                                                name="discountPre"
+                                                                type="radio"
+                                                                checked={
+                                                                    indexPre ===
+                                                                    couponPre
+                                                                }
+                                                                onChange={(
+                                                                    e
+                                                                ) => {
+                                                                    setCouponPre(
+                                                                        indexPre
+                                                                    );
+                                                                }}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                {couponPre === indexPre &&
+                                                    point <
+                                                        voucher.condition && (
+                                                        <div className="discount-item__message">
+                                                            Số điểm tích lũy không đủ điều kiện
+                                                            áp dụng mã giảm giá
+                                                            này!
+                                                        </div>
+                                                    )}
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
 
@@ -474,25 +524,27 @@ const Checkout = ({resetCart, orderRedux}) => {
                                         onClick={(e) => {
                                             // Logic
                                             const index = coupon; // chỉ số trong mảng voucher
-
-                                            if (index < 0) {
-                                                alert(
-                                                    "Bạn chưa chọn mã giảm giá"
-                                                );
+                                            const indexPre = couponPre;
+                                            if (index < 0&&indexPre<0) {
+                                                showSuccessToast("Vui lòng chọn 1 mã giảm giá!", "Cảnh báo!", 'error')
                                                 return;
+                                            }else {
+                                                if(index>=0&&indexPre>=0){
+                                                    if(
+                                                        total <
+                                                        vouchers[index].condition ||
+                                                        point< vouchersPremium[indexPre].condition
+                                                    ) {
+                                                        showSuccessToast("Mã giảm giá không hợp lệ.\nVui lòng chọn một mã khác!", "Cảnh báo!", 'error')
+                                                        return;
+                                                    }
+                                                }
                                             }
 
-                                            if (
-                                                total <
-                                                vouchers[index].condition
-                                            ) {
-                                                alert(
-                                                    "Mã giảm giá không hợp lệ.\nVui lòng chọn một mã khác!"
-                                                );
-                                                return;
+                                            setCouponRate(vouchers[index].disCount);
+                                            if(indexPre>=0){
+                                                setCouponRatePre(vouchersPremium[indexPre].disCount);
                                             }
-
-                                            setCouponRate(vouchers[index].rate);
                                             setShow(false);
                                             document.body.style.overflow =
                                                 "auto";
@@ -515,7 +567,7 @@ const Checkout = ({resetCart, orderRedux}) => {
                         <div className="payment-detail">
                             <p className="payment-text">Khuyến mãi</p>
                             <p className="payment-price">
-                                {format_curency(parseInt((total * couponRate) / 100),10)}đ
+                                {format_curency(parseInt((total * couponRate) / 100+couponRatePre),10)}đ
                             </p>
                         </div>
 
@@ -527,7 +579,7 @@ const Checkout = ({resetCart, orderRedux}) => {
                         <div className="payment-detail">
                             <p className="payment-text">Điểm thưởng</p>
                             <p className="payment-price">
-                                {format_curency(parseInt((total - (total * couponRate) / 100)/100,10))}
+                                {format_curency(parseInt((total - (total * couponRate) / 100-couponRatePre)/100,10))}
                                 <i class="fas fa-award"></i>
                             </p>
                         </div>
@@ -541,7 +593,7 @@ const Checkout = ({resetCart, orderRedux}) => {
                     <div className="total-price-final">
                         <p className="total-price-title">Tổng cộng</p>
                         <p className="total-price-content">
-                            {format_curency(parseInt(total - (total * couponRate) / 100,10))}đ
+                            {format_curency(parseInt(total - (total * couponRate) / 100 - couponRatePre,10))}đ
                         </p>
                     </div>
 

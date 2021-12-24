@@ -13,6 +13,7 @@ import {firebase} from './firebase/firebase';
 import {startSetLogin, logout, stopLogin} from './actions/user';
 import getSkirt from './query/getSkirt'
 import getTrousers from './query/getTrousers';
+import getVoucher from './query/getVoucher';
 import 'slick-slider';
 import GetData from './query/GetData';
 import getOrder from './query/getOrder';

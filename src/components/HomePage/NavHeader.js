@@ -140,6 +140,12 @@ const NavHeader = ({user,cart, removeCart,logout, product, search = true, showPr
                             <li className="header-nav-content-item">
                                {user.admin && <Link to="/admin-order" className={`header-nav-content-item-link ${showOrder && "is-active"}`} title="ORDER">ĐƠN HÀNG</Link>}
                             </li>
+                            <li className="header-nav-content-item">
+                               {user.admin && <Link to="/admin-voucher" className="header-nav-content-item-link" title="VOUCHER">VOUCHER</Link>}
+                            </li>
+                            <li className="header-nav-content-item">
+                               {user.admin && <Link to="/" className="header-nav-content-item-link" title="SỰ KIỆN" onClick={()=>showSuccessToast("Tính năng này hiện chưa được phát triển, vui lòng thử lại sau","Thông báo!", "error")}>SỰ KIỆN</Link>}
+                            </li>
                         </ul>
                     </div>
 

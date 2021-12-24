@@ -21,6 +21,8 @@ import Checkout from "../components/Checkout/Checkout";
 import Order from "../admin/components/Order";
 import ManagerUser from "../admin/components/ManagerUser";
 import PageError from "../components/PageError"
+import Voucher from "../admin/components/Voucher";
+import Event from "../admin/components/Event";
 export const history = createBrowserHistory();
 const Approuter = () => {
     return (
@@ -45,7 +47,9 @@ const Approuter = () => {
                     />
                     <PrivateRouter path="/admin-dress" component={Dress} />
                     <PrivateRouter path="/admin-order" component={Order} />
+                    <PrivateRouter path="/admin-voucher" component={Voucher} />
                     <PrivateRouter path="/admin-user" component={ManagerUser} />
+                    <PrivateRouter path="/admin-event" component={Event} />
                     <Route component={PageError} />
                 </Switch>
             </div>

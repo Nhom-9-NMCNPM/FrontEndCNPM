@@ -168,7 +168,6 @@ const Add = ({isDisplay, add, status, setShowModalAdd}) => {
             </Modal>
 
 
-
         
     )
 }

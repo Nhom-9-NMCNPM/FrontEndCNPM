@@ -3,10 +3,12 @@ import { startSetShirt } from '../actions/shirt';
 import { startSetSkirt } from '../actions/skirt';
 import { startSetTrousers } from '../actions/trousers';
 import {startSetDress} from '../actions/dress';
+import { startSetVoucher } from '../actions/voucher';
 import LoadingPage from '../components/LoadingPage';
 import { Redirect } from 'react-router-dom';
 import {connect} from 'react-redux';
 import { setEvent } from '../actions/event';
+import { startSetVoucherPremium } from '../actions/voucherPremium';
 const GET_DATA = gql`
   query GetDress {
   getDress {
@@ -84,10 +86,24 @@ const GET_DATA = gql`
   getSale{
     disCount
   }
+  getVoucher {
+    id
+    createdAt
+    updatedAt
+    disCount
+    condition
+  }
+  getVoucherPremium {
+    id
+    createdAt
+    updatedAt
+    disCount
+    condition
+  }
 }
 `;
 
-const GetData =({startSetTrousers, startSetDress, startSetSkirt, startSetShirt, setEvent}) =>{
+const GetData =({startSetTrousers, startSetDress, startSetSkirt, startSetShirt, startSetVoucher, startSetVoucherPremium, setEvent}) =>{
     const { loading, error, data } = useQuery(GET_DATA);
 
     if (loading) return <LoadingPage />;
@@ -99,6 +115,8 @@ const GetData =({startSetTrousers, startSetDress, startSetSkirt, startSetShirt, 
         startSetSkirt(data.getSkirt)
         startSetTrousers(data.getTrousers)
         setEvent(data.getSale.disCount)
+        startSetVoucher(data.getVoucher)
+        startSetVoucherPremium(data.getVoucherPremium)
     }
     return (
         <LoadingPage />
@@ -110,7 +128,10 @@ const mapDispatchToProps = (dispatch) => {
         startSetDress:(dress)=> dispatch(startSetDress(dress)),
         startSetSkirt:(skirt)=> dispatch(startSetSkirt(skirt)),
         startSetShirt:(shirt)=> dispatch(startSetShirt(shirt)),
-        setEvent:(data)=> dispatch(setEvent(data))
+        setEvent:(data)=> dispatch(setEvent(data)),
+        startSetVoucher:(voucher)=> dispatch(startSetVoucher(voucher)),
+        startSetVoucherPremium:(voucher)=> dispatch(startSetVoucherPremium(voucher)),
+      
     }
 }
 export default connect(null, mapDispatchToProps)(GetData);
