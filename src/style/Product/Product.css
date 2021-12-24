@@ -43,7 +43,7 @@ img.best-seller{
 }
 
 .product .product-detail{
-    margin-top: 15px;
+    margin: 15px 0;
 }
 .product .product-detail > a{
     text-decoration: none;

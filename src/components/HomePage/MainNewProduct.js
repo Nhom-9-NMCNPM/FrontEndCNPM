@@ -5,7 +5,7 @@ import format_curency from '../../utils/displayPrice';
 import { useEffect } from "react"
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
-const MainNewProduct = ({product}) => {
+const MainNewProduct = ({product, sale}) => {
     const settings = {
         slidesToShow: 4,
         slidesToScroll: 1,
@@ -52,7 +52,23 @@ const MainNewProduct = ({product}) => {
                                             {item.name}
                                         </Link>
                                     </div>
-                                    <span className="new-product-content-title-price">{format_curency(item.price)}đ</span>
+                                    {
+                                        sale?
+                                        <div>
+                                            <span style={{
+                                            fontSize: "13px",
+                                            textDecoration: 'line-through',
+                                            marginRight: '10px',
+                                            opacity: '0.6'}}>
+                                                {format_curency(item.price)}đ
+                                            </span>
+                                            <span>{format_curency(parseInt(item.price-item.price*sale/100, 10))}đ</span>
+                                        </div>
+                                        :<div>
+                                            <span style={{fontSize: "13px"}}>{format_curency(item.price)}đ</span>
+                                        </div>
+                                        
+                                    }
                                 </div>
                             </div>
                         )
@@ -70,7 +86,8 @@ const mapStateToProps = (state) =>{
             ...state.Skirt,
             ...state.Trousers,
             ...state.Dress,
-        ]
+        ],
+        sale: state.Event
     }
 }
 export default connect(mapStateToProps)(MainNewProduct)

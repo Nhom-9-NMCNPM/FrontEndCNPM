@@ -103,7 +103,7 @@ const Dress = ({dress, addDress, updateDress, removeDress }) => {
         }
     return (
         <div>
-            <NavHeader />
+            <NavHeader showPro={true} />
             
             <div className="margin-bottom">
             

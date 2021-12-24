@@ -6,10 +6,10 @@ import NavHeader from '../HomePage/NavHeader'
 import NavProduct from './NavProduct'
 import FindShop from '../HomePage/FindShop'
 import Footer from '../HomePage/Footer'
-const ProTrousers = ({trousers} ) => {
+const ProTrousers = ({trousers, sale} ) => {
     return (
             <div>
-                <NavHeader />
+                <NavHeader showPro={true} />
                 <div className="main-body">
                     <NavProduct />  
                     <div className="collection-body container"> 
@@ -27,9 +27,23 @@ const ProTrousers = ({trousers} ) => {
                                             </Link>
                                             <div className="product-detail">
                                                 <Link to={`/detail/${item.codePro}`}>{item.name}</Link>
-                                                <div>
-                                                    <span style={{fontSize: "13px"}}>{format_curency(item.price)}đ</span>
-                                                </div>
+                                                {
+                                                    sale?
+                                                    <div>
+                                                        <span style={{
+                                                        fontSize: "13px",
+                                                        textDecoration: 'line-through',
+                                                        marginRight: '10px',
+                                                        opacity: '0.6'}}>
+                                                            {format_curency(item.price)}đ
+                                                        </span>
+                                                        <span>{format_curency(parseInt(item.price-item.price*sale/100, 10))}đ</span>
+                                                    </div>
+                                                    :<div>
+                                                        <span style={{fontSize: "13px"}}>{format_curency(item.price)}đ</span>
+                                                    </div>
+                                                    
+                                                }
                                             </div>      
                                         </div>
                                     )

@@ -6,6 +6,7 @@ import {startSetDress} from '../actions/dress';
 import LoadingPage from '../components/LoadingPage';
 import { Redirect } from 'react-router-dom';
 import {connect} from 'react-redux';
+import { setEvent } from '../actions/event';
 const GET_DATA = gql`
   query GetDress {
   getDress {
@@ -80,10 +81,13 @@ const GET_DATA = gql`
     newPro
     publish
   }
+  getSale{
+    disCount
+  }
 }
 `;
 
-const GetData =({startSetTrousers, startSetDress, startSetSkirt, startSetShirt}) =>{
+const GetData =({startSetTrousers, startSetDress, startSetSkirt, startSetShirt, setEvent}) =>{
     const { loading, error, data } = useQuery(GET_DATA);
 
     if (loading) return <LoadingPage />;
@@ -94,6 +98,7 @@ const GetData =({startSetTrousers, startSetDress, startSetSkirt, startSetShirt})
         startSetShirt(data.getShirt)
         startSetSkirt(data.getSkirt)
         startSetTrousers(data.getTrousers)
+        setEvent(data.getSale.disCount)
     }
     return (
         <LoadingPage />
@@ -105,6 +110,7 @@ const mapDispatchToProps = (dispatch) => {
         startSetDress:(dress)=> dispatch(startSetDress(dress)),
         startSetSkirt:(skirt)=> dispatch(startSetSkirt(skirt)),
         startSetShirt:(shirt)=> dispatch(startSetShirt(shirt)),
+        setEvent:(data)=> dispatch(setEvent(data))
     }
 }
 export default connect(null, mapDispatchToProps)(GetData);

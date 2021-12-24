@@ -13,10 +13,10 @@ import { showSuccessToast } from "../../utils/displayToastMess";
 // 1. Remove san pham
 // 2. Thay doi so luong san pham
 
-const Cart = ({ user, cart, dispatch }) => {
+const Cart = ({ user, cart, dispatch, sale }) => {
     // Tong tien
     let totalCost = cart.reduce(
-        (total, item) => total + item.price * item.count,
+        (total, item) => total + (item.price-item.price*sale/100) * item.count,
         0
     );
 
@@ -65,7 +65,7 @@ const Cart = ({ user, cart, dispatch }) => {
                                         </p>
                                     </td>
                                     <td class="price">
-                                        {format_curency(product.price)}
+                                        {format_curency(parseInt(product.price-product.price*sale/100, 10))}
                                     </td>
                                     <td>
                                         <div class="quantity-area">
@@ -115,7 +115,7 @@ const Cart = ({ user, cart, dispatch }) => {
                                     </td>
                                     <td class="total">
                                         {format_curency(
-                                            product.price * product.count
+                                            parseInt((product.price-product.price*sale/100) * product.count, 10)
                                         )}đ
                                     </td>
 
@@ -216,7 +216,7 @@ const Cart = ({ user, cart, dispatch }) => {
                                     fontSize: "1.2em",
                                 }}
                             >
-                                {format_curency(totalCost)}đ
+                                {format_curency(parseInt(totalCost,10))}đ
                             </span>
                         </p>
 
@@ -284,6 +284,7 @@ const mapStateToProps = (state) => {
     return {
         user: state.User,
         cart: state.Cart,
+        sale: state.Event
     };
 };
 

@@ -2,19 +2,28 @@ import NavHeader from "../../components/HomePage/NavHeader"
 import { connect } from "react-redux"
 import { useState } from "react";
 import format_curency from "../../utils/displayPrice";
-import {useLayoutEffect } from "react";
 import { useMutation, gql } from "@apollo/client";
 import LoadingPage from "../../components/LoadingPage";
 import { Redirect } from "react-router";
 import { updateHistoryOrder } from "../../actions/order";
-import {showSuccessToast} from "../../utils/displayToastMess";
+import { showSuccessToast } from "../../utils/displayToastMess";
 const UPDATE = gql`
         mutation Mutation($data: updateOrderInput!, $updateOrderId: Int!) {
             updateOrder(data: $data, id: $updateOrderId) {
             id
             status
+            userId
+            price
             }
         }
+`
+
+const UPDATE_USER = gql`
+    mutation Mutation($data: updateUserInput!, $userId: Int) {
+        updateUser(data: $data, userId: $userId) {
+            id
+        }
+    }
 `
 
 const Order = ({order, updateHistoryOrder}) => {
@@ -22,29 +31,34 @@ const Order = ({order, updateHistoryOrder}) => {
     const [showDelivering, setShowDelivering] = useState(false)
     const [showPending, setShowPending] = useState(false)
     const [showCanceled, setShowCanceled] = useState(false)
+    const [updateUser] = useMutation(UPDATE_USER);
     const [updateOrder, {loading, error, data}] = useMutation(UPDATE, {
         onCompleted: (data) => {
             updateHistoryOrder(data.updateOrder.id, {status: data.updateOrder.status}) 
+            if(data.updateOrder.status==="Đã giao hàng"){
+                updateUser({
+                    variables:{
+                        userId: data.updateOrder.userId,
+                        data:{
+                            point: parseInt(data.updateOrder.price/100,10)
+                        }
+                    }
+                })
+            }
             showSuccessToast("Cập nhật thành công")
-            //window.location.reload();
         }
     })
     const months = [1,2,3,4,5,6,7,8,9,10,11,12]
     let isDisable = false
     const stateOrder = ['Đã giao hàng', 'Đang giao hàng', 'Chờ xử lý', 'Hủy đơn hàng']
     const [stateCurrent , setStateCurrent] = useState(stateOrder[0]) 
-    const [valueState, setValueState] = useState({delivered: stateOrder[0],delivering:stateOrder[1], pending: stateOrder[2], canceled: stateOrder[3], month: months[10]})
+    const monthCurrent = new Date().getMonth() + 1
+    const yearCurrent = new Date().getFullYear()
+    const [valueState, setValueState] = useState({delivered: stateOrder[0],delivering:stateOrder[1], pending: stateOrder[2], canceled: stateOrder[3], month: monthCurrent, year: yearCurrent})
     const orderCurrent = order.filter((item) => {
-        return item.status === stateCurrent
+        return item.status === stateCurrent && new Date(parseFloat(item.createdAt)).getMonth() + 1  === parseInt(valueState.month) && new Date(parseFloat(item.createdAt)).getFullYear()   === parseInt(valueState.year)
     })
-    // useLayoutEffect(() => {
-    //     const revenueShop = document.querySelector('.revenue-money')
-    //     revenueShop.innerHTML =  format_curency(order.reduce((total,num) => {
-    //         let time = new Date(parseFloat(num.createdAt))
-    //         console.log(typeof(num.price), typeof(total));
-    //         return  (time.getMonth() + 1) === Number(valueState.month) &&  (num.status === "Đã giao hàng") ?  ((parseInt(parseInt(num.price)  + total))) : (total)
-    //     }, 0)) + "đ"
-    // }, [valueState.month, order])
+    console.log(valueState.year);
     const handleShowDelivered = () => {
         setShowDelivered(true)
         setShowDelivering(false)
@@ -84,7 +98,6 @@ const Order = ({order, updateHistoryOrder}) => {
         })
     }
   
-
     if(loading) {
         return <LoadingPage />
     }
@@ -94,17 +107,20 @@ const Order = ({order, updateHistoryOrder}) => {
       }
     return (
         <div>
-            <NavHeader />
+            <NavHeader showOrder={true} />
             <div className="margin-bottom">
                 <div className="table-title-revenue">
                     <h1>ĐƠN HÀNG</h1>
-                    <button type="button" className="btn btn-outline-secondary btn-margin-left" onClick={handleShowDelivered}>Đơn hàng đã giao</button>
-                    <button type="button" className="btn btn-outline-secondary btn-center" onClick={handleShowDelivering}>Đơn hàng đang giao</button>
-                    <button type="button" className="btn btn-outline-secondary btn-center" onClick={handleShowPending}>Đơn hàng đang chờ xử lý</button>
-                    <button type="button" className="btn btn-outline-secondary btn-margin-right" onClick={handleShowCanceled}>Đơn hàng đã hủy</button>
+                    <button type="button" className={`btn btn-outline-secondary ${showDelivered && "active"} btn-margin-left`} onClick={handleShowDelivered}>Đơn hàng đã giao</button>
+                    <button type="button" className={`btn btn-outline-secondary ${showDelivering && "active"} btn-center`} onClick={handleShowDelivering}>Đơn hàng đang giao</button>
+                    <button type="button" className={`btn btn-outline-secondary ${showPending && "active"} btn-center`} onClick={handleShowPending}>Đơn hàng đang chờ xử lý</button>
+                    <button type="button" className={`btn btn-outline-secondary ${showCanceled && "active"} btn-margin-right`} onClick={handleShowCanceled}>Đơn hàng đã hủy</button>
                 </div>
-                {showDelivered && <div className="revenue">
-                    <h3 className="title-revenue">Doanh thu tháng</h3>
+                <div className="revenue">
+                  {showDelivered &&  <h3 className="title-revenue">Doanh thu tháng</h3> }
+                  {showDelivering &&  <h3 className="title-revenue">Đơn hàng tháng</h3> }
+                  {showPending &&  <h3 className="title-revenue">Đơn hàng tháng</h3> }
+                  {showCanceled &&  <h3 className="title-revenue">Đơn hàng tháng</h3> }
                     <select className="form-select  mb-3 select-option" value={valueState.month} onChange={(e) => {setValueState({...valueState, month: e.target.value})}} >
                       {months.map((month,index) => {
                           return (
@@ -113,15 +129,19 @@ const Order = ({order, updateHistoryOrder}) => {
                           )
                       })}
                     </select>
-                    <select className="form-select  mb-3 select-option" defaultValue="2021" selected>
+                    <select className="form-select  mb-3 select-option" value={valueState.year} onChange={(e) => {setValueState({...valueState, year: e.target.value})}}>
                         <option value="2021">2021</option>
+                        <option value="2022">2022</option>
                     </select>
-                    <h3 style={{padding: '0 4px'}}> : </h3>
-                    <h3 className="revenue-money">{format_curency(order.reduce((total,num) => {
-                        let time = new Date(parseFloat(num.createdAt))
-                        return  (time.getMonth() + 1) === Number(valueState.month) && (num.status === "Đã giao hàng") ?  (parseInt(parseInt(num.price) + total)) : (total)
-                    }, 0))}đ</h3>   
-                </div>}
+                    {showDelivered && 
+                    <div style={{display: 'flex'}}>
+                        <h3 style={{padding: '0 4px'}}> : </h3>
+                        <h3 className="revenue-money">{format_curency(orderCurrent.reduce((total,num) => {
+                            let time = new Date(parseFloat(num.createdAt))
+                            return  (time.getMonth() + 1) === Number(valueState.month) && (num.status === "Đã giao hàng") ?  (parseInt(parseInt(num.price) + total)) : (total)
+                        }, 0))}đ</h3>  
+                    </div>} 
+                </div>
                 <div className="table-product table-revenue">
 
                
@@ -135,15 +155,15 @@ const Order = ({order, updateHistoryOrder}) => {
                         <th scope="col"style={{width: '15%'}}>NGÀY TẠO</th>
                         <th scope="col"style={{width: '15%', borderRadius: '10px'}}>NGÀY CẬP NHẬT</th>
                         </tr>
-                    </thead>
+                    </thead>                                
                     {orderCurrent.length > 0  ?  
                     <tbody className="table-body">  
                         {orderCurrent.map((item,index) => {
                              var createdAt = new Date(parseFloat(item.createdAt));
                              var updatedAt = new Date(parseFloat(item.updatedAt));
                             return  (
-                                <tr>
-                                    <th scope="row" key={index}>{index + 1}</th>
+                                <tr key={index}>
+                                    <th scope="row" >{index + 1}</th>
                                     <td>{item.id}</td>
                                     <td>{item.namePro.join(' ; ')}</td>
                                     <td>{format_curency(item.price)}đ</td>
@@ -175,8 +195,8 @@ const Order = ({order, updateHistoryOrder}) => {
                                 var createdAt = new Date(parseFloat(item.createdAt));
                                 var updatedAt = new Date(parseFloat(item.updatedAt));
                                 return (
-                                    <tr>
-                                        <th scope="row" key={index}>{index + 1}</th>
+                                    <tr key={index}>
+                                        <th scope="row">{index + 1}</th>
                                         <td>{item.id}</td>
                                         <td>{item.namePro.join(' ; ')}</td>
                                         <td>{format_curency(item.price)}đ</td>
@@ -184,10 +204,10 @@ const Order = ({order, updateHistoryOrder}) => {
                                         <td>{updatedAt.toLocaleString()}</td>
                                         <td><select className="form-select  mb-3 select-option-status" value={stateOrder[1]} onChange={(e) => handleChangeState(item,e.target.value)}>
                                             
-                                            <option value={stateOrder[0]} key={index} disabled={isDisable}>{stateOrder[0]}</option>
-                                            <option value={stateOrder[1]} key={index} disabled={isDisable}>{stateOrder[1]}</option>
-                                            <option value={stateOrder[2]} key={index} disabled={!isDisable}>{stateOrder[2]}</option>
-                                            <option value={stateOrder[3]} key={index} disabled={isDisable}>{stateOrder[3]}</option>
+                                            <option value={stateOrder[0]} disabled={isDisable}>{stateOrder[0]}</option>
+                                            <option value={stateOrder[1]} disabled={isDisable}>{stateOrder[1]}</option>
+                                            <option value={stateOrder[2]} disabled={!isDisable}>{stateOrder[2]}</option>
+                                            <option value={stateOrder[3]} disabled={isDisable}>{stateOrder[3]}</option>
                                             </select>
                                         </td>
                                     </tr>
@@ -213,8 +233,8 @@ const Order = ({order, updateHistoryOrder}) => {
                              var createdAt = new Date(parseFloat(item.createdAt));
                              var updatedAt = new Date(parseFloat(item.updatedAt));
                              return (
-                                <tr>
-                                    <th scope="row" key={index}>{index + 1}</th>
+                                <tr key={index}>
+                                    <th scope="row">{index + 1}</th>
                                     <td>{item.id}</td>
                                     <td>{item.namePro.join(' ; ')}</td>
                                     <td>{format_curency(item.price)}đ</td>
@@ -222,10 +242,10 @@ const Order = ({order, updateHistoryOrder}) => {
                                     <td>{updatedAt.toLocaleString()}</td>
                                     <td><select className="form-select  mb-3 select-option-status" value={stateOrder[2]} onChange={(e) => handleChangeState(item,e.target.value)}>
                                         
-                                        <option value={stateOrder[0]} key={index} disabled={!isDisable}>{stateOrder[0]}</option>
-                                        <option value={stateOrder[1]} key={index} disabled={isDisable}>{stateOrder[1]}</option>
-                                        <option value={stateOrder[2]} key={index} disabled={isDisable}>{stateOrder[2]}</option>
-                                        <option value={stateOrder[3]} key={index} disabled={isDisable}>{stateOrder[3]}</option>
+                                        <option value={stateOrder[0]} disabled={!isDisable}>{stateOrder[0]}</option>
+                                        <option value={stateOrder[1]} disabled={isDisable}>{stateOrder[1]}</option>
+                                        <option value={stateOrder[2]} disabled={isDisable}>{stateOrder[2]}</option>
+                                        <option value={stateOrder[3]} disabled={isDisable}>{stateOrder[3]}</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -251,8 +271,8 @@ const Order = ({order, updateHistoryOrder}) => {
                              var createdAt = new Date(parseFloat(item.createdAt));
                              var updatedAt = new Date(parseFloat(item.updatedAt));
                              return (
-                                <tr>
-                                    <th scope="row" key={index}>{index + 1}</th>
+                                <tr key={index}>
+                                    <th scope="row">{index + 1}</th>
                                     <td>{item.id}</td>
                                     <td>{item.namePro.join(' ; ')}</td>
                                     <td>{format_curency(item.price)}đ</td>
@@ -260,10 +280,10 @@ const Order = ({order, updateHistoryOrder}) => {
                                     <td>{updatedAt.toLocaleString()}</td>
                                     <td><select className="form-select  mb-3 select-option-status" value={stateOrder[3]} onChange={(e) => handleChangeState(item,e.target.value)}>
                                         
-                                        <option value={stateOrder[0]} key={index} disabled={!isDisable}>{stateOrder[0]}</option>
-                                        <option value={stateOrder[1]} key={index} disabled={!isDisable}>{stateOrder[1]}</option>
-                                        <option value={stateOrder[2]} key={index} disabled={!isDisable}>{stateOrder[2]}</option>
-                                        <option value={stateOrder[3]} key={index} disabled={isDisable}>{stateOrder[3]}</option>
+                                        <option value={stateOrder[0]} disabled={!isDisable}>{stateOrder[0]}</option>
+                                        <option value={stateOrder[1]} disabled={!isDisable}>{stateOrder[1]}</option>
+                                        <option value={stateOrder[2]} disabled={!isDisable}>{stateOrder[2]}</option>
+                                        <option value={stateOrder[3]} disabled={isDisable}>{stateOrder[3]}</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -282,9 +302,9 @@ const mapStateToProps = (state) => {
         order: state.Order,
     }
 }
-const mapDispatchToProps = (dispatch) =>{
+const mapDispatchToProps = (dispatch) => {
     return {
-        updateHistoryOrder:(id, order) => dispatch(updateHistoryOrder(id, order))
+        updateHistoryOrder : (id,order) => dispatch(updateHistoryOrder(id,order)),
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Order)
+export default connect(mapStateToProps ,mapDispatchToProps)(Order)

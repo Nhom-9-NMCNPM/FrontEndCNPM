@@ -10,7 +10,7 @@ const Product=({dress,trousers}) => {
     window.scrollTo(0,0)
     return (
        <div>
-           <NavHeader />
+           <NavHeader showPro={true} />
             <div className="main-body">
                 <NavProduct></NavProduct>
 

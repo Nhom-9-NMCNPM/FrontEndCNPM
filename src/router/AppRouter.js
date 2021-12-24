@@ -20,6 +20,7 @@ import Cart from "../components/Checkout/Cart";
 import Checkout from "../components/Checkout/Checkout";
 import Order from "../admin/components/Order";
 import ManagerUser from "../admin/components/ManagerUser";
+import PageError from "../components/PageError"
 export const history = createBrowserHistory();
 const Approuter = () => {
     return (
@@ -45,6 +46,7 @@ const Approuter = () => {
                     <PrivateRouter path="/admin-dress" component={Dress} />
                     <PrivateRouter path="/admin-order" component={Order} />
                     <PrivateRouter path="/admin-user" component={ManagerUser} />
+                    <Route component={PageError} />
                 </Switch>
             </div>
         </Router>

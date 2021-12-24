@@ -2,7 +2,7 @@ import '../../style/Product/Product.css'
 import {connect} from 'react-redux'
 import format_curency from '../../utils/displayPrice'
 import {Link} from 'react-router-dom'
-const Product2Right = ({skirt}) => {
+const Product2Right = ({skirt, sale}) => {
     return(
         <div>
             <div className="product-list row">
@@ -20,9 +20,23 @@ const Product2Right = ({skirt}) => {
                                             </Link>
                                             <div className="product-detail">
                                                 <Link to={`/detail/${item.codePro}`}>{item.name}</Link>
-                                                <div>
-                                                    <span style={{fontSize: "13px",}}>{format_curency(item.price)}đ</span>
-                                                </div>
+                                                {
+                                                    sale?
+                                                    <div>
+                                                        <span style={{
+                                                        fontSize: "13px",
+                                                        textDecoration: 'line-through',
+                                                        marginRight: '10px',
+                                                        opacity: '0.6'}}>
+                                                            {format_curency(item.price)}đ
+                                                        </span>
+                                                        <span>{format_curency(parseInt(item.price-item.price*sale/100, 10))}đ</span>
+                                                    </div>
+                                                    :<div>
+                                                        <span style={{fontSize: "13px"}}>{format_curency(item.price)}đ</span>
+                                                    </div>
+                                                    
+                                                }
                                             </div>      
                                         </div>
                                     )
@@ -41,9 +55,23 @@ const Product2Right = ({skirt}) => {
                                             </Link>
                                             <div className="product-detail">
                                                 <Link to={`/detail/${item.codePro}`}>{item.name}</Link>
-                                                <div>
-                                                    <span style={{fontSize: "13px",}}>{format_curency(item.price)}đ</span>
-                                                </div>
+                                                {
+                                                    sale?
+                                                    <div>
+                                                        <span style={{
+                                                        fontSize: "13px",
+                                                        textDecoration: 'line-through',
+                                                        marginRight: '10px',
+                                                        opacity: '0.6'}}>
+                                                            {format_curency(item.price)}đ
+                                                        </span>
+                                                        <span>{format_curency(parseInt(item.price-item.price*sale/100, 10))}đ</span>
+                                                    </div>
+                                                    :<div>
+                                                        <span style={{fontSize: "13px"}}>{format_curency(item.price)}đ</span>
+                                                    </div>
+                                                    
+                                                }
                                             </div>      
                                         </div>
                                     )
@@ -63,9 +91,23 @@ const Product2Right = ({skirt}) => {
                                 </Link>
                                 <div className="product-detail">
                                     <Link to={`/detail/${item.codePro}`}>{item.name}</Link>
-                                    <div>
-                                        <span style={{fontSize: "13px",}}>{format_curency(item.price)}đ</span>
-                                    </div>
+                                    {
+                                        sale?
+                                        <div>
+                                            <span style={{
+                                            fontSize: "13px",
+                                            textDecoration: 'line-through',
+                                            marginRight: '10px',
+                                            opacity: '0.6'}}>
+                                                {format_curency(item.price)}đ
+                                            </span>
+                                            <span>{format_curency(parseInt(item.price-item.price*sale/100, 10))}đ</span>
+                                        </div>
+                                        :<div>
+                                            <span style={{fontSize: "13px"}}>{format_curency(item.price)}đ</span>
+                                        </div>
+                                        
+                                    }
                                 </div>      
                             </div>
                         )
@@ -77,7 +119,7 @@ const Product2Right = ({skirt}) => {
 const mapStateToProps = (state)  => {
     return {
         skirt: state.Skirt,
-
+        sale: state.Event
     }
 }
 export default connect(mapStateToProps)(Product2Right)

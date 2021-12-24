@@ -1,7 +1,8 @@
 import '../../style/Product/Product.css'
 import format_curency from '../../utils/displayPrice'
 import { Link } from 'react-router-dom'
-const Product4 = ({data} ) => {
+import { connect } from 'react-redux'
+const Product4 = ({data, sale} ) => {
     return (
             <div>
                 <div className="product-list row">
@@ -18,9 +19,23 @@ const Product4 = ({data} ) => {
                                     </Link>
                                     <div className="product-detail">
                                         <Link to={`/detail/${item.codePro}`}>{item.name}</Link>
-                                        <div>
-                                            <span style={{fontSize: "13px"}}>{format_curency(item.price)}đ</span>
-                                        </div>
+                                        {
+                                            sale?
+                                            <div>
+                                                <span style={{
+                                                fontSize: "13px",
+                                                textDecoration: 'line-through',
+                                                marginRight: '10px',
+                                                opacity: '0.6'}}>
+                                                    {format_curency(item.price)}đ
+                                                </span>
+                                                <span>{format_curency(parseInt(item.price-item.price*sale/100, 10))}đ</span>
+                                            </div>
+                                            :<div>
+                                                <span style={{fontSize: "13px"}}>{format_curency(item.price)}đ</span>
+                                            </div>
+                                            
+                                        }
                                     </div>      
                                 </div>
                             )
@@ -31,6 +46,10 @@ const Product4 = ({data} ) => {
         )
     }
  
+const mapStateToProps = (state)=>{
+    return {
+        sale: state.Event
+    }
+}
 
-
-export default Product4
+export default connect(mapStateToProps)(Product4)

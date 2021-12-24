@@ -39,13 +39,14 @@ const Checkout = ({resetCart, orderRedux}) => {
     const [show, setShow] = useState(false);
     const [coupon, setCoupon] = useState(-1);
     const [isLoading, setIsLoading] = useState(false);
-    const { user, cart } = useSelector((state) => ({
+    const { user, cart, sale } = useSelector((state) => ({
         user: state.User,
         cart: state.Cart,
+        sale: state.Event
     }));
     // Tỏng giá trị đơn hàng (Không bao gồm mã giảm giá và phí vận chuyển)
     const total = cart.reduce(
-        (total, item) => total + item.price * item.count,
+        (total, item) => total + (item.price-item.price*sale/100) * item.count,
         0
     );
     const [couponRate, setCouponRate] = useState(0);
@@ -79,7 +80,7 @@ const Checkout = ({resetCart, orderRedux}) => {
         order({
             variables: {
                 data: {
-                    price: parseInt(price, 10),
+                    price: parseInt(total - (total * couponRate) / 100,10),
                     namePro,
                     status: "Chờ xử lý",
                     userId: user.id,
@@ -150,10 +151,19 @@ const Checkout = ({resetCart, orderRedux}) => {
             condition: 0,
         },
     ];
+    const vouchersPremium = [
+        {
+            rate: 20,
+            condition: 1000000,
+        },
+        {
+            rate: 25,
+            condition: 0,
+        },
+    ];
     if(isLoading) return <LoadingPage />;
     return (
         <div>
-            {console.log("Re-render")}
             <div className="checkout-content row">
                 <div className="main col-7">
                     <div className="main-header">
@@ -318,7 +328,7 @@ const Checkout = ({resetCart, orderRedux}) => {
                                         <td>
                                             <span class="product-price">
                                                 {format_curency(
-                                                    item.price * item.count
+                                                    parseInt((item.price-item.price*sale/100) * item.count,10)
                                                 )} đ
                                             </span>
                                         </td>
@@ -420,7 +430,7 @@ const Checkout = ({resetCart, orderRedux}) => {
                                                         </div>
                                                     </div>
                                                 </div>
-
+                                                
                                                 {coupon === index &&
                                                     total <
                                                         voucher.condition && (
@@ -432,6 +442,9 @@ const Checkout = ({resetCart, orderRedux}) => {
                                                     )}
                                             </div>
                                         ))}
+                                        {
+
+                                        }
                                     </div>
                                 </div>
 
@@ -495,7 +508,7 @@ const Checkout = ({resetCart, orderRedux}) => {
                         <div className="payment-detail">
                             <p className="payment-text">Tạm tính</p>
                             <p className="payment-price">
-                                {format_curency(total)}đ
+                                {format_curency(parseInt(total,10))}đ
                             </p>
                         </div>
 
@@ -509,6 +522,14 @@ const Checkout = ({resetCart, orderRedux}) => {
                         <div className="payment-detail">
                             <p className="payment-text">Phí vận chuyển</p>
                             <p className="payment-price">Miễn phí</p>
+                        </div>
+
+                        <div className="payment-detail">
+                            <p className="payment-text">Điểm thưởng</p>
+                            <p className="payment-price">
+                                {format_curency(parseInt((total - (total * couponRate) / 100)/100,10))}
+                                <i class="fas fa-award"></i>
+                            </p>
                         </div>
 
                         <p className="freeship-content">

@@ -13,7 +13,7 @@ import {showSuccessToast} from '../utils/displayToastMess';
 
 const size = ['M','S','L', 'XL']
 const sizeTest = ['size_M', 'size_S', 'size_L', 'size_XL']
-const DetailPro = ({product, match, dispatch}) => { 
+const DetailPro = ({product, match, dispatch, sale}) => { 
   window.scrollTo(0,0)
   const [keyActive, setkeyActive] = useState('')
   const [quantity, setQuantity] = useState(1)
@@ -41,7 +41,7 @@ const DetailPro = ({product, match, dispatch}) => {
   } 
   return (
     <div>
-      <NavHeader  />
+      <NavHeader search={false} showPro={true} />
       <div className="product-container">
         <NavProduct linkPro={detailPro.name}/>
         <div className="row product">
@@ -74,7 +74,23 @@ const DetailPro = ({product, match, dispatch}) => {
               <label>SKU:</label>
               <span>{detailPro.codePro}</span>
             </div>
-            <span className="product-price">{format_curency(detailPro.price)}đ</span>
+            {
+              sale?
+              <div>
+                  <span style={{
+                  fontSize: "13px",
+                  textDecoration: 'line-through',
+                  marginRight: '10px',
+                  opacity: '0.6'}}>
+                      {format_curency(detailPro.price)}đ
+                  </span>
+                  <span className="fw-bold" >{format_curency(parseInt(detailPro.price-detailPro.price*sale/100, 10))}đ</span>
+              </div>
+              :<div>
+                  <span style={{fontSize: "13px"}}>{format_curency(detailPro.price)}đ</span>
+              </div>
+              
+          }
             <div className="desProduct">
               <span>Thông tin sản phẩm:</span>
               <p className="des-title">
@@ -132,7 +148,8 @@ const mapStateToProps = (state) =>{
       ...state.Skirt,
       ...state.Dress,
       ...state.Trousers
-    ]
+    ],
+    sale: state.Event
   }
 }
 export default connect(mapStateToProps)(DetailPro);

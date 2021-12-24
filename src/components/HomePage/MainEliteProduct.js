@@ -3,7 +3,7 @@ import '../../style/HomePage/responsive.css'
 import {connect} from 'react-redux'
 import format_curency from '../../utils/displayPrice';
 import { Link } from 'react-router-dom';
-const MainEliteProduct = ({shirt}) => {
+const MainEliteProduct = ({shirt, sale}) => {
    
     return (
         <div>
@@ -45,7 +45,23 @@ const MainEliteProduct = ({shirt}) => {
                                                     {`${item.name} ${item.codePro}`}
                                                 </Link>
                                             </div>
-                                            <span className="elite-product-content-title-price">{format_curency(item.price)}đ</span>
+                                            {
+                                                sale?
+                                                <div>
+                                                    <span style={{
+                                                    fontSize: "13px",
+                                                    textDecoration: 'line-through',
+                                                    marginRight: '10px',
+                                                    opacity: '0.6'}}>
+                                                        {format_curency(item.price)}đ
+                                                    </span>
+                                                    <span>{format_curency(parseInt(item.price-item.price*sale/100, 10))}đ</span>
+                                                </div>
+                                                :<div>
+                                                    <span style={{fontSize: "13px"}}>{format_curency(item.price)}đ</span>
+                                                </div>
+                                                
+                                            }
                                         </div>
                                     </div>
                                 )
@@ -61,6 +77,7 @@ const MainEliteProduct = ({shirt}) => {
 const mapStateToProps = (state) =>{
     return {
         shirt: state.Shirt,
+        sale: state.Event
     }
 }
 export default connect(mapStateToProps)(MainEliteProduct)

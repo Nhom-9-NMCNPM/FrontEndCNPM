@@ -15,6 +15,7 @@ const orderReducer = (state=[], action) => {
                     return item;
                 }
             })
+
         default: return state
     }
 }
