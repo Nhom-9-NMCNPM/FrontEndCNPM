@@ -7,6 +7,7 @@ import LoadingPage from "../../components/LoadingPage";
 import { Redirect } from "react-router";
 import { updateHistoryOrder } from "../../actions/order";
 import { showSuccessToast } from "../../utils/displayToastMess";
+import {ExportReactCSV} from '../components/ExportCSV'
 const UPDATE = gql`
         mutation Mutation($data: updateOrderInput!, $updateOrderId: Int!) {
             updateOrder(data: $data, id: $updateOrderId) {
@@ -58,7 +59,6 @@ const Order = ({order, updateHistoryOrder}) => {
     const orderCurrent = order.filter((item) => {
         return item.status === stateCurrent && new Date(parseFloat(item.createdAt)).getMonth() + 1  === parseInt(valueState.month) && new Date(parseFloat(item.createdAt)).getFullYear()   === parseInt(valueState.year)
     })
-    console.log(valueState.year);
     const handleShowDelivered = () => {
         setShowDelivered(true)
         setShowDelivering(false)
@@ -117,30 +117,33 @@ const Order = ({order, updateHistoryOrder}) => {
                     <button type="button" className={`btn btn-outline-secondary ${showCanceled && "active"} btn-margin-right`} onClick={handleShowCanceled}>Đơn hàng đã hủy</button>
                 </div>
                 <div className="revenue">
-                  {showDelivered &&  <h3 className="title-revenue">Doanh thu tháng</h3> }
-                  {showDelivering &&  <h3 className="title-revenue">Đơn hàng tháng</h3> }
-                  {showPending &&  <h3 className="title-revenue">Đơn hàng tháng</h3> }
-                  {showCanceled &&  <h3 className="title-revenue">Đơn hàng tháng</h3> }
-                    <select className="form-select  mb-3 select-option" value={valueState.month} onChange={(e) => {setValueState({...valueState, month: e.target.value})}} >
-                      {months.map((month,index) => {
-                          return (
-                              
-                                <option value={`${month}`} key={index}>{month}</option> 
-                          )
-                      })}
-                    </select>
-                    <select className="form-select  mb-3 select-option" value={valueState.year} onChange={(e) => {setValueState({...valueState, year: e.target.value})}}>
-                        <option value="2021">2021</option>
-                        <option value="2022">2022</option>
-                    </select>
-                    {showDelivered && 
-                    <div style={{display: 'flex'}}>
-                        <h3 style={{padding: '0 4px'}}> : </h3>
-                        <h3 className="revenue-money">{format_curency(orderCurrent.reduce((total,num) => {
-                            let time = new Date(parseFloat(num.createdAt))
-                            return  (time.getMonth() + 1) === Number(valueState.month) && (num.status === "Đã giao hàng") ?  (parseInt(parseInt(num.price) + total)) : (total)
-                        }, 0))}đ</h3>  
-                    </div>} 
+                    <div  className="col-6" style={{display: 'flex'}}>
+                        {showDelivered && <h3 className="title-revenue">Doanh thu tháng</h3>   }
+                        {showDelivering &&  <h3 className="title-revenue">Đơn hàng tháng</h3> }
+                        {showPending &&  <h3 className="title-revenue">Đơn hàng tháng</h3> }
+                        {showCanceled &&  <h3 className="title-revenue">Đơn hàng tháng</h3> }
+                        <select className="form-select  mb-3 select-option" value={valueState.month} onChange={(e) => {setValueState({...valueState, month: e.target.value})}} >
+                        {months.map((month,index) => {
+                            return (
+                                
+                                    <option value={`${month}`} key={index}>{month}</option> 
+                            )
+                        })}
+                        </select>
+                        <select className="form-select  mb-3 select-option" value={valueState.year} onChange={(e) => {setValueState({...valueState, year: e.target.value})}}>
+                            <option value="2021">2021</option>
+                            <option value="2022">2022</option>
+                        </select>
+                        {showDelivered && 
+                        <div style={{display: 'flex'}}>
+                            <h3 style={{padding: '0 4px'}}> : </h3>
+                            <h3 className="revenue-money">{format_curency(orderCurrent.reduce((total,num) => {
+                                let time = new Date(parseFloat(num.createdAt))
+                                return  (time.getMonth() + 1) === Number(valueState.month) && (num.status === "Đã giao hàng") ?  (parseInt(parseInt(num.price) + total)) : (total)
+                            }, 0))}đ</h3>  
+                        </div>} 
+                    </div>
+                    {showDelivered &&  <div className="col-6 export-excel"><ExportReactCSV csvData={orderCurrent} fileName={`Doanh thu tháng ${valueState.month} năm ${valueState.year}`} /></div>}
                 </div>
                 <div className="table-product table-revenue">
 

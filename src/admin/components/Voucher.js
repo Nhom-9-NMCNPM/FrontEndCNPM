@@ -1,4 +1,3 @@
-import Footer from "../../components/HomePage/Footer"
 import NavHeader from "../../components/HomePage/NavHeader"
 import { connect } from "react-redux"
 import { useState } from "react";
@@ -245,12 +244,12 @@ const Voucher = ({ voucher, addVoucher, updateVoucher, removeVoucher, voucherPre
     if(isLoading) return <LoadingPage />;
     return (
         <div>
-            <NavHeader />
+            <NavHeader vouncher={true} />
             <div className="margin-bottom table-product">
                 <div className="table-title-revenue">
                     <h1>VOUCHER</h1>
-                    <button type="button" className="btn btn-outline-secondary voucher-btn" onClick={handleShowVoucher} >Voucher chung</button>
-                    <button type="button" className="btn btn-outline-secondary voucher-btn" onClick={handleShowVoucherPremium}>Voucher riêng</button>
+                    <button type="button" className={`btn btn-outline-secondary ${showVoucher && "active"} btn-margin-left`} onClick={handleShowVoucher} >Voucher chung</button>
+                    <button type="button" className={`btn btn-outline-secondary ${showVoucherPremium && "active"} btn-margin-right className='content'`} onClick={handleShowVoucherPremium}>Voucher riêng</button>
                 </div>
 
                 {showVoucher && <table className="table mt-2" style={{ display: '"inline-block' }}>
@@ -283,12 +282,12 @@ const Voucher = ({ voucher, addVoucher, updateVoucher, removeVoucher, voucherPre
                                     <>
                                         <tr>
                                             <th scope="row" key={index}>{index + 1}</th>
-                                            <td>{voucher.id}</td>
-                                            <td>{createdAt.toLocaleString()}</td>
-                                            <td>{updatedAt.toLocaleString()}</td>
-                                            <td>{voucher.disCount}</td>
-                                            <td>{voucher.condition}</td>
-                                            <td>
+                                            <td className='content'>{voucher.id}</td>
+                                            <td className='content'>{createdAt.toLocaleString()}</td>
+                                            <td className='content'>{updatedAt.toLocaleString()}</td>
+                                            <td className='content'>{voucher.disCount}</td>
+                                            <td className='content'>{voucher.condition}</td>
+                                            <td className='content' style={{paddingLeft: '20px',paddingRight: '20px'}}>
                                                 <div>
                                                     <button 
                                                         className='btn-update btn btn-warning px-3'
@@ -417,7 +416,6 @@ const Voucher = ({ voucher, addVoucher, updateVoucher, removeVoucher, voucherPre
                     </tbody>
                 </table>}
             </div>
-            <Footer />
         </div>
     )
 

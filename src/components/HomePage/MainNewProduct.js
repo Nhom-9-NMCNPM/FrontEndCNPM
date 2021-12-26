@@ -2,7 +2,6 @@ import "../../style/HomePage/MainNewProduct.css"
 import "../../style/HomePage/responsive.css"
 import {connect} from 'react-redux'
 import format_curency from '../../utils/displayPrice';
-import { useEffect } from "react"
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
 const MainNewProduct = ({product, sale}) => {

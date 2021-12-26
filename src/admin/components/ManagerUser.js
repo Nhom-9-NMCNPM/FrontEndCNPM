@@ -175,10 +175,10 @@ const ManagerUser = ({userList, addUserList, deleteUserList, updateUserList}) =>
                                             <td className='content'>{item.phoneNumber}</td>
                                             <td className='content'>{item.address}</td>
                                             <td className='content'>{item.point}</td>
-                                            <td className='content' style={{textAlign: 'center'}}>
-                                                <button type="button" className='btn-update btn btn-warning' style={{width:'50%'}} onClick={()=>{setData({id: item.id, name:item.name, email:item.email,phoneNumber:item.phoneNumber,address:item.address}); setButtonUpdate(true);}} ><i className="fas fa-edit"></i></button>
+                                            <td className='content' style={{paddingLeft: '20px',paddingRight: '20px'}}>
+                                                <button type="button" className='btn-update btn btn-warning'  onClick={()=>{setData({id: item.id, name:item.name, email:item.email,phoneNumber:item.phoneNumber,address:item.address}); setButtonUpdate(true);}} ><i className="fas fa-edit"></i></button>
                                                 <br />
-                                                <button type="button" className='btn-remove btn btn-danger btn-sm px-3 mt-2' style={{width:'50%'}} onClick={()=>{setShowModalRemove(item.id)}}><i className="fas fa-trash-alt"></i></button>
+                                                <button type="button" className='btn-remove btn btn-danger btn-sm px-3 mt-2' onClick={()=>{setShowModalRemove(item.id)}}><i className="fas fa-trash-alt"></i></button>
                                             </td>
                                         </tr>
                                         <Modal
