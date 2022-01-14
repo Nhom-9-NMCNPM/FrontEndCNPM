@@ -1,4 +1,4 @@
-import { gql, useQuery } from '@apollo/client';
+import { disableExperimentalFragmentVariables, gql, useQuery } from '@apollo/client';
 import { startSetShirt } from '../actions/shirt';
 import { startSetSkirt } from '../actions/skirt';
 import { startSetTrousers } from '../actions/trousers';
@@ -7,7 +7,7 @@ import { startSetVoucher } from '../actions/voucher';
 import LoadingPage from '../components/LoadingPage';
 import { Redirect } from 'react-router-dom';
 import {connect} from 'react-redux';
-import { setEvent } from '../actions/event';
+import { setEvent, startSetEvent } from '../actions/event';
 import { startSetVoucherPremium } from '../actions/voucherPremium';
 const GET_DATA = gql`
   query GetDress {
@@ -100,10 +100,17 @@ const GET_DATA = gql`
     disCount
     condition
   }
+  getSales {
+    id
+    createdAt
+    updatedAt
+    disCount
+    publish
+  }
 }
 `;
 
-const GetData =({startSetTrousers, startSetDress, startSetSkirt, startSetShirt, startSetVoucher, startSetVoucherPremium, setEvent}) =>{
+const GetData =({startSetTrousers, startSetDress, startSetSkirt, startSetShirt, startSetVoucher, startSetVoucherPremium, setEvent, startSetEvent}) =>{
     const { loading, error, data } = useQuery(GET_DATA);
 
     if (loading) return <LoadingPage />;
@@ -117,6 +124,7 @@ const GetData =({startSetTrousers, startSetDress, startSetSkirt, startSetShirt, 
         setEvent(data.getSale.disCount)
         startSetVoucher(data.getVoucher)
         startSetVoucherPremium(data.getVoucherPremium)
+        startSetEvent(data.getSales)
     }
     return (
         <LoadingPage />
@@ -131,7 +139,7 @@ const mapDispatchToProps = (dispatch) => {
         setEvent:(data)=> dispatch(setEvent(data)),
         startSetVoucher:(voucher)=> dispatch(startSetVoucher(voucher)),
         startSetVoucherPremium:(voucher)=> dispatch(startSetVoucherPremium(voucher)),
-      
+        startSetEvent:(event) => dispatch(startSetEvent(event))
     }
 }
 export default connect(null, mapDispatchToProps)(GetData);
