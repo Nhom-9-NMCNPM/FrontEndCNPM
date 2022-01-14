@@ -78,7 +78,6 @@ const DELETE_VOUCHER_PREMIUM = gql`
 }
 `
 const Voucher = ({ voucher, addVoucher, updateVoucher, removeVoucher, voucherPremium, addVoucherPremium, updateVoucherPremium, removeVoucherPremium }) => {
-
     // Đổ dữ liệu từ backend ra
     const [showVoucher, setShowVoucher] = useState(true)
     const [showVoucherPremium, setVoucherPremium] = useState(false);
@@ -244,7 +243,7 @@ const Voucher = ({ voucher, addVoucher, updateVoucher, removeVoucher, voucherPre
     if(isLoading) return <LoadingPage />;
     return (
         <div>
-            <NavHeader vouncher={true} />
+            <NavHeader voucher={true} />
             <div className="margin-bottom table-product">
                 <div className="table-title-revenue">
                     <h1>VOUCHER</h1>

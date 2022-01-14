@@ -24,7 +24,7 @@ subscription Subscription {
   }
 }
 `
-const NavHeader = ({user,cart, removeCart,logout, product, search = true, showPro, showUser, showOrder, sale, vouncher}) => {
+const NavHeader = ({user,cart, removeCart,logout, product, search = true, showPro, showUser, showOrder, sale, vouncher, event}) => {
     const [inputSearch, setInputSearch] = useState('')
     const [showResult, setShowResult] = useState(false)  
     const resultArray = product.filter((item) => {
@@ -216,10 +216,10 @@ const NavHeader = ({user,cart, removeCart,logout, product, search = true, showPr
                                {user.admin && <Link to="/admin-order" className={`header-nav-content-item-link ${showOrder && "is-active"}`} title="ORDER">ĐƠN HÀNG</Link>}
                             </li>
                             <li className="header-nav-content-item">
-                               {user.admin && <Link to="/admin-voucher" className={`header-nav-content-item-link ${vouncher && "is-active"}`} title="VOUCHER">VOUCHER</Link>}
+                               {user.admin && <Link to="/admin-voucher" className={`header-nav-content-item-link ${voucher && "is-active"}`} title="VOUCHER">VOUCHER</Link>}
                             </li>
                             <li className="header-nav-content-item">
-                               {user.admin && <Link to="/" className="header-nav-content-item-link" title="SỰ KIỆN" onClick={()=>showSuccessToast("Tính năng này hiện chưa được phát triển, vui lòng thử lại sau","Thông báo!", "error")}>SỰ KIỆN</Link>}
+                               {user.admin && <Link to="/admin-event" className={`header-nav-content-item-link ${event && "is-active"}`} title="SỰ KIỆN" >SỰ KIỆN</Link>}
                             </li>
                         </ul>
                     </div>
