@@ -540,8 +540,9 @@ const Checkout = ({resetCart, orderRedux}) => {
                                                     }
                                                 }
                                             }
-
-                                            setCouponRate(vouchers[index].disCount);
+                                            if(index>=0){
+                                                setCouponRate(vouchers[index].disCount);
+                                            }
                                             if(indexPre>=0){
                                                 setCouponRatePre(vouchersPremium[indexPre].disCount);
                                             }

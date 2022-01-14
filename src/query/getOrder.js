@@ -19,7 +19,6 @@ const getOrder = (dispatch) => {
             `
         })
         .then(result => {
-            console.log(result);
             dispatch(startSetOrder(result.data.getOrder))
             dispatch(updateHistoryOrder(result.data.getOrder))
         })
