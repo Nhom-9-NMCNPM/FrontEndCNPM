@@ -1,0 +1,364 @@
+.bill {
+    display: flex;
+}
+
+.page-bill {
+    background-color: #f9f5f0;
+    min-height: 1000px;
+}
+
+.bill-design {
+    margin: 20px;
+    background-color: #fff;
+    border-radius: 20px;
+}
+
+.bill-search {
+    height: 32px;
+    line-height: 32px;
+    position: relative;
+    display: block;
+}
+
+.bill-form {
+    display: block;
+    position: absolute;
+    background: #fff;
+    border-radius: 30px;
+    right: 20px;
+    top: 16px;
+    width: 25%;
+    z-index: 50;
+}
+
+.bill-form input {
+    color: #86898E;
+    font-size: 14px;
+    height: 40px;
+    width: 100%;
+    padding-left: 50px;
+    border: 0;
+    padding-right: 15px;
+    background: transparent;
+    border-radius: 30px;
+    border: 0;
+    border: 1px solid #dca395;
+    font-weight: 400;
+}
+
+.bill-form input:focus {
+    outline-style: none;
+}
+
+.bill-icon-search {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background: transparent;
+    font-size: 12px;
+    border: 0;
+    padding-left: 20px;
+    padding-right: 13px;
+    padding-top: 5px;
+    color: #E29481;
+}
+
+.title-bill {
+    font-family: 'Lora', serif;
+    font-size: 30px;
+    padding: 20px;
+    border-bottom: 1px solid #dfc8cb;
+}
+
+
+/* ----------------------LIST-PRODUCT-BILL-------------------------------- */
+
+.bill-list {
+    margin-top: 40px;
+    margin-left: 10px;
+    padding-bottom: 20px;
+    padding-left: 0;
+    max-height: 400px;
+    overflow-y: scroll;
+}
+
+.bill-item {
+    display: flex;
+    position: relative;
+    padding: .75rem 1.25rem;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    border-top: 1px solid rgba(0, 0, 0, 0.125);
+    width: 98%;
+}
+
+.list-to-do {
+    position: absolute;
+    width: 4px;
+    height: 60%;
+    background-color: #da624a;
+    border-radius: .4rem;
+    left: .625rem;
+    top: 20%;
+    opacity: .6;
+    transition: opacity .2s;
+}
+
+.bill-item-img {
+    width: 50px;
+}
+
+.bill-item-content {
+    padding-left: 14px;
+    width: 100%;
+}
+
+.bill-content-detail {
+    display: flex;
+    padding-top: 10px;
+    justify-content: space-between;
+}
+
+.bill-detail-price {
+    width: 110px
+}
+
+.bill-detail-size {
+    display: flex;
+}
+
+.bill-select-size {
+    margin-left: 6px;
+    cursor: pointer;
+}
+
+.bill-item-event {
+    display: flex;
+}
+
+.bill-event-count {
+    display: flex;
+    align-items: center;
+}
+
+.bill-content-left {
+    display: flex;
+}
+
+.bill-content-right {
+    display: flex;
+}
+
+.bill-event-down,
+.bill-event-up {
+    padding: 0 10px;
+}
+
+.bill-event-quantity {
+    padding: 0 2px;
+    text-align: center;
+}
+
+.bill-event-down {
+    display: block;
+    border: 1px solid #E29481;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    cursor: pointer;
+    transition: background 0.15s;
+    font-weight: 400;
+    background: #fff;
+}
+
+.bill-event-down:hover {
+    background: rgb(255, 245, 245);
+}
+
+.bill-event-up:hover {
+    background: rgb(255, 245, 245);
+}
+
+.bill-event-quantity {
+    border: 1px solid #E29481;
+    font-weight: 400;
+    width: 30px;
+}
+
+.bill-event-up {
+    display: block;
+    border: 1px solid #E29481;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    cursor: pointer;
+    transition: opacity 0.15s;
+    font-weight: 400;
+    background: #fff;
+}
+
+.bill-event-remove {
+    padding-left: 40px;
+    padding-top: 7px;
+    font-size: -16px;
+}
+
+.bill-remove-icon {
+    color: #dc3545;
+    font-size: 18px;
+    transition: color 0.15s;
+    cursor: pointer;
+}
+
+.bill-remove-icon:hover {
+    color: #d35460;
+}
+
+.bill-voucher {
+    padding-right: 0;
+    display: flex;
+}
+
+.title-voucher {
+    font-family: 'Lora', serif;
+    font-size: 20px;
+    margin-right: 22px;
+}
+
+.bill-select-voucher {
+    width: 25%;
+}
+
+.bill-user {
+    display: flex;
+}
+
+.title-bill-user {
+    font-family: 'Lora', serif;
+    font-size: 20px;
+    margin-right: 22px;
+    padding-left: 10px;
+}
+
+.bill-select-user {
+    width: 60%;
+}
+
+.bill-total {
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.product-price-bill {
+    display: flex;
+}
+
+.title-price-bill,
+.sum-price-bill {
+    font-family: 'Lora', serif;
+    font-size: 30px;
+    padding-left: 10px;
+}
+
+
+/* ----------------------BILL-CONFIRM--------------- */
+
+.bill-confirm {
+    margin: 20px;
+    background-color: #fff;
+    border-radius: 20px;
+}
+
+.bill-header {
+    padding: 30px;
+    text-align: center;
+}
+
+.bill-img {
+    width: 80%;
+}
+
+.bill-info {
+    padding-top: 8px;
+    font-size: 12px;
+}
+
+.bill-title {
+    font-size: 50px;
+    text-align: center;
+    padding-left: 35%;
+    font-family: 'Roboto', sans-serif;
+    line-height: 64px;
+    border-bottom: 5px solid;
+}
+
+.bill-body {
+    margin-top: 80px;
+}
+.info-user {
+    display: flex;
+    justify-content: space-between;
+}
+.info-user-list {
+    list-style: none;
+}
+
+.info-user-title {
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.info-user-name,
+.info-user-phone,
+.info-user-email,
+.info-user-address {
+    font-size: 16px;
+    padding: 2px 0;
+}
+
+.bill-list-product {
+    width: 100%;
+}
+
+.info-order-product {
+    padding: 0 20px;
+    margin-top: 60px;
+}
+
+.bill-footer {
+    margin-top: 100px;
+    text-align: center;
+}
+
+.bill-footer-thanks,
+.bill-footer-thanks-1 {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 20px 0;
+}
+
+.btn-export-pdf {
+    background: rgb(228, 129, 129);
+    background: linear-gradient( 90deg, rgba(228, 129, 129, 1) 0%, rgba(233, 167, 149, 1) 70%, rgba(238, 185, 170, 1) 100%);
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 12px;
+    font-size: 20px;
+    float: right;
+    margin-top: 10px;
+    margin-right: 14px;
+}
+
+.btn-export-pdf:hover {
+    box-shadow: rgb(233 167 149 / 50%) 0 1px 20px;
+    transition-duration: .1s;
+}
+
+.info-time-product {
+    padding-right: 31px;
+    font-size: 18px;
+    font-style: italic;
+}

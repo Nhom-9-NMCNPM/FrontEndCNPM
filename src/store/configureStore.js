@@ -26,7 +26,7 @@ const configureStore = () => {
                 UserList: adminReducer,
                 Event: eventReducer,
                 Voucher: voucherReducer,
-                VoucherPremium: voucherPremiumReducer
+                VoucherPremium: voucherPremiumReducer,
             }
         ),
        composeEnhancers(applyMiddleware(thunk)),

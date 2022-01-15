@@ -171,7 +171,7 @@ const Voucher = ({ voucher, addVoucher, updateVoucher, removeVoucher, voucherPre
         }
     });
     const onClickButton = (buttonUpdate) => {
-        if (data.disCount == 0) {
+        if (data.disCount === 0) {
             showSuccessToast("Vui lòng điền giá trị của Voucher!", 'Cảnh báo!', 'error')
         } else {
             if (buttonUpdate) {

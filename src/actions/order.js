@@ -12,6 +12,5 @@ export const updateHistoryOrder = (id,order) => {
         data: {
              ...order,
         },
-        id
     }
 }

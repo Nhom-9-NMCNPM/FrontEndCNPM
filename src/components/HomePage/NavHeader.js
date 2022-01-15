@@ -8,7 +8,7 @@ import {logout, startLogin, stopLogin} from'../../actions/user';
 import {removeCart} from '../../actions/cart'
 import User from '../User'
 import { showSuccessToast } from '../../utils/displayToastMess'
-const NavHeader = ({user,cart, removeCart,logout, product, search = true, showPro, showUser, showOrder, sale, vouncher}) => {
+const NavHeader = ({user,cart, removeCart,logout, product, search = true, showPro, showUser, showOrder, sale, vouncher,offProduct}) => {
     const [inputSearch, setInputSearch] = useState('')
     const [showResult, setShowResult] = useState(false)  
     const resultArray = product.filter((item) => {
@@ -71,7 +71,7 @@ const NavHeader = ({user,cart, removeCart,logout, product, search = true, showPr
                                {!user.admin && <Link to="/" className="header-nav-content-item-link" title="Hàng mới về">HÀNG MỚI VỀ</Link>}
                             </li>
                             <li className="header-nav-content-item hasItemMenu">
-                                {user.admin ? <Link to="/admin-skirt" className={`header-nav-content-item-link ${showPro && "is-active"}`} title="Sản phẩm">SẢN PHẨM</Link> : <Link to="/product" className={`header-nav-content-item-link ${showPro && "is-active"}`} title="Sản phẩm">SẢN PHẨM</Link>}
+                                {user.admin && !user.staff ? <Link to="/admin-skirt" className={`header-nav-content-item-link ${showPro && "is-active"}`} title="Sản phẩm">SẢN PHẨM</Link> : <Link to="/product" className={`header-nav-content-item-link ${showPro && "is-active"}`} title="Sản phẩm">SẢN PHẨM</Link>}
                                 <div className="header-sub-nav">
                                     <div className="sub-nav-list">
                                         <ul>
@@ -135,16 +135,19 @@ const NavHeader = ({user,cart, removeCart,logout, product, search = true, showPr
                             </li>
                             </> }
                             <li className="header-nav-content-item">
-                               {user.admin && <Link to="/admin-user" className={`header-nav-content-item-link ${showUser && "is-active"}`} title="ĐẦM">NGƯỜI DÙNG</Link>}
+                               {user.admin && <Link to="/admin-user" className={`header-nav-content-item-link ${showUser && "is-active"}`} title="NGƯỜI DÙNG">NGƯỜI DÙNG</Link>}
                             </li>
                             <li className="header-nav-content-item">
                                {user.admin && <Link to="/admin-order" className={`header-nav-content-item-link ${showOrder && "is-active"}`} title="ORDER">ĐƠN HÀNG</Link>}
                             </li>
                             <li className="header-nav-content-item">
-                               {user.admin && <Link to="/admin-voucher" className={`header-nav-content-item-link ${vouncher && "is-active"}`} title="VOUCHER">VOUCHER</Link>}
+                               {(user.admin && !user.staff) && <Link to="/admin-voucher" className={`header-nav-content-item-link ${vouncher && "is-active"}`} title="VOUCHER">VOUCHER</Link>}
                             </li>
                             <li className="header-nav-content-item">
-                               {user.admin && <Link to="/" className="header-nav-content-item-link" title="SỰ KIỆN" onClick={()=>showSuccessToast("Tính năng này hiện chưa được phát triển, vui lòng thử lại sau","Thông báo!", "error")}>SỰ KIỆN</Link>}
+                               {(user.admin && !user.staff) && <Link to="/" className="header-nav-content-item-link" title="SỰ KIỆN" onClick={()=>showSuccessToast("Tính năng này hiện chưa được phát triển, vui lòng thử lại sau","Thông báo!", "error")}>SỰ KIỆN</Link>}
+                            </li>
+                            <li className="header-nav-content-item">
+                               {user.admin && <Link to="/admin-offline-product" className={`header-nav-content-item-link ${offProduct && "is-active"}`} title="LÊN ĐƠN">LÊN ĐƠN</Link>}
                             </li>
                         </ul>
                     </div>
@@ -262,7 +265,7 @@ const NavHeader = ({user,cart, removeCart,logout, product, search = true, showPr
                                                 <button>ĐẶT HÀNG</button>
                                             </Link>
                                         </li>
-                                    </ul></>
+                                    </ul></> 
                                     )
                                 }
 
