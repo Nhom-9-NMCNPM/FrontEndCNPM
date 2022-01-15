@@ -11,6 +11,7 @@ import adminReducer from '../reduce/adminReducer';
 import eventReducer from '../reduce/eventReducer';
 import voucherReducer from '../reduce/voucherReducer';
 import voucherPremiumReducer from '../reduce/voucherPremiumReducer';
+import eventsReducer from '../reduce/eventsReducer';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 const configureStore = () => {
     return createStore(
@@ -25,6 +26,7 @@ const configureStore = () => {
                 Order: orderReducer,
                 UserList: adminReducer,
                 Event: eventReducer,
+                Events: eventsReducer,
                 Voucher: voucherReducer,
                 VoucherPremium: voucherPremiumReducer,
             }

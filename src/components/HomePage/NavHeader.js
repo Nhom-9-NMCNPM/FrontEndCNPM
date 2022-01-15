@@ -8,7 +8,7 @@ import {logout, startLogin, stopLogin} from'../../actions/user';
 import {removeCart} from '../../actions/cart'
 import User from '../User'
 import { showSuccessToast } from '../../utils/displayToastMess'
-const NavHeader = ({user,cart, removeCart,logout, product, search = true, showPro, showUser, showOrder, sale, vouncher,offProduct}) => {
+const NavHeader = ({user,cart, removeCart,logout, product, search = true, showPro, showUser, showOrder, sale, voucher,event,offProduct}) => {
     const [inputSearch, setInputSearch] = useState('')
     const [showResult, setShowResult] = useState(false)  
     const resultArray = product.filter((item) => {
@@ -141,13 +141,13 @@ const NavHeader = ({user,cart, removeCart,logout, product, search = true, showPr
                                {user.admin && <Link to="/admin-order" className={`header-nav-content-item-link ${showOrder && "is-active"}`} title="ORDER">ĐƠN HÀNG</Link>}
                             </li>
                             <li className="header-nav-content-item">
-                               {(user.admin && !user.staff) && <Link to="/admin-voucher" className={`header-nav-content-item-link ${vouncher && "is-active"}`} title="VOUCHER">VOUCHER</Link>}
-                            </li>
-                            <li className="header-nav-content-item">
-                               {(user.admin && !user.staff) && <Link to="/" className="header-nav-content-item-link" title="SỰ KIỆN" onClick={()=>showSuccessToast("Tính năng này hiện chưa được phát triển, vui lòng thử lại sau","Thông báo!", "error")}>SỰ KIỆN</Link>}
+                               {(user.admin && !user.staff) && <Link to="/admin-voucher" className={`header-nav-content-item-link ${voucher && "is-active"}`} title="VOUCHER">VOUCHER</Link>}
                             </li>
                             <li className="header-nav-content-item">
                                {user.admin && <Link to="/admin-offline-product" className={`header-nav-content-item-link ${offProduct && "is-active"}`} title="LÊN ĐƠN">LÊN ĐƠN</Link>}
+                            </li>
+                            <li className="header-nav-content-item">
+                               {(user.admin && !user.staff) && <Link to="/admin-event" className={`header-nav-content-item-link ${event && "is-active"}`} title="SỰ KIỆN" >SỰ KIỆN</Link>}
                             </li>
                         </ul>
                     </div>
