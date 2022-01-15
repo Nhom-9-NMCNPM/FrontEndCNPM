@@ -11,6 +11,7 @@ import News from "./HomePage/News"
 import Slider from "./HomePage/Slider"
 import { connect } from "react-redux"
 import { Redirect } from "react-router"
+
 const Home = ({user}) => { 
     if( user.admin) {
         return (
@@ -18,7 +19,7 @@ const Home = ({user}) => {
             
         )
     } else {
-
+        
         return (
             <div>
                 <NavHeader />

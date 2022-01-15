@@ -57,6 +57,8 @@ const ADD_USER = gql `
 `
 const ManagerUser = ({userList, addUserList, deleteUserList, updateUserList}) => {
     const [data, setData] = useState({name: '', email: '', phoneNumber: '', address:'', point: 0})
+    const [staff, setStaff] = useState(false);
+    const newUserList = userList.filter((user) => user.staff === staff&&user.admin === false);
     const [add] = useMutation(ADD_USER, {
         onCompleted: (data)=>{
             addUserList(data.createUser)
@@ -92,7 +94,7 @@ const ManagerUser = ({userList, addUserList, deleteUserList, updateUserList}) =>
                     ...data,
                     point: 0,
                     admin: false,
-                    staff: false,
+                    staff: staff,
                 }
             }
         })
@@ -133,8 +135,10 @@ const ManagerUser = ({userList, addUserList, deleteUserList, updateUserList}) =>
             <NavHeader showUser={true} />
             <div className="margin-bottom">
                 <div className="table-product">
-                    <div className="table-product-title">
-                        <div className="title-table-product-content">NGƯỜI DÙNG</div>
+                    <div className="table-title-revenue">
+                        <h1>TÀI KHOẢN</h1>
+                        <button type="button" className={`btn btn-outline-secondary ${!staff && "active"} btn-margin-left`} onClick={()=>{setStaff(false)}} >Người dùng</button>
+                        <button type="button" className={`btn btn-outline-secondary ${staff && "active"} btn-margin-right className='content'`} onClick={()=>{setStaff(true)}}>Nhân viên</button>
                     </div>
                     <table className="table ">
                         <thead>
@@ -164,7 +168,7 @@ const ManagerUser = ({userList, addUserList, deleteUserList, updateUserList}) =>
                                 </td>
                             </tr>
                             {
-                                userList.map((item,index)=>{
+                                newUserList.map((item,index)=>{
                                     return (
                                         <>
                                         <tr>

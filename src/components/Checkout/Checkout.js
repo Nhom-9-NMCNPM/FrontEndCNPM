@@ -474,61 +474,56 @@ const Checkout = ({ resetCart, orderRedux }) => {
                       setShow(false);
                       document.body.style.overflow = "auto";
 
-                      // Logic
-                    }}
-                  >
-                    Trở lại
-                  </button>
-                  <button
-                    className="discount-popup-btn accept-btn"
-                    onClick={(e) => {
-                      // Logic
-                      const index = coupon; // chỉ số trong mảng voucher
-                      const indexPre = couponPre;
-                      if (index < 0 && indexPre < 0) {
-                        showSuccessToast(
-                          "Vui lòng chọn 1 mã giảm giá!",
-                          "Cảnh báo!",
-                          "error"
-                        );
-                        return;
-                      } else {
-                        if (index >= 0 && indexPre >= 0) {
-                          if (
-                            total < vouchers[index].condition ||
-                            point < vouchersPremium[indexPre].condition
-                          ) {
-                            showSuccessToast(
-                              "Mã giảm giá không hợp lệ.\nVui lòng chọn một mã khác!",
-                              "Cảnh báo!",
-                              "error"
-                            );
-                            return;
-                          }
-                        }
-                      }
-
-                      setCouponRate(vouchers[index].disCount);
-                      if (indexPre >= 0) {
-                        setCouponRatePre(vouchersPremium[indexPre].disCount);
-                      }
-                      setShow(false);
-                      document.body.style.overflow = "auto";
-                    }}
-                  >
-                    Ok
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
-          <div className="payment-desc">
-            <div className="payment-detail">
-              <p className="payment-text">Tạm tính</p>
-              <p className="payment-price">
-                {format_curency(parseInt(total, 10))}đ
-              </p>
-            </div>
+                                            // Logic
+                                        }}
+                                    >
+                                        Trở lại
+                                    </button>
+                                    <button
+                                        className="discount-popup-btn accept-btn"
+                                        onClick={(e) => {
+                                            // Logic
+                                            const index = coupon; // chỉ số trong mảng voucher
+                                            const indexPre = couponPre;
+                                            if (index < 0&&indexPre<0) {
+                                                showSuccessToast("Vui lòng chọn 1 mã giảm giá!", "Cảnh báo!", 'error')
+                                                return;
+                                            }else {
+                                                if(index>=0&&indexPre>=0){
+                                                    if(
+                                                        total <
+                                                        vouchers[index].condition ||
+                                                        point< vouchersPremium[indexPre].condition
+                                                    ) {
+                                                        showSuccessToast("Mã giảm giá không hợp lệ.\nVui lòng chọn một mã khác!", "Cảnh báo!", 'error')
+                                                        return;
+                                                    }
+                                                }
+                                            }
+                                            if(index>=0){
+                                                setCouponRate(vouchers[index].disCount);
+                                            }
+                                            if(indexPre>=0){
+                                                setCouponRatePre(vouchersPremium[indexPre].disCount);
+                                            }
+                                            setShow(false);
+                                            document.body.style.overflow =
+                                                "auto";
+                                        }}
+                                    >
+                                        Ok
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                    <div className="payment-desc">
+                        <div className="payment-detail">
+                            <p className="payment-text">Tạm tính</p>
+                            <p className="payment-price">
+                                {format_curency(parseInt(total,10))}đ
+                            </p>
+                        </div>
 
             <div className="payment-detail">
               <p className="payment-text">Khuyến mãi</p>

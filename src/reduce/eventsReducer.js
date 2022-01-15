@@ -11,6 +11,17 @@ const eventsReducer = (state=[], action)=>{
             ]
         case 'REMOVE-EVENT': 
             return state.filter((item) => item.id!== action.id);
+        case 'UPDATE-EVENT':
+            return state.map((item) =>{
+                if(item.id=== action.id){
+                    return {
+                        ...item,
+                        publish: action.data
+                    }
+                }else{
+                    return item;
+                }
+            })
         default: return state;
     }
 }

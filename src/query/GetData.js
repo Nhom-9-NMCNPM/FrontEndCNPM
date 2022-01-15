@@ -116,7 +116,6 @@ const GetData =({startSetTrousers, startSetDress, startSetSkirt, startSetShirt, 
     if (loading) return <LoadingPage />;
     if (error) return `Error! ${error}`;
     if(data){
-        console.log(data);
         startSetDress(data.getDress);
         startSetShirt(data.getShirt)
         startSetSkirt(data.getSkirt)
