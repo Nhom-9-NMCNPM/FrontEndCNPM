@@ -99,7 +99,7 @@ const NavHeader = ({user,cart, removeCart,logout, product, search = true, showPr
             return amount;
         }, 0);
         setFlag(true)
-        if (orderCnt !== 0) {
+        if (orderCnt !== 0&&user.staff===false) {
             
                 const notifyOrder = document.querySelector(".notify-order .notify-item__text");
                 notifyOrder.innerHTML =  `Bạn đang có ${orderCnt} đơn hàng đang giao. Sẵn sàng để nhận 
@@ -130,7 +130,7 @@ const NavHeader = ({user,cart, removeCart,logout, product, search = true, showPr
                    <Link to="/" className="header-info-add">Hệ thống <span>36</span> Store - Mua hàng Online (08h30-17h30 từ
                         T2-T7)
                         <span> 1800 1732 </span> - CSKH (08h30-17h30 từ T2-T7)  <span> 1800 1731</span></Link>
-                   {user.admin ? <span className="header-info-csbh">Đăng nhập với tư cách quản trị viên</span> : <Link to="/" className="header-info-csbh">Chính sách bán hàng</Link>}
+                   {user.admin||user.staff ? <span className="header-info-csbh">Đăng nhập với tư cách quản trị viên</span> : <Link to="/" className="header-info-csbh">Chính sách bán hàng</Link>}
                 </div>
                 <div className="header-nav">
                     <div className="header-logo">
@@ -143,10 +143,10 @@ const NavHeader = ({user,cart, removeCart,logout, product, search = true, showPr
                     <div className="header-nav-main" >
                         <ul className="header-nav-content">
                             <li className="header-nav-content-item">
-                               {!user.admin && <Link to="/" className="header-nav-content-item-link" title="Hàng mới về">HÀNG MỚI VỀ</Link>}
+                               {!user.admin &&!user.staff&& <Link to="/" className="header-nav-content-item-link" title="Hàng mới về">HÀNG MỚI VỀ</Link>}
                             </li>
-                            <li className="header-nav-content-item hasItemMenu">
-                                {user.admin && !user.staff ? <Link to="/admin-skirt" className={`header-nav-content-item-link ${showPro && "is-active"}`} title="Sản phẩm">SẢN PHẨM</Link> : <Link to="/product" className={`header-nav-content-item-link ${showPro && "is-active"}`} title="Sản phẩm">SẢN PHẨM</Link>}
+                            {!user.staff&&<li className="header-nav-content-item hasItemMenu">
+                                {user.admin  ? <Link to="/admin-skirt" className={`header-nav-content-item-link ${showPro && "is-active"}`} title="Sản phẩm">SẢN PHẨM</Link> : <Link to="/product" className={`header-nav-content-item-link ${showPro && "is-active"}`} title="Sản phẩm">SẢN PHẨM</Link>}
                                 <div className="header-sub-nav">
                                     <div className="sub-nav-list">
                                         <ul>
@@ -210,12 +210,7 @@ const NavHeader = ({user,cart, removeCart,logout, product, search = true, showPr
                                     </div>
 
                                 </div>
-                            </li>
-                            {!user.admin && <>
-                            <li className="header-nav-content-item">
-                               {!user.admin && <Link to="/" className="header-nav-content-item-link" title="Ưu đãi" onClick={()=>showSuccessToast("Tính năng này hiện chưa được phát triển, vui lòng thử lại sau","Thông báo!", "error")}>ƯU ĐÃI</Link>}
-                            </li>
-                            </> }
+                            </li>}
                             <li className="header-nav-content-item">
                                {user.admin && <Link to="/admin-user" className={`header-nav-content-item-link ${showUser && "is-active"}`} title="NGƯỜI DÙNG">NGƯỜI DÙNG</Link>}
                             </li>
@@ -226,7 +221,7 @@ const NavHeader = ({user,cart, removeCart,logout, product, search = true, showPr
                                {(user.admin && !user.staff) && <Link to="/admin-voucher" className={`header-nav-content-item-link ${voucher && "is-active"}`} title="VOUCHER">VOUCHER</Link>}
                             </li>
                             <li className="header-nav-content-item">
-                               {user.admin && <Link to="/admin-offline-product" className={`header-nav-content-item-link ${offProduct && "is-active"}`} title="LÊN ĐƠN">LÊN ĐƠN</Link>}
+                               {(user.admin||user.staff) && <Link to="/admin-offline-product" className={`header-nav-content-item-link ${offProduct && "is-active"}`} title="LÊN ĐƠN">LÊN ĐƠN</Link>}
                             </li>
                             <li className="header-nav-content-item">
                                {(user.admin && !user.staff) && <Link to="/admin-event" className={`header-nav-content-item-link ${event && "is-active"}`} title="SỰ KIỆN" >SỰ KIỆN</Link>}
@@ -234,7 +229,7 @@ const NavHeader = ({user,cart, removeCart,logout, product, search = true, showPr
                         </ul>
                     </div>
 
-                    {user.admin ?  
+                    {user.admin||user.staff ?  
                         <div className="admin-login header-nav-right">
                             <div className="notify">
                                 <span>{!newOrder.loading?1:0}</span>
@@ -245,7 +240,7 @@ const NavHeader = ({user,cart, removeCart,logout, product, search = true, showPr
                                         Thông báo mới nhất
                                     </div>
                                     <div className='notify_body noselect'>
-                                        {!newOrder.loading&&<div className='notify-item order'>
+                                        {!newOrder.loading&&<div className='notify-item order unread'>
                                         <div className='notify-item__thumbnail'></div>
                                             <div className='notify-item__text'>Bạn có 1 đơn hàng mới đang chờ xử lý</div>
                                         </div>}
@@ -306,10 +301,10 @@ const NavHeader = ({user,cart, removeCart,logout, product, search = true, showPr
                                         <div className='notify-item__text'>Đơn hàng {data.OrderUpdate.id} đã đang được vận chuyển</div>
                                     </div>}
                                     {/* notification cho event, --> cố định */}
-                                    <div className='notify-item notify-event sale unread'>
+                                    {!!appState.Event&&<div className='notify-item notify-event sale unread'>
                                         <div className='notify-item__thumbnail'></div>
                                         <div className='notify-item__text'></div>
-                                    </div>
+                                    </div>}
 
                                     {/* notification cho voucher, --> cố đinh */}
                                     <div className='notify-item notify-voucher order unread'>

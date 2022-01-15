@@ -195,7 +195,7 @@ const ProductOffline = ({product,userList, voucher}) => {
                                     </select>
                                 </div>
                                 <div className='bill-voucher col-4'>
-                                    <div className='title-voucher'>Vouncher: (%) </div>
+                                    <div className='title-voucher'>Voucher: (%) </div>
                                     
                                     <select className="form-select bill-select-voucher" value={vcher} onChange={(e) => {setVcher(e.target.value)}} aria-label="Default select example">
                                         {voucher.map((item,index) => {
@@ -315,7 +315,8 @@ const mapStateToProps = (state)  => {
             ...state.Shirt,
             ...state.Skirt,
             ...state.Dress,
-            ...state.Trousers
+            ...state.Trousers,
+            ...state.Accessory
           ],
         voucher: state.Voucher
     

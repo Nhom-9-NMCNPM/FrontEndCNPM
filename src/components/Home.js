@@ -16,25 +16,30 @@ const Home = ({user}) => {
     if( user.admin) {
         return (
             <Redirect to="/admin-shirt"></Redirect>
-            
         )
     } else {
-        
-        return (
-            <div>
-                <NavHeader />
-                <Slider />
-                <MainProduct/>
-                <MainNewProduct />
-                <IntroEliteProduct />
-                <MainEliteProduct />
-                <BackgroundFashion />
-                <News />
-                <FeedBack/>
-                <FindShop/>
-                <Footer/>   
-            </div>
-        )
+        if( user.staff ) {
+            return (
+                <Redirect to="/admin-offline-product"></Redirect>
+            )
+        }else{
+
+            return (
+                <div>
+                    <NavHeader />
+                    <Slider />
+                    <MainProduct/>
+                    <MainNewProduct />
+                    <IntroEliteProduct />
+                    <MainEliteProduct />
+                    <BackgroundFashion />
+                    <News />
+                    <FeedBack/>
+                    <FindShop/>
+                    <Footer/>   
+                </div>
+            )
+        }
     }
 }
 const mapStateToProps = (state) => {

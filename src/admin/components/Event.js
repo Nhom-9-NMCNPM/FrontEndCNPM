@@ -58,8 +58,8 @@ const Event = ({ events, addEvent, removeEvent, updateEvent }) => {
     })
     const handleAddButtonClick = async () => {
 
-        if (data === "" || data === 0) {
-            showSuccessToast("Vui lòng điền giá trị!", 'Cảnh báo!', 'error')
+        if (data === "" || data === 0 || data<0) {
+            showSuccessToast("Vui lòng kiểm tra lại giá trị!", 'Cảnh báo!', 'error')
         }else{
             setIsLoading(true);
             await add({
