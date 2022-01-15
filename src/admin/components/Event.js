@@ -1,9 +1,12 @@
 import NavHeader from "../../components/HomePage/NavHeader"
 import { connect } from "react-redux"
 import { useState } from "react";
-import { addEvent } from "../../actions/event";
+import { addEvent, removeEvent, updateEvent } from "../../actions/event";
 import { showSuccessToast } from "../../utils/displayToastMess";
 import { useMutation, gql } from "@apollo/client";
+import Modal from "react-modal"
+import LoadingPage from "../../components/LoadingPage";
+
 
 
 
@@ -18,29 +21,93 @@ mutation CreateSales($disCount: Int!, $publish: Boolean!) {
     }
   }
 `
+const DELETE_EVENT = gql`
+mutation Mutation($deleteSaleId: Int!) {
+  deleteSale(id: $deleteSaleId) {
+    id
+  }
+}
+`
+const APPLY_EVENT = gql`
+mutation Mutation($updateSalesId: Int!, $data: updateSalesInput!) {
+  updateSales(id: $updateSalesId, data: $data) {
+    id
+    publish
+  }
+}
+`
 
-const Event = ({ events, addEvent, removeEvent }) => {
+const Event = ({ events, addEvent, removeEvent, updateEvent }) => {
     const [data, setData] = useState("");
-
+    const [showModalRemove, setShowModalRemove] = useState(-1);
+    const [isLoading, setIsLoading] = useState(false);
+    const [deleteEvent] = useMutation(DELETE_EVENT, {
+        onCompleted: (data) => {
+            removeEvent(data.deleteSale.id);
+        }
+    })
     const [add] = useMutation(ADD_EVENT, {
         onCompleted: (data) => {
             addEvent(data.createSales)
         }
     })
+    const [applyEvent] = useMutation(APPLY_EVENT, {
+        onCompleted: (data) => {
+            updateEvent(data.updateSales.id, data.updateSales.publish)
+        }
+    })
+    const handleAddButtonClick = async () => {
 
-    const handleAddButtonClick = () => {
         if (data === "" || data === 0) {
             showSuccessToast("Vui lòng điền giá trị!", 'Cảnh báo!', 'error')
+        }else{
+            setIsLoading(true);
+            await add({
+                variables: {
+                        disCount: parseInt(data),
+                        publish: false
+                }
+            })
+            setIsLoading(false);
+            showSuccessToast("Thêm thành công!")
+            setData("");
         }
-        add({
-            variables: {
-                    disCount: parseInt(data),
-                    publish: false
+        
+    }
+    const handleDeleteEvent = async (data) => {
+        setIsLoading(true)
+        await deleteEvent({
+            variables:{
+                deleteSaleId: data.id
             }
         })
-        setData("");
+        setIsLoading(false);
+        showSuccessToast("Xóa thành công")
     }
+    const selectEvent = async (id) => {
+        const currentEvent = events.find(event => event.publish === true);
+        setIsLoading(true);
+        await applyEvent({
+            variables:{
+                updateSalesId: id,
+                data: {
+                    publish: true,
+                }
+            }
+        })
+        await applyEvent({
+            variables: {
+                updateSalesId: currentEvent.id,
+                data: {
+                    publish: false
+                }
+            }
+        })
+        setIsLoading(false);
+        showSuccessToast("Áp dụng thành công!")
 
+    }
+    if(isLoading) return <LoadingPage />;
     return (
         <div>
             <NavHeader event={true} />
@@ -74,6 +141,7 @@ const Event = ({ events, addEvent, removeEvent }) => {
                             events.map((data, index) => {
                                 var createdAt = new Date(parseFloat(data.createdAt));
                                 var updatedAt = new Date(parseFloat(data.updatedAt));
+                                
                                 return (
                                     <>
                                     <tr>
@@ -83,24 +151,42 @@ const Event = ({ events, addEvent, removeEvent }) => {
                                         <td className='content'>{updatedAt.toLocaleString()}</td>
                                         <td className='content'>{data.disCount}</td>
                                         <td className='content'>{data.publish ? "Đang áp dụng" : "Chưa áp dụng"}</td>
-                                        <td className='content' style={{ paddingLeft: '20px', paddingRight: '20px' }}>
+                                        <td className='content' style={{ paddingLeft: '20px', paddingRight: '20px', height: '7rem'}}>
                                             <div>
-                                                <button
-                                                    className='btn-update btn btn-warning px-3'
-
+                                                {!data.publish&&<button
+                                                    className='btn-update btn btn-warning px-3 fw-bold'
+                                                    onClick={()=>{selectEvent(data.id)}}
                                                 >
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                                <button
+                                                    Áp dụng
+                                                </button>}
+                                                {!data.publish&&<button
+                                                    onClick={() => { setShowModalRemove(data.id) }}
                                                     className='btn-remove btn btn-danger btn-sm mt-2'
                                                 >
                                                     <i class="fas fa-trash-alt"></i>
-                                                </button>
+                                                </button>}
 
                                             </div>
                                         </td>
                                     </tr>
-
+                                    <Modal
+                                            isOpen={showModalRemove === data.id}
+                                            className="modal-react custom-modal-react"
+                                            ariaHideApp={false}
+                                        >
+                                            <div className="modal-body-react" >
+                                                <div className="close-modal" onClick={() => setShowModalRemove(false)}>
+                                                    <i className="far fa-times-circle"></i>
+                                                </div>
+                                                <div>
+                                                    <div>Bạn có chắc chắn xóa không ?</div>
+                                                    <div className="modal-btn">
+                                                        <button type="button" className="btn btn-danger btn-modal-remove" onClick={() => handleDeleteEvent(data)}>Chắc chắn</button>
+                                                        <button type="button" className="btn btn-primary btn-modal-cancel" onClick={() => setShowModalRemove(false)} >Hủy</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </Modal>
 
                                    
                                     </>
@@ -127,7 +213,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         addEvent: (data) => dispatch(addEvent(data)),
-        removeEvent: (id) => dispatch(removeEvent(id))
+        removeEvent: (id) => dispatch(removeEvent(id)),
+        updateEvent: (id, data) => dispatch(updateEvent(id, data))
     }
 }
 

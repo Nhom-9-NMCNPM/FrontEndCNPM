@@ -32,10 +32,10 @@ export const removeEvent = (id) => {
 //         data
 //     }
 // }
-// export const updateEvent = (id,data) => {
-//     return {
-//         type: 'UPDATE-EVENT',
-//         id,
-//         data
-//     }
-// }
+export const updateEvent = (id, data) => {
+    return {
+        type: 'UPDATE-EVENT',
+        id,
+        data
+    }
+}

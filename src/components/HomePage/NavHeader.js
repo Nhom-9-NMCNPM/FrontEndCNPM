@@ -24,7 +24,7 @@ subscription Subscription {
   }
 }
 `
-const NavHeader = ({user,cart, removeCart,logout, product, search = true, showPro, showUser, showOrder, sale, vouncher, event}) => {
+const NavHeader = ({user,cart, removeCart,logout, product, search = true, showPro, showUser, showOrder, sale, voucher, event}) => {
     const [inputSearch, setInputSearch] = useState('')
     const [showResult, setShowResult] = useState(false)  
     const resultArray = product.filter((item) => {
