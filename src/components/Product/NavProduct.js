@@ -20,6 +20,9 @@ const NavProduct = ({linkPro}) => {
     if( newLink === "product") {
         newLink = "Sản phẩm"
     }
+    if( newLink === "accessory") {
+        newLink = "Phụ kiện"
+    }
     // const handleNavProduct = (item) => {
     //     return `detail/${item.codePro}` === newLink
     // }
@@ -57,7 +60,7 @@ const NavProduct = ({linkPro}) => {
                             <Link to="/trousers" className={`header-nav-content-item-link ${newLink === "Quần" && "is-active"}`}>Quần</Link>
                         </li>
                         <li>
-                            <Link to="">Phụ kiện</Link>
+                            <Link to="/accessory" className={`header-nav-content-item-link ${newLink === "Phụ kiện" && "is-active"}`}>Phụ kiện</Link>
                         </li>
                     </ul>
                 </div>

@@ -120,16 +120,23 @@ const NavHeader = ({user,cart, removeCart,logout, product, search = true, showPr
                                                     <span className="sub-nav-info">Quần</span>
                                                 </Link>}
                                             </li>
+                                            <li className="sub-nav-item ">
+                                                {user.admin ?  <Link to="/admin-accessory">
+                                                    <img alt="anh" src="https://theme.hstatic.net/200000000133/1000569834/14/img_megamenu3_8.jpg?v=5365"
+                                                        className="sub-nav-item-img" />
+                                                    <span className="sub-nav-info">Phụ kiện</span>
+                                                </Link> :  <Link to="/accessory">
+                                                    <img alt="anh" src="https://theme.hstatic.net/200000000133/1000569834/14/img_megamenu3_8.jpg?v=5365"
+                                                        className="sub-nav-item-img" />
+                                                    <span className="sub-nav-info">Phụ kiện</span>
+                                                </Link>}
+                                            </li>
                                         </ul>
                                     </div>
 
                                 </div>
                             </li>
                             {!user.admin && <>
-                                <li className="header-nav-content-item">
-                               {!user.admin && <Link to="/" className="header-nav-content-item-link" title="Phụ kiện" onClick={()=>showSuccessToast("Tính năng này hiện chưa được phát triển, vui lòng thử lại sau","Thông báo!", "error")} >PHỤ KIỆN</Link>}
-                            </li>
-                            
                             <li className="header-nav-content-item">
                                {!user.admin && <Link to="/" className="header-nav-content-item-link" title="Ưu đãi" onClick={()=>showSuccessToast("Tính năng này hiện chưa được phát triển, vui lòng thử lại sau","Thông báo!", "error")}>ƯU ĐÃI</Link>}
                             </li>
@@ -283,7 +290,8 @@ const mapStateToProps = (state)  => {
             ...state.Shirt,
             ...state.Skirt,
             ...state.Dress,
-            ...state.Trousers
+            ...state.Trousers,
+            ...state.Accessory
           ],
         sale: state.Event
     }

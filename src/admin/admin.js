@@ -2,6 +2,7 @@ import Shirt from "./components/Shirt"
 import Dress from "./components/Dress"
 import Trousers from "./components/Trousers"
 import Skirt from "./components/Skirt"
+import Accessory from "./components/Accessory"
 import NavHeader from '../components/HomePage/NavHeader'
 import '../style/Admin/admin.css'
 import ManagerUser from "./components/ManagerUser"
@@ -14,6 +15,7 @@ const admin = () => {
             <Dress />
             <Trousers />
             <Skirt />
+            <Accessory />
             <ManagerUser />
             <Voucher />
         </div>

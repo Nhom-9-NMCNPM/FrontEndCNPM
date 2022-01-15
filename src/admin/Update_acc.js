@@ -1,5 +1,5 @@
 import "../style/Admin/Update.css"
-import ReactDOM from 'react-dom'; 
+import ReactDOM from 'react-dom';
 import React, { useEffect, useState } from 'react'
 import { gql, useMutation } from '@apollo/client';
 import Modal from "react-modal";
@@ -17,15 +17,12 @@ const DELETE_IMG = gql`
         deleteFile(filesName: $filesName)
     }
 `
-const Update = ({isDisplay, update, status, setShowModalUpdate, product}) => {
+const Update_acc = ({isDisplay, update, status, setShowModalUpdate, product}) => {
     const [name, setName] = useState(product.name);
     const [description, setDescription] = useState(product.description);
     const [price, setPrice] = useState(product.price);
     const [code, setCode] = useState(product.codePro);
-    const [size_M, setSize_M] = useState(product.size_M);
-    const [size_S, setSize_S] = useState(product.size_S);
-    const [size_L, setSize_L] = useState(product.size_L);
-    const [size_XL, setSize_XL] = useState(product.size_XL);
+    const [count, setCount] = useState(product.count);
     const [material, setMaterial] = useState(product.material);
     const [color, setColor] = useState(product.color);
     const [publish, setPublish] = useState(true);
@@ -45,10 +42,7 @@ const Update = ({isDisplay, update, status, setShowModalUpdate, product}) => {
     const [uploadFile] = useMutation(UPLOAD, {
         onCompleted: (data)=>{
             const newPrice = parseInt(price, 10);
-            const numberSize_S = parseInt(size_S, 10);
-            const numberSize_M = parseInt(size_M, 10);
-            const numberSize_L = parseInt(size_L, 10);
-            const numberSize_XL = parseInt(size_XL, 10);
+            const numberCount = parseInt(count, 10);
             update({
                 variables:{
                     data:{
@@ -56,10 +50,7 @@ const Update = ({isDisplay, update, status, setShowModalUpdate, product}) => {
                         description,
                         price: newPrice,
                         codePro: code,
-                        size_M:numberSize_M,
-                        size_L:numberSize_L,
-                        size_S: numberSize_S,
-                        size_XL:numberSize_XL,
+                        count: numberCount,
                         material,
                         color,
                         publish,
@@ -91,10 +82,7 @@ const Update = ({isDisplay, update, status, setShowModalUpdate, product}) => {
         }
         if(file.length===0){
             const newPrice = parseInt(price, 10);
-            const numberSize_S = parseInt(size_S, 10);
-            const numberSize_M = parseInt(size_M, 10);
-            const numberSize_L = parseInt(size_L, 10);
-            const numberSize_XL = parseInt(size_XL, 10);
+            const numberCount = parseInt(count, 10);
             await update({
                 variables:{
                     data:{
@@ -102,10 +90,7 @@ const Update = ({isDisplay, update, status, setShowModalUpdate, product}) => {
                         description,
                         price: newPrice,
                         codePro: code,
-                        size_M:numberSize_M,
-                        size_L:numberSize_L,
-                        size_S: numberSize_S,
-                        size_XL:numberSize_XL,
+                        count: numberCount,
                         material,
                         color,
                         publish,
@@ -159,18 +144,10 @@ const Update = ({isDisplay, update, status, setShowModalUpdate, product}) => {
                                     <div class="field-info"><label htmlFor="code-pro" class="">Mã Sản Phẩm</label><input value={code}
                                     onChange={(e)=>{setCode(e.target.value)}}
                                     name="code-pro" id="code-pro" type="text" required class="form-control"/></div>
-                                    <div class="field-info"><label htmlFor="size-M" class="">Size-M</label><input value={size_M}
-                                    onChange={(e)=>{setSize_M(e.target.value)}}
-                                    name="size-M" id="size-M" type="number" required class="form-control"/></div>
-                                    <div class="field-info"><label htmlFor="size-S" class="">Size-S</label><input value={size_S} name="size-S"
-                                    onChange={(e)=>{setSize_S(e.target.value)}}
-                                    id="size-S" type="number" required class="form-control"/></div>
-                                    <div class="field-info"><label htmlFor="size-L" class="">Size-L</label><input value={size_L} name="size-L"
-                                    onChange={(e)=>{setSize_L(e.target.value)}}
-                                    id="size-L" type="number" class="form-control"/></div>
-                                    <div class="field-info"><label htmlFor="size-XL" class="">Size-XL</label><input value={size_XL}
-                                    onChange={(e)=>{setSize_XL(e.target.value)}}
-                                    name="size-XL" id="size-XL" type="number" required class="form-control"/></div>
+                        
+                                    <div class="field-info"><label htmlFor="count" class="">Số lượng</label><input value={count}
+                                    onChange={(e)=>{setCount(e.target.value)}}
+                                    name="count" id="count" type="number" required class="form-control"/></div>
                                     <div class="field-info"><label htmlFor="material" class="">Chất Liệu</label><input value={material}
                                     onChange={(e)=>{setMaterial(e.target.value)}}
                                     name="material" id="material" type="text" required class="form-control"/></div>
@@ -216,4 +193,4 @@ const Update = ({isDisplay, update, status, setShowModalUpdate, product}) => {
     )
 }
 
-export default Update
+export default Update_acc

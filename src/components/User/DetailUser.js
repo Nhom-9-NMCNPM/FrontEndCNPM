@@ -139,6 +139,7 @@ const DetailUser = ({user, login, logout, product, cancelOrder}) => {
                                         }
                                         {
                                             arrProduct.map((order, index) => {
+
                                                 return (
                                                         <li className="header__cart-item" style={{padding:'0', marginTop:'1rem'}} key={index}>
                                                             <img src={order.img.img[0]} alt="" style={{width:'10%'}}/>
@@ -177,7 +178,8 @@ const mapStateToProps = (state)  => {
             ...state.Dress,
             ...state.Shirt,
             ...state.Skirt,
-            ...state.Trousers
+            ...state.Trousers,
+            ...state.Accessory
         ]
     }
 }

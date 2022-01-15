@@ -10,6 +10,7 @@ import orderReducer from '../reduce/orderReducer';
 import adminReducer from '../reduce/adminReducer';
 import eventReducer from '../reduce/eventReducer';
 import voucherReducer from '../reduce/voucherReducer';
+import accessoryReducer from '../reduce/accessoryReducer';
 import voucherPremiumReducer from '../reduce/voucherPremiumReducer';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 const configureStore = () => {
@@ -20,6 +21,7 @@ const configureStore = () => {
                 Dress: dressReducer,
                 Skirt: skirtReducer,
                 Trousers: trousersReducer,
+                Accessory: accessoryReducer,
                 User: userReducer,
                 Cart: cartReducer,
                 Order: orderReducer,
