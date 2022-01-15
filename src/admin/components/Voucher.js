@@ -78,7 +78,6 @@ const DELETE_VOUCHER_PREMIUM = gql`
 }
 `
 const Voucher = ({ voucher, addVoucher, updateVoucher, removeVoucher, voucherPremium, addVoucherPremium, updateVoucherPremium, removeVoucherPremium }) => {
-
     // Đổ dữ liệu từ backend ra
     const [showVoucher, setShowVoucher] = useState(true)
     const [showVoucherPremium, setVoucherPremium] = useState(false);
@@ -171,7 +170,7 @@ const Voucher = ({ voucher, addVoucher, updateVoucher, removeVoucher, voucherPre
         }
     });
     const onClickButton = (buttonUpdate) => {
-        if (data.disCount == 0) {
+        if (data.disCount === 0) {
             showSuccessToast("Vui lòng điền giá trị của Voucher!", 'Cảnh báo!', 'error')
         } else {
             if (buttonUpdate) {
@@ -244,7 +243,7 @@ const Voucher = ({ voucher, addVoucher, updateVoucher, removeVoucher, voucherPre
     if(isLoading) return <LoadingPage />;
     return (
         <div>
-            <NavHeader vouncher={true} />
+            <NavHeader voucher={true} />
             <div className="margin-bottom table-product">
                 <div className="table-title-revenue">
                     <h1>VOUCHER</h1>
@@ -272,7 +271,10 @@ const Voucher = ({ voucher, addVoucher, updateVoucher, removeVoucher, voucherPre
                             <td><input type="text" readOnly={true} class="form-control"></input></td>
                             <td><input type="text" value={data.disCount} onChange={(e) => setData({ ...data, disCount: e.target.value })} class="form-control" /></td>
                             <td><input type="text" value={data.condition} onChange={(e) => setData({ ...data, condition: e.target.value })} class="form-control"></input></td>
-                            <td><button type="button" className='btn-add btn btn-success' onClick={() => onClickButton(buttonUpdate)} >{buttonUpdate ? "Sửa" : (<><i className="fas fa-plus" />Thêm mới</>)}</button></td>
+                            <td style={{textAlign: 'center'}}>
+                                <button type="button" className='btn-add btn btn-success' onClick={() => onClickButton(buttonUpdate)} >{buttonUpdate ? "Sửa" : (<><i className="fas fa-plus" />Thêm mới</>)}</button>
+                                {buttonUpdate&&<i className="fas fa-redo cursor mt-2" onClick={()=>{setButtonUpdate(false);setData({ disCount: 0, condition: 0, id: 0 })}} ></i>}
+                            </td>
                         </tr>
                         {
                             voucher.map((voucher, index) => {
@@ -356,7 +358,10 @@ const Voucher = ({ voucher, addVoucher, updateVoucher, removeVoucher, voucherPre
                             <td><input type="text" readOnly={true} class="form-control"></input></td>
                             <td><input type="text" value={data.disCount} onChange={(e) => setData({ ...data, disCount: e.target.value })} class="form-control" /></td>
                             <td><input type="text" value={data.condition} onChange={(e) => setData({ ...data, condition: e.target.value })} class="form-control"></input></td>
-                            <td><button type="button" className='btn-add btn btn-success' onClick={() => onClickButton(buttonUpdate)} >{buttonUpdate ? "Sửa" : (<><i className="fas fa-plus" />Thêm mới</>)}</button></td>
+                            <td style={{textAlign:'center'}}>
+                                <button type="button" className='btn-add btn btn-success' onClick={() => onClickButton(buttonUpdate)} >{buttonUpdate ? "Sửa" : (<><i className="fas fa-plus" />Thêm mới</>)}</button>
+                                {buttonUpdate&&<i className="fas fa-redo cursor mt-2" onClick={()=>{setButtonUpdate(false);setData({ disCount: 0, condition: 0, id: 0 })}} ></i>}
+                            </td>
                         </tr>
                         {
                             voucherPremium.map((voucher, index) => {

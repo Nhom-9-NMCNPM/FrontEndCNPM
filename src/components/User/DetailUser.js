@@ -139,16 +139,23 @@ const DetailUser = ({user, login, logout, product, cancelOrder}) => {
                                         }
                                         {
                                             arrProduct.map((order, index) => {
-
+                                                var createdAt = new Date(parseFloat(item.createdAt));
+                                                var updatedAt = new Date(parseFloat(item.updatedAt));
                                                 return (
                                                         <li className="header__cart-item" style={{padding:'0', marginTop:'1rem'}} key={index}>
                                                             <img src={order.img.img[0]} alt="" style={{width:'10%'}}/>
-                                                            <div className="header__cart-item-info d-flex justify-content-between" style={{width:'100%'}}>
-                                                                <div >
-                                                                    <h5 className="header__cart-item-name" style={{paddingLeft:'1rem'}}>{order.infor}</h5>
+                                                            <div className="d-flex flex-column" style={{width:'100%'}}>
+                                                                <div className="header__cart-item-info d-flex justify-content-between" style={{width:'100%'}}>
+                                                                    <div >
+                                                                        <h5 className="header__cart-item-name" style={{paddingLeft:'1rem'}}>{order.infor}</h5>
+                                                                    </div>
+                                                                    
+                                                                    <div>
+                                                                        <h5>{format_curency(order.img.price)}đ</h5>
+                                                                    </div>
                                                                 </div>
                                                                 <div>
-                                                                    <h5>{format_curency(order.img.price)}đ</h5>
+                                                                    <h5 className="header__cart-item-name" style={{paddingLeft:'1rem'}}>Ngày đặt: {createdAt.toLocaleString()}</h5>
                                                                 </div>
                                                             </div>
                                                         </li>

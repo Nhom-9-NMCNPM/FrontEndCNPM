@@ -63,7 +63,6 @@ const Skirt = ({skirt, addSkirt}) => {
     const resultArray = skirt.filter((item) => {
         return item.name.toLowerCase().indexOf(inputSearch.toLowerCase()) !== -1
     })
-    console.log(resultArray);
     const [update, statusUpdate] = useMutation(UPDATE_SKIRT,{
         onCompleted: (data)=>{
             updateSkirt(data.updateSkirt.id, data.updateSkirt);

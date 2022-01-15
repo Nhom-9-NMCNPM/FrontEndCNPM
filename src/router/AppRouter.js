@@ -26,8 +26,10 @@ import PageError from "../components/PageError"
 import Voucher from "../admin/components/Voucher";
 import Event from "../admin/components/Event";
 import ProAccessory from "../components/Product/ProAccessory"
+import ProductOffline from "../admin/ProductOffline";
+import { connect } from "react-redux";
 export const history = createBrowserHistory();
-const Approuter = () => {
+const Approuter = ({user}) => {
     return (
         <Router history={history}>
             <div>
@@ -44,22 +46,25 @@ const Approuter = () => {
                     <Route path="/accessory" component={ProAccessory} />
                     <Route path="/cart" component={Cart} />
                     <Route path="/checkout" component={Checkout} />
-                    <PrivateRouter path="/admin-shirt" component={Shirt} />
-                    <PrivateRouter path="/admin-skirt" component={Skirt} />
-                    <PrivateRouter
-                        path="/admin-trousers"
-                        component={Trousers}
-                    />
-                    <PrivateRouter path="/admin-dress" component={Dress} />
+                    {user.admin && <PrivateRouter path="/admin-shirt" component={Shirt} />}
+                    {user.admin && <PrivateRouter path="/admin-skirt" component={Skirt} />}
+                    {user.admin && <PrivateRouter path="/admin-trousers" component={Trousers}/>}
+                    {user.admin && <PrivateRouter path="/admin-dress" component={Dress} />}
                     <PrivateRouter path="/admin-order" component={Order} />
-                    <PrivateRouter path="/admin-voucher" component={Voucher} />
                     <PrivateRouter path="/admin-accessory" component={Accessory} />
+                    {user.admin && <PrivateRouter path="/admin-voucher" component={Voucher} />}
                     <PrivateRouter path="/admin-user" component={ManagerUser} />
-                    <PrivateRouter path="/admin-event" component={Event} />
+                    {user.admin && <PrivateRouter path="/admin-event" component={Event} />}
+                    <PrivateRouter path="/admin-offline-product" component={ProductOffline} />
                     <Route component={PageError} />
                 </Switch>
             </div>
         </Router>
     );
 };
-export default Approuter;
+const mapStateToProps = (state) => {
+    return {
+        user: state.User,
+    }
+}
+export default connect(mapStateToProps)(Approuter);

@@ -1,4 +1,4 @@
-import { gql, useQuery } from '@apollo/client';
+import { disableExperimentalFragmentVariables, gql, useQuery } from '@apollo/client';
 import { startSetShirt } from '../actions/shirt';
 import { startSetSkirt } from '../actions/skirt';
 import { startSetTrousers } from '../actions/trousers';
@@ -7,7 +7,7 @@ import { startSetVoucher } from '../actions/voucher';
 import LoadingPage from '../components/LoadingPage';
 import { Redirect } from 'react-router-dom';
 import {connect} from 'react-redux';
-import { setEvent } from '../actions/event';
+import { setEvent, startSetEvent } from '../actions/event';
 import { startSetVoucherPremium } from '../actions/voucherPremium';
 import {startSetAccessory} from '../actions/accessory';
 const GET_DATA = gql`
@@ -116,17 +116,24 @@ const GET_DATA = gql`
       publish
       newPro
   }
+  getSales {
+    id
+    createdAt
+    updatedAt
+    disCount
+    publish
+  }
 
 }
 `;
 
-const GetData =({startSetAccessory,startSetTrousers, startSetDress, startSetSkirt, startSetShirt, startSetVoucher, startSetVoucherPremium, setEvent}) =>{
+
+const GetData =({startSetAccessory,startSetTrousers, startSetDress, startSetSkirt, startSetShirt, startSetVoucher, startSetVoucherPremium, setEvent, startSetEvent}) =>{
     const { loading, error, data } = useQuery(GET_DATA);
 
     if (loading) return <LoadingPage />;
     if (error) return `Error! ${error}`;
     if(data){
-        console.log(data);
         startSetDress(data.getDress);
         startSetShirt(data.getShirt)
         startSetSkirt(data.getSkirt)
@@ -135,6 +142,7 @@ const GetData =({startSetAccessory,startSetTrousers, startSetDress, startSetSkir
         startSetVoucher(data.getVoucher)
         startSetVoucherPremium(data.getVoucherPremium)
         startSetAccessory(data.getAccessory)
+        startSetEvent(data.getSales)
     }
     return (
         <LoadingPage />
@@ -150,6 +158,7 @@ const mapDispatchToProps = (dispatch) => {
         startSetVoucher:(voucher)=> dispatch(startSetVoucher(voucher)),
         startSetVoucherPremium:(voucher)=> dispatch(startSetVoucherPremium(voucher)),
         startSetAccessory:(accessory)=> dispatch(startSetAccessory(accessory)),
+        startSetEvent:(event) => dispatch(startSetEvent(event))
     }
 }
 export default connect(null, mapDispatchToProps)(GetData);

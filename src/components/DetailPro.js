@@ -35,9 +35,7 @@ const DetailPro = ({product, match, dispatch, sale}) => {
         size: keyActive,
         price: detailPro.price,
       }))
-    }
-    
-    
+    } 
   } 
   return (
     <div>

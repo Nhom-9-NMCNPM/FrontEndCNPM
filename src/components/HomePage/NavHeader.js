@@ -2,18 +2,38 @@ import '../../style/HomePage/responsive.css'
 import '../../style/HomePage/Header.css'
 import { Link } from 'react-router-dom'
 import {useEffect,useState } from 'react'
-import {connect} from 'react-redux'
+import {connect, useSelector} from 'react-redux'
 import format_curency from '../../utils/displayPrice';
 import {logout, startLogin, stopLogin} from'../../actions/user';
 import {removeCart} from '../../actions/cart'
 import User from '../User'
 import { showSuccessToast } from '../../utils/displayToastMess'
-const NavHeader = ({user,cart, removeCart,logout, product, search = true, showPro, showUser, showOrder, sale, vouncher}) => {
+import { useSubscription, gql } from '@apollo/client'
+const LISTEN_EVENT_ORDER = gql`
+subscription Subscription($userId: Int) {
+  OrderUpdate(userId: $userId) {
+    id
+    status
+  }
+}
+`
+const LISTEN_NEW_EVENT_ORDER = gql`
+subscription Subscription {
+  NewOrder {
+    id
+  }
+}
+`
+const NavHeader = ({user,cart, removeCart,logout, product, search = true, showPro, showUser, showOrder, sale, voucher, event, offProduct}) => {
     const [inputSearch, setInputSearch] = useState('')
     const [showResult, setShowResult] = useState(false)  
     const resultArray = product.filter((item) => {
         return item.name.toLowerCase().indexOf(inputSearch.toLowerCase()) !== -1
     })
+    const {loading, data} = useSubscription(LISTEN_EVENT_ORDER,{variables:{userId: user.id}})
+    const newOrder = useSubscription(LISTEN_NEW_EVENT_ORDER);
+    
+    const [flag, setFlag] = useState(false);
     useEffect(() => {
         const headerNav = document.querySelector('.header-nav')
         const headerSub = document.querySelector('.header__cart-list')
@@ -48,6 +68,61 @@ const NavHeader = ({user,cart, removeCart,logout, product, search = true, showPr
     const handleInputSearch = (e) => {
         setInputSearch(e)
     }
+
+    // Notification
+    const [notifyCnt, setNotifyCnt] = useState(0);
+    const appState = useSelector(state => state);
+    
+    useEffect(() => {
+        // Logic cho notification event chung
+        if (appState.Event !== 0&&user.admin===false&&user.staff===false) {
+            const notifyEvent = document.querySelector(".notify-event .notify-item__text");
+            notifyEvent.innerHTML =  `Sự kiện siêu khuyến mãi, giảm giá ${appState.Event}% toàn bộ
+            sản phẩm. Nhanh tay đặt hàng để sử dụng`;
+        }
+    
+        // Logic cho notification voucher
+        const voucherCnt = appState.Voucher.length + appState.VoucherPremium.length;
+        if (voucherCnt !== 0&&user.admin===false&&user.staff===false) {
+            const notifyVoucher = document.querySelector(".notify-voucher .notify-item__text");
+            notifyVoucher.innerHTML =  `Bạn đang có ${voucherCnt} mã giảm giá trong ví. Mua hàng
+            để sử dụng`;
+        }
+
+        // Logic cho notification orders
+        const orders = appState.User.orders;
+            // Tinh so don hang dang giao
+        const orderCnt = orders.reduce((amount, order) => {
+            if (order.status === "Đang giao hàng") {
+                return amount + 1;
+            }
+            return amount;
+        }, 0);
+        setFlag(true)
+        if (orderCnt !== 0) {
+            
+                const notifyOrder = document.querySelector(".notify-order .notify-item__text");
+                notifyOrder.innerHTML =  `Bạn đang có ${orderCnt} đơn hàng đang giao. Sẵn sàng để nhận 
+                sản phẩm nhé !`;
+        } 
+
+        // Logic notification unread or read
+        setNotifyCnt(document.querySelectorAll(".unread").length);
+
+        const onClickNotify = (e) => {
+            console.log(e.currentTarget)
+            e.currentTarget.classList.remove("unread");
+            setNotifyCnt(document.querySelectorAll(".unread").length);
+        }
+    
+        const notifyElements = document.querySelectorAll(".notify-item");
+
+        notifyElements.forEach((element) => {
+            element.addEventListener("click", onClickNotify);
+        });
+
+    }, [appState.Event, appState.Voucher, appState.VoucherPremium, appState.User])
+
     return (
         <div>
             <div className="header">
@@ -71,7 +146,7 @@ const NavHeader = ({user,cart, removeCart,logout, product, search = true, showPr
                                {!user.admin && <Link to="/" className="header-nav-content-item-link" title="Hàng mới về">HÀNG MỚI VỀ</Link>}
                             </li>
                             <li className="header-nav-content-item hasItemMenu">
-                                {user.admin ? <Link to="/admin-skirt" className={`header-nav-content-item-link ${showPro && "is-active"}`} title="Sản phẩm">SẢN PHẨM</Link> : <Link to="/product" className={`header-nav-content-item-link ${showPro && "is-active"}`} title="Sản phẩm">SẢN PHẨM</Link>}
+                                {user.admin && !user.staff ? <Link to="/admin-skirt" className={`header-nav-content-item-link ${showPro && "is-active"}`} title="Sản phẩm">SẢN PHẨM</Link> : <Link to="/product" className={`header-nav-content-item-link ${showPro && "is-active"}`} title="Sản phẩm">SẢN PHẨM</Link>}
                                 <div className="header-sub-nav">
                                     <div className="sub-nav-list">
                                         <ul>
@@ -142,23 +217,43 @@ const NavHeader = ({user,cart, removeCart,logout, product, search = true, showPr
                             </li>
                             </> }
                             <li className="header-nav-content-item">
-                               {user.admin && <Link to="/admin-user" className={`header-nav-content-item-link ${showUser && "is-active"}`} title="ĐẦM">NGƯỜI DÙNG</Link>}
+                               {user.admin && <Link to="/admin-user" className={`header-nav-content-item-link ${showUser && "is-active"}`} title="NGƯỜI DÙNG">NGƯỜI DÙNG</Link>}
                             </li>
                             <li className="header-nav-content-item">
                                {user.admin && <Link to="/admin-order" className={`header-nav-content-item-link ${showOrder && "is-active"}`} title="ORDER">ĐƠN HÀNG</Link>}
                             </li>
                             <li className="header-nav-content-item">
-                               {user.admin && <Link to="/admin-voucher" className={`header-nav-content-item-link ${vouncher && "is-active"}`} title="VOUCHER">VOUCHER</Link>}
+                               {(user.admin && !user.staff) && <Link to="/admin-voucher" className={`header-nav-content-item-link ${voucher && "is-active"}`} title="VOUCHER">VOUCHER</Link>}
                             </li>
                             <li className="header-nav-content-item">
-                               {user.admin && <Link to="/" className="header-nav-content-item-link" title="SỰ KIỆN" onClick={()=>showSuccessToast("Tính năng này hiện chưa được phát triển, vui lòng thử lại sau","Thông báo!", "error")}>SỰ KIỆN</Link>}
+                               {user.admin && <Link to="/admin-offline-product" className={`header-nav-content-item-link ${offProduct && "is-active"}`} title="LÊN ĐƠN">LÊN ĐƠN</Link>}
+                            </li>
+                            <li className="header-nav-content-item">
+                               {(user.admin && !user.staff) && <Link to="/admin-event" className={`header-nav-content-item-link ${event && "is-active"}`} title="SỰ KIỆN" >SỰ KIỆN</Link>}
                             </li>
                         </ul>
                     </div>
 
                     {user.admin ?  
-                        <div className="admin-login">
-                            
+                        <div className="admin-login header-nav-right">
+                            <div className="notify">
+                                <span>{!newOrder.loading?1:0}</span>
+                                <i class="far fa-bell"></i>
+                                <div className="notify_inner">
+                                    <span></span>
+                                    <div className='notify_header'>
+                                        Thông báo mới nhất
+                                    </div>
+                                    <div className='notify_body noselect'>
+                                        {!newOrder.loading&&<div className='notify-item order'>
+                                        <div className='notify-item__thumbnail'></div>
+                                            <div className='notify-item__text'>Bạn có 1 đơn hàng mới đang chờ xử lý</div>
+                                        </div>}
+                                    </div>
+                                    
+                                    <div className='notify_footer'></div>
+                                </div>
+                            </div>
                             <span onClick={logout} className="admin-log-out"><i class="fas fa-sign-out-alt"></i></span>
                         </div>
                         
@@ -195,6 +290,51 @@ const NavHeader = ({user,cart, removeCart,logout, product, search = true, showPr
                                 
                             </div>  
                         </div> }
+
+                        {/* Start Notification */}
+                        <div className="notify">
+                            <span>{notifyCnt}</span>
+                            <i class="far fa-bell"></i>
+                            <div className="notify_inner">
+                                <span></span>
+                                <div className='notify_header'>
+                                    Thông báo mới nhất
+                                </div>
+                                <div className='notify_body noselect'>
+                                    {!loading&&<div className='notify-item order unread'>
+                                        <div className='notify-item__thumbnail'></div>
+                                        <div className='notify-item__text'>Đơn hàng {data.OrderUpdate.id} đã đang được vận chuyển</div>
+                                    </div>}
+                                    {/* notification cho event, --> cố định */}
+                                    <div className='notify-item notify-event sale unread'>
+                                        <div className='notify-item__thumbnail'></div>
+                                        <div className='notify-item__text'></div>
+                                    </div>
+
+                                    {/* notification cho voucher, --> cố đinh */}
+                                    <div className='notify-item notify-voucher order unread'>
+                                        <div className='notify-item__thumbnail'></div>
+                                        <div className='notify-item__text'></div>
+                                    </div>
+
+
+                                    {/* notification cho order đang giao, --> cố đinh */}
+                                    {user.email&&<div className='notify-item notify-order order unread'>
+                                        <div className='notify-item__thumbnail'></div>
+                                        <div className='notify-item__text'></div>
+                                    </div>}
+
+                                    <div className='notify-item sale'>
+                                        <div className='notify-item__thumbnail'></div>
+                                        <div className='notify-item__text'>Giảm giá 15% tất các mặt hàng. Tết đoàn viên, gia đình sum họp</div>
+                                    </div>
+
+                                </div>
+                                <div className='notify_footer'></div>
+                            </div>
+                        </div>
+                        {/* End Notification */}
+
                         <div className="header-user">
                            <Link to="/account" title="Tài khoản">
                                 <img alt="anh" src="https://theme.hstatic.net/200000000133/1000569834/14/accountIcon.png?v=5127"
@@ -269,12 +409,14 @@ const NavHeader = ({user,cart, removeCart,logout, product, search = true, showPr
                                                 <button>ĐẶT HÀNG</button>
                                             </Link>
                                         </li>
-                                    </ul></>
+                                    </ul></> 
                                     )
                                 }
 
                             </div>
                         </div>
+
+
                     </div>}
                 </div>
                 
