@@ -69,8 +69,8 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 ### Hướng dẫn chi tiết cách cài đặt FE:
-Bước 1: git clone https://github.com/Nhom-9-NMCNPM/FrontEndCNPM.git
-Bước 2: npm install
+#### Bước 1: git clone https://github.com/Nhom-9-NMCNPM/FrontEndCNPM.git
+#### Bước 2: npm install
     +cài đặt các thư viện có liên quan
-Bước 3: npm start
+#### Bước 3: npm start
     +lưu ý phải chạy BE trước khi chạy lệnh này
