@@ -1,3 +1,5 @@
+import { showSuccessToast } from "../../../utils/displayToastMess";
+
 // Đối tượng `Validator`
 function Validator(options) {
     function getParent(element, selector) {
@@ -80,7 +82,7 @@ function Validator(options) {
                     formElement.onSubmit();
                 }
             } else {
-                alert("Hoàn thành đầy đủ form !");
+                showSuccessToast("Hoàn thành đầy đủ form !", "Cảnh báo!", 'error');
             }
         };
 

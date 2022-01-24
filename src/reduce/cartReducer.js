@@ -5,7 +5,7 @@ const cartReducer = (state = stateDefault, action) =>{
             window.localStorage.setItem('cartItems', JSON.stringify([]));
             return [];
         case 'ADD-CART':
-            const isProExist = state.findIndex((item)=>item.id === action.data.id);
+            const isProExist = state.findIndex((item)=>item.id === action.data.id && item.size ===action.data.size);
             if(isProExist!==-1){
                 if(state[isProExist].size!==action.data.size){
                     window.localStorage.setItem('cartItems', JSON.stringify([

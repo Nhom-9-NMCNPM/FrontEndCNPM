@@ -38,23 +38,24 @@ const NavHeader = ({user,cart, removeCart,logout, product, search = true, showPr
         const headerNav = document.querySelector('.header-nav')
         const headerSub = document.querySelector('.header__cart-list')
         let sticky = headerNav.offsetTop
-        window.addEventListener("scroll", () => {
-            handleHeaderNav()
-            
-        })
-
-        const handleHeaderNav = () => {
-            if (window.pageYOffset >= sticky) {
-                headerNav.classList.add("sticky")
-                if(!user.admin) {
-                    headerSub.style.top = "40px"
-                }
-            } else {
-                headerNav.classList.remove("sticky")
-                if(!user.admin) {
-                    headerSub.style.top = "46px"
+        if(!user.admin&&!user.staff){
+            const handleHeaderNav = () => {
+                if (window.pageYOffset >= sticky) {
+                    headerNav.classList.add("sticky")
+                    if(!user.admin) {
+                        headerSub.style.top = "40px"
+                    }
+                } else {
+                    headerNav.classList.remove("sticky")
+                    if(!user.admin) {
+                        headerSub.style.top = "46px"
+                    }
                 }
             }
+            window.addEventListener("scroll", () => {
+                handleHeaderNav()
+                
+            })
         }
     }, [user.admin])
     useEffect(() => {
@@ -72,7 +73,13 @@ const NavHeader = ({user,cart, removeCart,logout, product, search = true, showPr
     // Notification
     const [notifyCnt, setNotifyCnt] = useState(0);
     const appState = useSelector(state => state);
-    
+    const orders = appState.User.orders;
+    const orderCnt = orders.reduce((amount, order) => {
+        if (order.status === "Đang giao hàng") {
+            return amount + 1;
+        }
+        return amount;
+    }, 0);
     useEffect(() => {
         // Logic cho notification event chung
         if (appState.Event !== 0&&user.admin===false&&user.staff===false) {
@@ -90,21 +97,9 @@ const NavHeader = ({user,cart, removeCart,logout, product, search = true, showPr
         }
 
         // Logic cho notification orders
-        const orders = appState.User.orders;
             // Tinh so don hang dang giao
-        const orderCnt = orders.reduce((amount, order) => {
-            if (order.status === "Đang giao hàng") {
-                return amount + 1;
-            }
-            return amount;
-        }, 0);
-        setFlag(true)
-        if (orderCnt !== 0&&user.staff===false) {
-            
-                const notifyOrder = document.querySelector(".notify-order .notify-item__text");
-                notifyOrder.innerHTML =  `Bạn đang có ${orderCnt} đơn hàng đang giao. Sẵn sàng để nhận 
-                sản phẩm nhé !`;
-        } 
+        
+        
 
         // Logic notification unread or read
         setNotifyCnt(document.querySelectorAll(".unread").length);
@@ -130,7 +125,7 @@ const NavHeader = ({user,cart, removeCart,logout, product, search = true, showPr
                    <Link to="/" className="header-info-add">Hệ thống <span>36</span> Store - Mua hàng Online (08h30-17h30 từ
                         T2-T7)
                         <span> 1800 1732 </span> - CSKH (08h30-17h30 từ T2-T7)  <span> 1800 1731</span></Link>
-                   {user.admin||user.staff ? <span className="header-info-csbh">Đăng nhập với tư cách quản trị viên</span> : <Link to="/" className="header-info-csbh">Chính sách bán hàng</Link>}
+                   {user.admin||user.staff ? <span className="header-info-csbh">Đăng nhập với tư cách {user.admin? 'quản trị viên': 'nhân viên'}</span> : <Link to="/" className="header-info-csbh">Chính sách bán hàng</Link>}
                 </div>
                 <div className="header-nav">
                     <div className="header-logo">
@@ -212,16 +207,16 @@ const NavHeader = ({user,cart, removeCart,logout, product, search = true, showPr
                                 </div>
                             </li>}
                             <li className="header-nav-content-item">
-                               {user.admin && <Link to="/admin-user" className={`header-nav-content-item-link ${showUser && "is-active"}`} title="NGƯỜI DÙNG">NGƯỜI DÙNG</Link>}
+                               {(user.admin||user.staff) && <Link to="/admin-user" className={`header-nav-content-item-link ${showUser && "is-active"}`} title="NGƯỜI DÙNG">NGƯỜI DÙNG</Link>}
                             </li>
                             <li className="header-nav-content-item">
-                               {user.admin && <Link to="/admin-order" className={`header-nav-content-item-link ${showOrder && "is-active"}`} title="ORDER">ĐƠN HÀNG</Link>}
-                            </li>
-                            <li className="header-nav-content-item">
-                               {(user.admin && !user.staff) && <Link to="/admin-voucher" className={`header-nav-content-item-link ${voucher && "is-active"}`} title="VOUCHER">VOUCHER</Link>}
+                               {(user.admin||user.staff) && <Link to="/admin-order" className={`header-nav-content-item-link ${showOrder && "is-active"}`} title="ORDER">ĐƠN HÀNG</Link>}
                             </li>
                             <li className="header-nav-content-item">
                                {(user.admin||user.staff) && <Link to="/admin-offline-product" className={`header-nav-content-item-link ${offProduct && "is-active"}`} title="LÊN ĐƠN">LÊN ĐƠN</Link>}
+                            </li>
+                            <li className="header-nav-content-item">
+                               {(user.admin && !user.staff) && <Link to="/admin-voucher" className={`header-nav-content-item-link ${voucher && "is-active"}`} title="VOUCHER">VOUCHER</Link>}
                             </li>
                             <li className="header-nav-content-item">
                                {(user.admin && !user.staff) && <Link to="/admin-event" className={`header-nav-content-item-link ${event && "is-active"}`} title="SỰ KIỆN" >SỰ KIỆN</Link>}
@@ -245,7 +240,7 @@ const NavHeader = ({user,cart, removeCart,logout, product, search = true, showPr
                                             <div className='notify-item__text'>Bạn có 1 đơn hàng mới đang chờ xử lý</div>
                                         </div>}
                                     </div>
-                                    
+                                    <div className="header__cart-list"></div>
                                     <div className='notify_footer'></div>
                                 </div>
                             </div>
@@ -298,7 +293,7 @@ const NavHeader = ({user,cart, removeCart,logout, product, search = true, showPr
                                 <div className='notify_body noselect'>
                                     {!loading&&<div className='notify-item order unread'>
                                         <div className='notify-item__thumbnail'></div>
-                                        <div className='notify-item__text'>Đơn hàng {data.OrderUpdate.id} đã đang được vận chuyển</div>
+                                        <div className='notify-item__text'>Đơn hàng {data.OrderUpdate.id} đang được vận chuyển</div>
                                     </div>}
                                     {/* notification cho event, --> cố định */}
                                     {!!appState.Event&&<div className='notify-item notify-event sale unread'>
@@ -314,9 +309,9 @@ const NavHeader = ({user,cart, removeCart,logout, product, search = true, showPr
 
 
                                     {/* notification cho order đang giao, --> cố đinh */}
-                                    {user.email&&<div className='notify-item notify-order order unread'>
+                                    {!!user.email&&!!orderCnt&&<div className='notify-item notify-order order unread'>
                                         <div className='notify-item__thumbnail'></div>
-                                        <div className='notify-item__text'></div>
+                                        <div className='notify-item__text'>Bạn đang có {orderCnt} đang giao. Sẵn sàng để nhận sản phẩm nhé!</div>
                                     </div>}
 
                                     <div className='notify-item sale'>

@@ -59,6 +59,7 @@ const ManagerUser = ({userList, addUserList, deleteUserList, updateUserList}) =>
     const [data, setData] = useState({name: '', email: '', phoneNumber: '', address:'', point: 0})
     const [staff, setStaff] = useState(false);
     const newUserList = userList.filter((user) => user.staff === staff&&user.admin === false);
+
     const [add] = useMutation(ADD_USER, {
         onCompleted: (data)=>{
             addUserList(data.createUser)
@@ -75,6 +76,7 @@ const ManagerUser = ({userList, addUserList, deleteUserList, updateUserList}) =>
     const [showModalRemove, setShowModalRemove] = useState(-1);
     const [inputSearch, setInputSearch] = useState('') 
 
+    const newUserListFinal = newUserList.filter((user) => user.email.includes(inputSearch)||user.id === parseInt(inputSearch))
     const onClickButton= (buttonUpdate,user)=>{
         if(!data.name||!data.email||!data.phoneNumber||!data.address){
             showSuccessToast("Vui lòng điền đầy đủ các trường", 'Cảnh báo!', 'error')
@@ -137,8 +139,16 @@ const ManagerUser = ({userList, addUserList, deleteUserList, updateUserList}) =>
                 <div className="table-product">
                     <div className="table-title-revenue">
                         <h1>TÀI KHOẢN</h1>
+                        <div className="d-flex">
                         <button type="button" className={`btn btn-outline-secondary ${!staff && "active"} btn-margin-left`} onClick={()=>{setStaff(false)}} >Người dùng</button>
                         <button type="button" className={`btn btn-outline-secondary ${staff && "active"} btn-margin-right className='content'`} onClick={()=>{setStaff(true)}}>Nhân viên</button>
+                        <form action="search" className="header-form-admin-product">
+                                <input autoFocus={true} type="text" className="header-search-admin-product" placeholder="Tìm tài khoản..."
+                                value={inputSearch} onChange={(e) => setInputSearch(e.target.value)} 
+                                />
+                                <div className="close-search-product" style={{paddingTop: '12px'}} ><i class="fas fa-search" /></div>
+                        </form>
+                        </div>
                     </div>
                     <table className="table ">
                         <thead>
@@ -168,7 +178,7 @@ const ManagerUser = ({userList, addUserList, deleteUserList, updateUserList}) =>
                                 </td>
                             </tr>
                             {
-                                newUserList.map((item,index)=>{
+                                newUserListFinal.map((item,index)=>{
                                     return (
                                         <>
                                         <tr>

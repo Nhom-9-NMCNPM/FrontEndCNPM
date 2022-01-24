@@ -344,7 +344,7 @@ const Voucher = ({ voucher, addVoucher, updateVoucher, removeVoucher, voucherPre
                             <th scope="col" style={{ width: '5%' }}>ID</th>
                             <th scope="col">NGÀY TẠO</th>
                             <th scope="col">NGÀY CẬP NHẬT</th>
-                            <th scope="col">GIÁ TRỊ (%)</th>
+                            <th scope="col">GIÁ TRỊ (VNĐ)</th>
                             <th scope="col">ĐIỀU KIỆN</th>
                             <th scope="col" style={{ width: '7%' }}>Tùy chọn</th>
 

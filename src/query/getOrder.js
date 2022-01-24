@@ -14,6 +14,7 @@ const getOrder = (dispatch) => {
                     namePro
                     price
                     status
+                    userId
                   }
             }
             `

@@ -444,6 +444,7 @@ const Checkout = ({ resetCart, orderRedux }) => {
                                 type="radio"
                                 checked={indexPre === couponPre}
                                 onChange={(e) => {
+                                  console.log(e)
                                   setCouponPre(indexPre);
                                 }}
                               />
@@ -471,6 +472,7 @@ const Checkout = ({ resetCart, orderRedux }) => {
                         setCouponRate(0);
                       }
                       setCoupon(-1);
+                      setCouponPre(-1)
                       setShow(false);
                       document.body.style.overflow = "auto";
 
@@ -498,6 +500,18 @@ const Checkout = ({ resetCart, orderRedux }) => {
                                                         showSuccessToast("Mã giảm giá không hợp lệ.\nVui lòng chọn một mã khác!", "Cảnh báo!", 'error')
                                                         return;
                                                     }
+                                                }
+                                                if(index<0&&indexPre>=0) {
+                                                  if(point< vouchersPremium[indexPre].condition){
+                                                    showSuccessToast("Mã giảm giá không hợp lệ.\nVui lòng chọn một mã khác!", "Cảnh báo!", 'error')
+                                                    return;
+                                                  }
+                                                }
+                                                if(index>=0&&indexPre<0){
+                                                  if(total < vouchers[index].condition){
+                                                    showSuccessToast("Mã giảm giá không hợp lệ.\nVui lòng chọn một mã khác!", "Cảnh báo!", 'error')
+                                                    return;
+                                                  }
                                                 }
                                             }
                                             if(index>=0){

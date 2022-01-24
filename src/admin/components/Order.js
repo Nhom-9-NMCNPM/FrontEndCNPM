@@ -154,6 +154,7 @@ const Order = ({order, updateHistoryOrder}) => {
                         <th scope="col" style={{width: '1%', borderRadius: '10px'}} >STT</th>
                         <th scope="col"style={{width: '4%'}}>ID</th>
                         <th scope="col"className="table-50">ĐƠN HÀNG</th>
+                        <th scope="col"style={{width: '10%'}}>MÃ KHÁCH HÀNG</th>
                         <th scope="col"style={{width: '10%'}}>GIÁ</th>
                         <th scope="col"style={{width: '15%'}}>NGÀY TẠO</th>
                         <th scope="col"style={{width: '15%', borderRadius: '10px'}}>NGÀY CẬP NHẬT</th>
@@ -169,6 +170,7 @@ const Order = ({order, updateHistoryOrder}) => {
                                     <th scope="row" >{index + 1}</th>
                                     <td>{item.id}</td>
                                     <td>{item.namePro.join(' ; ')}</td>
+                                    <td>{item.userId}</td>
                                     <td>{format_curency(item.price)}đ</td>
                                     <td>{createdAt.toLocaleString()}</td>
                                     <td>{updatedAt.toLocaleString()}</td>
@@ -186,7 +188,8 @@ const Order = ({order, updateHistoryOrder}) => {
                         <tr className="table-tr">
                         <th scope="col" style={{width: '1%', borderRadius: '10px'}}>STT</th>
                         <th scope="col"style={{width: '5%'}}>ID</th>
-                        <th scope="col" className="table-50">ĐƠN HÀNG</th>
+                        <th scope="col" style={{width: '40%'}}>ĐƠN HÀNG</th>
+                        <th scope="col"style={{width: '10%'}}>MÃ KHÁCH HÀNG</th>
                         <th scope="col"style={{width: '5%'}}>GIÁ</th>
                         <th scope="col"style={{width: '10%'}}>NGÀY TẠO</th>
                         <th scope="col"style={{width: '10%'}}>NGÀY CẬP NHẬT</th>
@@ -202,6 +205,7 @@ const Order = ({order, updateHistoryOrder}) => {
                                         <th scope="row">{index + 1}</th>
                                         <td>{item.id}</td>
                                         <td>{item.namePro.join(' ; ')}</td>
+                                        <td>{item.userId}</td>
                                         <td>{format_curency(item.price)}đ</td>
                                         <td>{createdAt.toLocaleString()}</td>
                                         <td>{updatedAt.toLocaleString()}</td>
@@ -224,7 +228,8 @@ const Order = ({order, updateHistoryOrder}) => {
                         <tr className="table-tr">
                         <th scope="col" style={{width: '1%', borderRadius: '10px'}}>STT</th>
                         <th scope="col"style={{width: '5%'}}>ID</th>
-                        <th scope="col" className="table-50">ĐƠN HÀNG</th>
+                        <th scope="col" style={{width: '40%'}}>ĐƠN HÀNG</th>
+                        <th scope="col"style={{width: '10%'}}>MÃ KHÁCH HÀNG</th>
                         <th scope="col"style={{width: '5%'}}>GIÁ</th>
                         <th scope="col"style={{width: '10%'}}>NGÀY TẠO</th>
                         <th scope="col"style={{width: '10%'}}>NGÀY CẬP NHẬT</th>
@@ -240,6 +245,7 @@ const Order = ({order, updateHistoryOrder}) => {
                                     <th scope="row">{index + 1}</th>
                                     <td>{item.id}</td>
                                     <td>{item.namePro.join(' ; ')}</td>
+                                    <td>{item.userId}</td>
                                     <td>{format_curency(item.price)}đ</td>
                                     <td>{createdAt.toLocaleString()}</td>
                                     <td>{updatedAt.toLocaleString()}</td>
@@ -262,7 +268,8 @@ const Order = ({order, updateHistoryOrder}) => {
                         <tr className="table-tr">
                         <th scope="col" style={{width: '1%', borderRadius: '10px'}}>STT</th>
                         <th scope="col"style={{width: '5%'}}>ID</th>
-                        <th scope="col" className="table-50">ĐƠN HÀNG</th>
+                        <th scope="col" style={{width: '40%'}}>ĐƠN HÀNG</th>
+                        <th scope="col"style={{width: '10%'}}>MÃ KHÁCH HÀNG</th>
                         <th scope="col"style={{width: '5%'}}>GIÁ</th>
                         <th scope="col"style={{width: '10%'}}>NGÀY TẠO</th>
                         <th scope="col"style={{width: '10%'}}>NGÀY CẬP NHẬT</th>
@@ -278,6 +285,7 @@ const Order = ({order, updateHistoryOrder}) => {
                                     <th scope="row">{index + 1}</th>
                                     <td>{item.id}</td>
                                     <td>{item.namePro.join(' ; ')}</td>
+                                    <td>{item.userId}</td>
                                     <td>{format_curency(item.price)}đ</td>
                                     <td>{createdAt.toLocaleString()}</td>
                                     <td>{updatedAt.toLocaleString()}</td>
